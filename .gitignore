@@ -8,6 +8,9 @@ node_modules/
 # logs
 npm-debug.log*
 
+# scratch output from `npm run image` (move keepers into public/images)
+generated/
+
 # environment variables
 .env
 .env.production
