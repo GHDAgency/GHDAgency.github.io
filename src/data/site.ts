@@ -65,59 +65,59 @@ export const features = [
   {
     title: 'Custom Ai Sales Specialist',
     body: 'Your Custom AI sales agent NEVER STOPS PROSPECTING, built with grit and powered by AI. It calls, texts, and messages across every platform: SMS, email, LinkedIn, Meta, Google Messages, and WhatsApp, finding new leads, following up fast, and closing deals around the clock.',
-    image: '/images/feat-sales-specialist.webp',
+    image: '/images/icons/sales-specialist.webp',
     featured: true,
   },
   {
     title: '7 Channel Automated Follow Up',
     body: 'Automatically message leads across multiple channels including SMS, Email, Voicemail, Calls, Facebook Messenger, GMB and Website Chat to increase response rates to up to 80%.',
-    image: '/images/feat-follow-up.webp',
+    image: '/images/icons/follow-up.webp',
     featured: true,
   },
   {
     title: 'Voice',
     body: 'Use AI to handle inbound & outbound calls to generate leads, take information, onboard, book & confirm appointments',
-    image: '/images/feat-voice.webp',
+    image: '/images/icons/voice.webp',
   },
   {
     title: 'Speed To Lead',
     body: 'Stop losing sales to competitors who are faster to the phone, by getting AI to work your leads 24/7',
-    image: '/images/feat-speed-to-lead.webp',
+    image: '/images/icons/speed-to-lead.webp',
   },
   {
     title: 'Out Of Hours',
     body: "Stop 'Out of Hours' leads going unanswered and wasting time each morning on unqualified prospects with AI",
-    image: '/images/feat-out-of-hours.webp',
+    image: '/images/icons/out-of-hours.webp',
   },
   {
     title: 'Live Call Transfer',
     body: 'Automatically get inbound calls every time a lead is ready to talk and when they schedule on your calendar.',
-    image: '/images/feat-live-transfer.webp',
+    image: '/images/icons/live-transfer.webp',
   },
   {
     title: 'Advanced Reporting',
     body: 'Easily see how well your campaigns and sales team are performing so that you can increase your opportunities and sales!',
-    image: '/images/feat-reporting.webp',
+    image: '/images/icons/reporting.webp',
   },
   {
     title: 'Mobile App',
     body: 'Close prospects on-the-go with our mobile app, respond to leads, track statuses, complete reminders, and more.',
-    image: '/images/feat-mobile-app.webp',
+    image: '/images/icons/mobile-app.webp',
   },
   {
     title: 'Google Reviews',
     body: 'Improve business credibility and customer opinion replying to reviews without spending man-hours using AI',
-    image: '/images/feat-google-reviews.webp',
+    image: '/images/icons/google-reviews.webp',
   },
   {
     title: 'Database Reactivation',
     body: 'Pull fresh sales from leads you’ve already paid for and haven’t bought, using conversational AI',
-    image: '/images/feat-reactivation.webp',
+    image: '/images/icons/reactivation.webp',
   },
   {
     title: 'Abandoned Cart',
     body: 'Secure sales that would have otherwise been lost to the void by following up with users who left before purchasing',
-    image: '/images/feat-abandoned-cart.webp',
+    image: '/images/icons/abandoned-cart.webp',
   },
 ];
 

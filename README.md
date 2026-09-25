@@ -33,6 +33,19 @@ The "Receive an Ai Demo Call" form POSTs JSON to a GoHighLevel **Inbound Webhook
 
 When hosting, add the same `PUBLIC_GHL_WEBHOOK_URL` variable in the host's environment settings.
 
+## AI-generated images
+
+Needs `OPENAI_API_KEY` in `.env`. Default model: `gpt-image-2.5-sunburst` at `max` quality.
+
+```bash
+npm run image -- "a prompt" --out public/images/something.webp   # one-off image
+npm run images                                                     # generate any missing site images
+npm run images -- icon-voice scene-calendar                        # regenerate specific ones
+npm run images -- --force                                          # regenerate all
+```
+
+Every site image's prompt lives in `scripts/images.manifest.mjs`: edit a prompt there and regenerate by id.
+
 ## Build
 
 ```bash

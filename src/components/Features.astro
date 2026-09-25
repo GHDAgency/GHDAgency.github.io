@@ -24,21 +24,19 @@ const { as = 'h2' } = Astro.props;
             ]}
           >
             <div class:list={['flex h-full gap-6', f.featured ? 'flex-col sm:flex-row sm:items-center' : 'flex-col']}>
-              <div
-                class:list={[
-                  'relative shrink-0 overflow-hidden rounded-2xl bg-black ring-1 ring-white/8',
-                  f.featured ? 'size-28 sm:size-36' : 'size-16',
-                ]}
-              >
+              <div class:list={['relative shrink-0', f.featured ? 'size-32 sm:size-40' : 'size-24']}>
+                <div
+                  aria-hidden="true"
+                  class="absolute inset-[15%] rounded-full bg-[radial-gradient(closest-side,rgb(0_240_255/0.35),rgb(139_123_255/0.15),transparent)] blur-xl transition-opacity duration-500 opacity-60 group-hover:opacity-100"
+                />
                 <img
                   src={f.image}
                   alt=""
                   loading="lazy"
-                  width="1024"
-                  height="1024"
-                  class="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  width="512"
+                  height="512"
+                  class="relative size-full object-contain drop-shadow-[0_10px_30px_rgb(0_240_255/0.25)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:scale-110 group-hover:-rotate-3"
                 />
-                <div class="pointer-events-none absolute inset-0 bg-cyan-glow/0 mix-blend-overlay transition-colors duration-500 group-hover:bg-cyan-glow/20"></div>
               </div>
               <div>
                 <h3 class:list={['font-semibold text-white', f.featured ? 'text-2xl' : 'text-lg']}>{f.title}</h3>
