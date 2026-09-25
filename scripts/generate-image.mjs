@@ -20,7 +20,7 @@ const { values: opts, positionals } = parseArgs({
     out: { type: 'string', short: 'o' },
     model: { type: 'string', short: 'm' },
     size: { type: 'string', short: 's', default: '1024x1024' },
-    quality: { type: 'string', short: 'q', default: 'high' },
+    quality: { type: 'string', short: 'q', default: 'max' },
     background: { type: 'string', short: 'b', default: 'auto' },
     n: { type: 'string', default: '1' },
     ref: { type: 'string', short: 'r', multiple: true },
@@ -35,11 +35,12 @@ if (opts.help) {
 
   -o, --out <path>          Output file (.png, .webp or .jpg). Default: generated/<timestamp>.png
   -s, --size <WxH>          1024x1024 (default), 1536x1024 landscape, 1024x1536 portrait, or custom
-  -q, --quality <level>     low | medium | high (default) | auto
+  -q, --quality <level>     low | medium | high | xhigh | max (default) | auto
   -b, --background <mode>   auto (default) | transparent | opaque
   -r, --ref <image>         Reference image(s) to edit / match (repeatable) — uses the edits endpoint
       --mask <png>          Optional mask for --ref edits (transparent = area to change)
-  -m, --model <name>        Override OPENAI_IMAGE_MODEL
+  -m, --model <name>        Override OPENAI_IMAGE_MODEL (default gpt-image-2.5-sunburst — most precise;
+                            gpt-image-2.5-flare is the faster alternative)
       --n <count>           Number of images (default 1)
       --list-models         Show image models available to your API key`);
   process.exit(0);
