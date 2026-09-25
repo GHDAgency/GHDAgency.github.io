@@ -1,0 +1,27 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  updated: string;
+  description: string;
+}
+const { title, updated, description } = Astro.props;
+---
+
+<Base title={`${title} | GHD Agency.ai`} description={description}>
+  <section class="relative isolate overflow-hidden pt-40 pb-12 md:pt-48">
+    <div aria-hidden="true" class="absolute inset-0 -z-10">
+      <div class="grid-bg absolute inset-0"></div>
+      <div class="absolute -top-48 left-1/2 h-[28rem] w-[50rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(0_240_255/0.18),transparent)] blur-2xl"></div>
+    </div>
+    <div class="container-x max-w-3xl">
+      <p class="eyebrow">GHDAgency.ai</p>
+      <h1 class="mt-6 text-4xl font-semibold text-white sm:text-5xl">{title}</h1>
+      <p class="mt-4 text-sm text-slate-soft">Last Updated: {updated}</p>
+    </div>
+  </section>
+  <article class="container-x prose-legal max-w-3xl pb-24">
+    <slot />
+  </article>
+</Base>

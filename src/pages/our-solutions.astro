@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Features from '../components/Features.astro';
+import Pricing from '../components/Pricing.astro';
+import Integrations from '../components/Integrations.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { company } from '../data/site';
+---
+
+<Base
+  title="Solutions — AI Sales Agents, Voice & Automation | GHD: Generative Human Design™"
+  description="Custom AI sales specialists, 7-channel automated follow up, AI voice, speed to lead, live call transfer, database reactivation and more — built by GHD Agency.ai."
+>
+  <PageHero eyebrow="Industry Leading Features">
+    <Fragment slot="title">{company.triad[0]} {company.triad[1]} <span class="text-gradient">{company.triad[2]}</span></Fragment>
+    <p>{company.motto}</p>
+  </PageHero>
+  <Features />
+  <Pricing />
+  <Integrations />
+  <Testimonials />
+  <Faq />
+  <CtaBand />
+</Base>

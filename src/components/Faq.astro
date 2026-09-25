@@ -1,0 +1,62 @@
+---
+import { faqs, company } from '../data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section id="faqs" class="relative py-24 md:py-32">
+  <div class="container-x grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+    <div class="lg:sticky lg:top-32 lg:self-start">
+      <p class="eyebrow" data-reveal="fade">FAQs</p>
+      <h2 class="mt-5 text-4xl font-semibold leading-tight text-white sm:text-5xl" data-split>
+        Frequently Asked <span class="text-gradient">Questions</span>
+      </h2>
+      <p class="mt-6 max-w-sm text-mist/65" data-reveal>
+        Talk to us anytime: call <a href={company.phoneHref} class="text-cyan-glow hover:underline">{company.phone}</a>{' or email '}<a href={`mailto:${company.email}`} class="text-cyan-glow hover:underline">{company.email}</a>.
+      </p>
+    </div>
+
+    <div data-accordion class="divide-y divide-white/8 border-y border-white/8" data-reveal-stagger="0.05">
+      {
+        faqs.map((f, i) => (
+          <div>
+            <h3>
+              <button
+                type="button"
+                data-accordion-trigger
+                aria-expanded="false"
+                aria-controls={`faq-panel-${i}`}
+                id={`faq-trigger-${i}`}
+                class="group flex w-full items-center gap-5 py-6 text-left"
+              >
+                <span class="font-display text-sm text-cyan-glow/70 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                <span class="flex-1 text-lg font-medium text-white transition-colors group-hover:text-cyan-glow">{f.q}</span>
+                <span class="relative grid size-8 shrink-0 place-items-center rounded-full border border-white/12 transition-colors group-hover:border-cyan-glow/50" aria-hidden="true">
+                  <span class="absolute h-px w-3 bg-current" />
+                  <span class="plus-v absolute h-3 w-px bg-current transition-transform duration-500" />
+                </span>
+              </button>
+            </h3>
+            <div id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`} class="h-0 overflow-hidden">
+              <p class="pb-7 pl-11 pr-12 leading-relaxed text-mist/70">{f.a}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>
+
+<style>
+  [aria-expanded='true'] .plus-v { transform: rotate(90deg); }
+  [aria-expanded='true'] span:has(> .plus-v) { border-color: rgb(0 240 255 / 0.6); color: var(--color-cyan-glow); }
+</style>

@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import Features from '../components/Features.astro';
+import Integrations from '../components/Integrations.astro';
+import Pricing from '../components/Pricing.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { company } from '../data/site';
+
+const leadSources = ['Text', 'Facebook', 'Instagram', 'Google chat'];
+---
+
+<Base>
+  <Hero />
+
+  <Stats />
+
+  <!-- No more missed calls -->
+  <section id="calendar" class="relative py-24 md:py-32">
+    <div class="container-x grid items-center gap-16 lg:grid-cols-2">
+      <div class="relative order-last lg:order-first" data-reveal="left">
+        <div aria-hidden="true" class="absolute -inset-8 -z-10 rounded-full bg-cyan-glow/10 blur-3xl"></div>
+        <div class="relative overflow-hidden rounded-[2rem] border border-white/8 bg-black">
+          <img src="/images/calendar.webp" alt="AI booking appointments into a calendar automatically" width="1024" height="1024" loading="lazy" class="w-full scale-110" data-parallax="0.06" />
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow" data-reveal="fade">No more missed calls</p>
+        <h2 class="mt-5 text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl" data-split>
+          Instantly Fills Your <span class="text-gradient">Calendar</span>
+        </h2>
+        <p class="mt-8 font-display text-2xl font-medium text-white" data-reveal>Never miss a sale again.</p>
+        <p class="mt-4 text-lg leading-relaxed text-mist/70" data-reveal>
+          GHD’s intelligent system fills your calendar automatically — engaging leads, booking appointments, and keeping your pipeline alive 24/7.
+        </p>
+        <p class="mt-6 text-sm font-semibold tracking-wide text-cyan-glow" data-reveal>{company.motto}</p>
+        <div class="mt-10 flex flex-wrap items-center gap-5" data-reveal>
+          <button type="button" data-demo-open class="btn btn-primary" data-magnetic>Receive an Ai Demo Call</button>
+          <span class="text-mist/60">Let us show you how.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qualified appointments -->
+  <section class="relative py-24 md:py-32">
+    <div class="container-x">
+      <div class="mx-auto max-w-4xl text-center">
+        <p class="eyebrow" data-reveal="fade">Qualified Appointments</p>
+        <h2 class="mt-5 text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl" data-split>
+          What happens when your sales team <span class="text-gradient">never stops working?</span>
+        </h2>
+        <p class="mx-auto mt-8 max-w-3xl text-xl leading-relaxed text-mist/80" data-reveal>
+          Capture Leads From Your Website, Social Media and Google &amp; Your AI Bot will convert them into Qualified Calendar Appointments!
+        </p>
+      </div>
+
+      <div class="mt-16 grid items-center gap-10 lg:grid-cols-[1fr_1.3fr_1fr]">
+        <div class="glass spotlight rounded-3xl p-8" data-reveal="left">
+          <h3 class="font-display text-2xl font-semibold text-white">Unlock effortless growth.</h3>
+          <p class="mt-4 leading-relaxed text-mist/70">
+            GHD unifies text, Facebook, Instagram, and Google chat empowering your AI assistant to engage every lead, qualify them in real time, and fill your calendar automatically.
+          </p>
+          <ul class="mt-6 flex flex-wrap gap-2">
+            {leadSources.map((s) => <li class="rounded-full border border-cyan-glow/25 bg-cyan-glow/5 px-3 py-1 text-xs font-medium text-cyan-glow">{s}</li>)}
+          </ul>
+        </div>
+
+        <div class="relative" data-reveal="scale">
+          <div aria-hidden="true" class="absolute -inset-6 -z-10 rounded-full bg-teal-brand/20 blur-3xl"></div>
+          <div class="overflow-hidden rounded-[2rem] border border-white/8">
+            <img src="/images/appointments-1.webp" alt="A business owner whose AI assistant engages leads from every channel" width="1200" height="800" loading="lazy" class="w-full" />
+          </div>
+        </div>
+
+        <div class="glass spotlight flex flex-col rounded-3xl p-8" data-reveal="right">
+          <div class="overflow-hidden rounded-2xl bg-black">
+            <img src="/images/appointments-2.webp" alt="" width="1024" height="1024" loading="lazy" class="blend-screen aspect-[4/3] w-full object-cover" />
+          </div>
+          <p class="mt-6 font-display text-xl font-semibold text-white">While others chase leads, you’ll already be closing.</p>
+          <button type="button" data-demo-open class="btn btn-ghost mt-6 self-start">Receive an Ai Demo Call</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SMART nurture campaigns -->
+  <section class="relative overflow-hidden py-24 md:py-32">
+    <svg aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-1/2 -z-10 w-full -translate-y-1/2" viewBox="0 0 1440 400" fill="none" preserveAspectRatio="none">
+      <path data-draw d="M0 300 C 240 300, 360 120, 620 160 S 1000 340, 1180 180 S 1380 60, 1440 80" stroke="url(#nurture-grad)" stroke-width="2" />
+      <defs>
+        <linearGradient id="nurture-grad" x1="0" x2="1440" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00f0ff" stop-opacity="0" />
+          <stop offset=".5" stop-color="#00f0ff" />
+          <stop offset="1" stop-color="#8b7bff" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="container-x grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow" data-reveal="fade">Ai Intelligence</p>
+        <h2 class="mt-5 text-4xl font-semibold leading-[1.05] text-white sm:text-5xl lg:text-6xl" data-split>
+          Build SMART <span class="text-gradient">Nurture Campaigns</span>
+        </h2>
+        <p class="mt-8 max-w-xl text-lg leading-relaxed text-mist/70" data-reveal>
+          Get up to an 80% response rate from your leads and customers with GHD- Generative Human Design™ SMART automation campaigns that interact across multiple channels!
+        </p>
+      </div>
+      <div class="relative flex justify-center lg:justify-end" data-reveal="scale">
+        <div class="relative grid aspect-square w-full max-w-sm place-items-center">
+          <svg class="absolute inset-0 -rotate-90" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="88" stroke="rgb(255 255 255 / 0.06)" stroke-width="10" fill="none" />
+            <circle data-ring cx="100" cy="100" r="88" stroke="url(#ring-grad)" stroke-width="10" stroke-linecap="round" fill="none" pathLength="100" stroke-dasharray="100" stroke-dashoffset="20" />
+            <defs>
+              <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#7ffcff" />
+                <stop offset="1" stop-color="#8b7bff" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="text-center">
+            <p class="font-display text-7xl font-semibold text-white sm:text-8xl"><span data-count="80">80</span><span class="text-cyan-glow">%</span></p>
+            <p class="mt-2 text-sm uppercase tracking-[0.2em] text-slate-soft">Response rate</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Features />
+  <Integrations />
+  <Pricing />
+  <Testimonials />
+  <Faq />
+  <CtaBand />
+</Base>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+  const ring = document.querySelector('[data-ring]');
+  if (ring && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    gsap.fromTo(ring, { attr: { 'stroke-dashoffset': 100 } }, {
+      attr: { 'stroke-dashoffset': 20 },
+      duration: 2,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: ring, start: 'top 85%' },
+    });
+  }
+</script>

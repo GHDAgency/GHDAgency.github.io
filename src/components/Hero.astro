@@ -1,0 +1,168 @@
+---
+import { company } from '../data/site';
+---
+
+<section data-hero class="relative isolate flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20">
+  <!-- Background: grid, aurora blobs, cursor-follow glow -->
+  <div aria-hidden="true" class="absolute inset-0 -z-10">
+    <div class="grid-bg absolute inset-0"></div>
+    <div class="aurora absolute -top-40 left-1/2 h-[42rem] w-[70rem] -translate-x-1/2"></div>
+    <div data-cursor-glow class="absolute top-1/3 left-1/2 size-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-glow/10 blur-[120px]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink-950 to-transparent"></div>
+  </div>
+
+  <div class="container-x grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+    <div>
+      <p class="eyebrow" data-reveal="fade">AI Agents For Your Business</p>
+
+      <h1 class="mt-7 text-5xl font-semibold leading-[0.98] text-white sm:text-6xl lg:text-7xl xl:text-[5.5rem]" data-split>
+        <span class="text-gradient">Generative</span> Human Design™
+      </h1>
+
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-mist/75 sm:text-xl" data-reveal>
+        Blending human intuition with AI precision to help brands grow smarter and faster.
+        We design intelligent systems that amplify human potential and turn missed opportunities into measurable growth.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center gap-4" data-reveal data-delay="0.1">
+        <button type="button" data-demo-open class="btn btn-primary !px-7 !py-4 text-base" data-magnetic>
+          Receive an Ai Demo Call
+          <svg class="size-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.64L10.2 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.19-3.96H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+        </button>
+        <a href="/pricing" class="btn btn-ghost !px-7 !py-4 text-base">View Pricing</a>
+      </div>
+
+      <p class="mt-10 text-sm font-medium tracking-wide text-slate-soft" data-reveal data-delay="0.2">
+        {company.motto}
+      </p>
+    </div>
+
+    <!-- Live AI conversation mock (illustrative) -->
+    <div class="relative mx-auto w-full max-w-md lg:max-w-none" data-reveal="scale" data-delay="0.2">
+      <div aria-hidden="true" class="absolute -inset-10 -z-10 rounded-full bg-cyan-glow/15 blur-3xl"></div>
+
+      <div class="glass relative rounded-[2rem] p-5 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.8)] sm:p-6" role="img" aria-label="Illustration: an AI agent chatting with a lead and booking an appointment">
+        <div class="flex items-center justify-between border-b border-white/8 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="relative grid size-10 place-items-center rounded-xl bg-gradient-to-br from-cyan-glow to-teal-deep font-display font-bold text-ink-950">
+              AI
+              <span class="absolute -right-0.5 -bottom-0.5 size-3 rounded-full border-2 border-ink-900 bg-emerald-400"></span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-white">GHD AI Agent</p>
+              <p class="text-xs text-emerald-400">Online · replies instantly</p>
+            </div>
+          </div>
+          <div class="flex gap-1.5">
+            <span class="rounded-full bg-white/6 px-2.5 py-1 text-[10px] font-medium text-mist/70">SMS</span>
+            <span class="rounded-full bg-white/6 px-2.5 py-1 text-[10px] font-medium text-mist/70">Voice</span>
+            <span class="rounded-full bg-white/6 px-2.5 py-1 text-[10px] font-medium text-mist/70">Chat</span>
+          </div>
+        </div>
+
+        <div class="chat mt-5 space-y-3 text-sm">
+          <div class="msg msg-in">Hi — do you have anything open this week?</div>
+          <div class="msg msg-out">Absolutely! I have Thursday at 2:00 PM or Friday at 10:30 AM. Which works best?</div>
+          <div class="msg msg-in">Thursday works.</div>
+          <div class="typing msg msg-out !w-16"><span></span><span></span><span></span></div>
+          <div class="msg msg-out">Booked ✓ You'll get a text confirmation shortly.</div>
+        </div>
+      </div>
+
+      <!-- Floating notification chips -->
+      <div class="chip glass absolute -top-6 -right-2 flex items-center gap-3 rounded-2xl !bg-ink-900/80 px-4 py-3 sm:-right-8 animate-float">
+        <span class="grid size-8 place-items-center rounded-lg bg-cyan-glow/15 text-cyan-glow">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </span>
+        <div>
+          <p class="text-xs font-semibold text-white">Appointment booked</p>
+          <p class="text-[11px] text-slate-soft">Qualified · added to calendar</p>
+        </div>
+      </div>
+      <div class="chip glass absolute -bottom-6 -left-2 flex items-center gap-3 rounded-2xl !bg-ink-900/80 px-4 py-3 sm:-left-10 animate-float [animation-delay:-3.5s]">
+        <span class="grid size-8 place-items-center rounded-lg bg-emerald-400/15 text-emerald-400">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <div>
+          <p class="text-xs font-semibold text-white">No more missed calls</p>
+          <p class="text-[11px] text-slate-soft">Answered 24/7 by AI</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#calendar" class="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs text-slate-soft transition-colors hover:text-white md:flex" aria-label="Scroll to next section">
+    <span class="relative h-10 w-6 rounded-full border border-white/20">
+      <span class="scroll-dot absolute top-2 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-cyan-glow"></span>
+    </span>
+  </a>
+</section>
+
+<style>
+  .aurora {
+    background:
+      radial-gradient(40% 50% at 30% 40%, rgb(0 240 255 / 0.28), transparent 70%),
+      radial-gradient(35% 45% at 72% 28%, rgb(139 123 255 / 0.3), transparent 70%),
+      radial-gradient(30% 40% at 50% 70%, rgb(0 95 99 / 0.4), transparent 70%);
+    filter: blur(60px);
+    animation: aurora 18s ease-in-out infinite alternate;
+  }
+  @keyframes aurora {
+    0% { transform: translateX(-50%) rotate(0deg) scale(1); }
+    50% { transform: translateX(-46%) rotate(8deg) scale(1.08); }
+    100% { transform: translateX(-54%) rotate(-6deg) scale(0.96); }
+  }
+
+  .msg {
+    width: fit-content;
+    max-width: 85%;
+    padding: 0.7rem 1rem;
+    border-radius: 1.1rem;
+    line-height: 1.45;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: msg-in 0.5s var(--ease-out-expo) forwards;
+  }
+  .msg-in {
+    background: rgb(255 255 255 / 0.07);
+    color: var(--color-mist);
+    border-bottom-left-radius: 0.3rem;
+  }
+  .msg-out {
+    margin-left: auto;
+    background: linear-gradient(135deg, rgb(0 240 255 / 0.22), rgb(139 123 255 / 0.2));
+    border: 1px solid rgb(0 240 255 / 0.25);
+    color: #fff;
+    border-bottom-right-radius: 0.3rem;
+  }
+  /* Conversation plays out on a loop: each message has its own start time. */
+  .chat > :nth-child(1) { animation-delay: 0.9s; }
+  .chat > :nth-child(2) { animation-delay: 2.1s; }
+  .chat > :nth-child(3) { animation-delay: 3.4s; }
+  .chat > :nth-child(4) { animation: msg-in 0.4s var(--ease-out-expo) 4.2s forwards, typing-out 0.2s 5.6s forwards; }
+  .chat > :nth-child(5) { animation-delay: 5.7s; }
+
+  .typing { display: flex; gap: 4px; align-items: center; justify-content: center; height: 2.4rem; }
+  .typing span {
+    width: 6px; height: 6px; border-radius: 999px; background: var(--color-cyan-glow);
+    animation: bounce 1s infinite ease-in-out;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes msg-in { to { opacity: 1; transform: none; } }
+  @keyframes typing-out { to { opacity: 0; height: 0; padding: 0; margin: 0; border-width: 0; } }
+  @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-5px); opacity: 1; } }
+
+  .scroll-dot { animation: scroll-dot 2s ease-in-out infinite; }
+  @keyframes scroll-dot {
+    0% { opacity: 0; transform: translate(-50%, 0); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, 14px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .msg { opacity: 1; transform: none; }
+    .typing { display: none; }
+  }
+</style>

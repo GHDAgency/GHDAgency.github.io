@@ -1,0 +1,77 @@
+---
+import { channels } from '../data/site';
+const loop = [...channels, ...channels];
+// Orbiting labels around the GHD core.
+const orbit = ['SMS', 'Email', 'Voice', 'Messenger', 'Instagram', 'Google', 'WhatsApp', 'Zapier'];
+---
+
+<section class="relative overflow-hidden py-24 md:py-32">
+  <div class="container-x">
+    <div class="glass relative overflow-hidden rounded-[2.5rem] px-6 py-16 sm:px-12 md:py-20">
+      <div aria-hidden="true" class="grid-bg absolute inset-0 opacity-60"></div>
+
+      <div class="relative grid items-center gap-16 lg:grid-cols-2">
+        <div>
+          <p class="eyebrow" data-reveal="fade">Integrations</p>
+          <h2 class="mt-5 text-4xl font-semibold leading-tight text-white sm:text-5xl" data-split>
+            Seamless Integration With Over <span class="text-gradient">2000+ Tools</span>
+          </h2>
+          <p class="mt-6 text-lg text-mist/75" data-reveal>Integrate GHD-Generative Human Design™ With Tools You Already Love</p>
+          <p class="mt-2 text-lg font-medium text-cyan-glow" data-reveal>With Our High Level Native Integrations &amp; Zapier!</p>
+          <button type="button" data-demo-open class="btn btn-primary mt-10" data-magnetic data-reveal>Get Started</button>
+        </div>
+
+        <!-- Orbit visual -->
+        <div class="relative mx-auto aspect-square w-full max-w-md" aria-hidden="true" data-reveal="scale">
+          <div class="absolute inset-[8%] rounded-full border border-cyan-glow/15"></div>
+          <div class="absolute inset-[26%] rounded-full border border-cyan-glow/25"></div>
+          <div class="absolute inset-[40%] grid place-items-center rounded-full bg-gradient-to-br from-ink-800 to-ink-950 shadow-[0_0_80px_rgb(0_240_255/0.35),inset_0_0_0_1px_rgb(0_240_255/0.4)]">
+            <img src="/images/logo.webp" alt="" width="552" height="219" loading="lazy" class="blend-screen w-4/5" />
+          </div>
+          <div class="orbit absolute inset-[8%]">
+            {
+              orbit.map((label, i) => (
+                <span
+                  class="orbit-item absolute top-1/2 left-1/2"
+                  style={`--angle:${(360 / orbit.length) * i}deg`}
+                >
+                  <span class="orbit-label glass block whitespace-nowrap rounded-full !bg-ink-900/85 px-3 py-1.5 text-xs font-medium text-mist">
+                    {label}
+                  </span>
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee relative mt-16 overflow-hidden" style="--marquee-duration: 35s" aria-hidden="true">
+    <ul class="flex w-max gap-10 animate-marquee">
+      {
+        loop.map((c) => (
+          <li class="flex items-center gap-10 font-display text-2xl font-medium text-mist/25 sm:text-3xl">
+            {c}
+            <span class="size-2 rounded-full bg-cyan-glow/40" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .marquee { mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+
+  .orbit { animation: spin 40s linear infinite; }
+  .orbit-item {
+    /* Place each label on the ring, then counter-rotate so text stays upright. */
+    transform: rotate(var(--angle)) translateX(calc(min(28rem, 84vw) * 0.42)) rotate(calc(var(--angle) * -1));
+  }
+  .orbit-label {
+    transform: translate(-50%, -50%);
+    animation: spin 40s linear infinite reverse;
+  }
+  @keyframes spin { to { rotate: 360deg; } }
+</style>

@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import DemoModal from '../components/DemoModal.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import { company, seo } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = seo.title, description = seo.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og-image.png', Astro.site);
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'GHD Agency.ai — Generative Human Design™',
+  legalName: company.legalName,
+  url: 'https://ghdagency.ai',
+  logo: new URL('/images/logo.webp', Astro.site).href,
+  email: company.email,
+  telephone: '+1-702-581-8617',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '1672 Sabatini Dr',
+    addressLocality: 'Henderson',
+    addressRegion: 'NV',
+    postalCode: '89052',
+    addressCountry: 'US',
+  },
+  slogan: company.tagline,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#030708" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GHD Agency.ai" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
+    <!-- Hide scroll-reveal elements before first paint, but only if motion will actually run.
+         Safety net: un-hide everything if the motion script hasn't started within 3s. -->
+    <script is:inline>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js-motion');
+        setTimeout(function () {
+          if (!window.__motionReady) document.documentElement.classList.remove('js-motion');
+        }, 3000);
+      }
+    </script>
+  </head>
+  <body class="min-h-dvh">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-cyan-glow focus:px-4 focus:py-2 focus:text-ink-950">
+      Skip to content
+    </a>
+    <Header />
+    <!-- overflow-x-clip here (not just on body) because mobile browsers widen the layout
+         viewport for off-screen elements, e.g. cards waiting to slide in from the side. -->
+    <main id="main" class="overflow-x-clip">
+      <slot />
+    </main>
+    <Footer />
+    <DemoModal />
+    <CookieBanner />
+
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>

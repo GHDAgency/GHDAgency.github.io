@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Pricing from '../components/Pricing.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<Base
+  title="Pricing — AI Automation Plans | GHD: Generative Human Design™"
+  description="Basic, Starter and Professional AI automation plans from GHD Agency.ai. One-time setup, then activate monthly after 30 days."
+>
+  <div class="pt-20">
+    <Pricing as="h1" />
+  </div>
+  <Testimonials />
+  <Faq />
+  <CtaBand />
+</Base>

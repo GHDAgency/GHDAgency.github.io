@@ -1,0 +1,22 @@
+---
+import { stats } from '../data/site';
+---
+
+<section aria-label="By the numbers" class="relative py-10">
+  <div class="container-x">
+    <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/8 bg-white/8 lg:grid-cols-4" data-reveal-stagger="0.1">
+      {
+        stats.map((s) => (
+          <div class="bg-ink-950 p-7 sm:p-9">
+            <dt class="text-sm text-slate-soft">{s.label}</dt>
+            <dd class="mt-3 font-display text-4xl font-semibold text-white sm:text-5xl">
+              {s.prefix && <span class="mr-1 text-base font-normal text-mist/50">{s.prefix}</span>}
+              <span data-count={s.value}>{s.value.toLocaleString()}</span>
+              <span class="text-cyan-glow">{s.suffix}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

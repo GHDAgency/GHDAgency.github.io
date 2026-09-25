@@ -1,0 +1,61 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { features } from '../data/site';
+
+interface Props {
+  as?: 'h1' | 'h2';
+}
+const { as = 'h2' } = Astro.props;
+---
+
+<section id="features" class="relative py-24 md:py-32">
+  <div class="container-x">
+    <SectionHeading eyebrow="Industry Leading Features" as={as}>
+      <Fragment slot="title">Smart Solutions. Human Design. <span class="text-gradient">AI Precision.</span></Fragment>
+    </SectionHeading>
+
+    <ul class="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger="0.06">
+      {
+        features.map((f) => (
+          <li
+            class:list={[
+              'spotlight group glass relative overflow-hidden rounded-3xl p-7 transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-cyan-glow/30',
+              f.featured && 'sm:col-span-2 lg:row-span-1',
+            ]}
+          >
+            <div class:list={['flex h-full gap-6', f.featured ? 'flex-col sm:flex-row sm:items-center' : 'flex-col']}>
+              <div
+                class:list={[
+                  'relative shrink-0 overflow-hidden rounded-2xl bg-black ring-1 ring-white/8',
+                  f.featured ? 'size-28 sm:size-36' : 'size-16',
+                ]}
+              >
+                <img
+                  src={f.image}
+                  alt=""
+                  loading="lazy"
+                  width="1024"
+                  height="1024"
+                  class="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div class="pointer-events-none absolute inset-0 bg-cyan-glow/0 mix-blend-overlay transition-colors duration-500 group-hover:bg-cyan-glow/20"></div>
+              </div>
+              <div>
+                <h3 class:list={['font-semibold text-white', f.featured ? 'text-2xl' : 'text-lg']}>{f.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-mist/65">{f.body}</p>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+      <li class="relative flex flex-col justify-between gap-6 overflow-hidden rounded-3xl border border-cyan-glow/30 bg-gradient-to-br from-cyan-glow/15 via-ink-850 to-ink-900 p-7 sm:col-span-1 sm:flex-row sm:items-center lg:col-span-3">
+        <div aria-hidden="true" class="absolute -top-16 -right-10 size-56 rounded-full bg-cyan-glow/20 blur-3xl"></div>
+        <div class="relative">
+          <p class="font-display text-2xl font-semibold text-white sm:text-3xl">Let us show you how.</p>
+          <p class="mt-2 text-sm text-mist/70">Built with grit. Powered by heart. Driven by disruption.™</p>
+        </div>
+        <button type="button" data-demo-open class="btn btn-primary relative self-start sm:self-auto" data-magnetic>Receive an Ai Demo Call</button>
+      </li>
+    </ul>
+  </div>
+</section>

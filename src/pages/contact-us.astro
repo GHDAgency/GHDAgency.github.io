@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { company } from '../data/site';
+
+const cards = [
+  {
+    label: 'Email',
+    value: company.contactEmail,
+    href: `mailto:${company.contactEmail}`,
+    icon: 'M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z',
+  },
+  {
+    label: 'Phone',
+    value: company.phone,
+    href: company.phoneHref,
+    icon: 'M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .95.68l1.5 4.49a1 1 0 0 1-.5 1.21l-2.26 1.13a11.04 11.04 0 0 0 5.52 5.52l1.13-2.26a1 1 0 0 1 1.21-.5l4.49 1.5a1 1 0 0 1 .68.95V19a2 2 0 0 1-2 2h-1C9.72 21 3 14.28 3 6V5z',
+  },
+  {
+    label: 'Office',
+    value: company.address,
+    href: `https://maps.google.com/?q=${encodeURIComponent(company.address)}`,
+    icon: 'M17.66 16.66 13.41 20.9a2 2 0 0 1-2.83 0l-4.24-4.24a8 8 0 1 1 11.32 0zM15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
+  },
+];
+---
+
+<Base
+  title="Contact GHD AI Sales Agents & Automation Experts"
+  description="Contact GHD: Generative Human Design™ — AI Sales Agents & Automation Experts. Smart Solutions. Human Design. AI Precision."
+>
+  <PageHero eyebrow="Contact Us">
+    <Fragment slot="title">Contact <span class="text-gradient">Generative Human Design™</span></Fragment>
+    <p class="font-display text-2xl text-white">AI Sales Agents &amp; Automation Experts</p>
+    <p>{company.triad.join(' ')}</p>
+  </PageHero>
+
+  <section class="pb-24 md:pb-32">
+    <div class="container-x">
+      <ul class="grid gap-4 md:grid-cols-3" data-reveal-stagger="0.1">
+        {
+          cards.map((c) => (
+            <li>
+              <a
+                href={c.href}
+                target={c.label === 'Office' ? '_blank' : undefined}
+                rel={c.label === 'Office' ? 'noopener' : undefined}
+                class="spotlight glass group flex h-full flex-col rounded-3xl p-8 transition-[border-color,transform] duration-500 hover:-translate-y-1 hover:border-cyan-glow/40"
+              >
+                <span class="grid size-12 place-items-center rounded-2xl bg-cyan-glow/10 text-cyan-glow ring-1 ring-cyan-glow/25 transition-shadow duration-500 group-hover:shadow-[0_0_30px_rgb(0_240_255/0.4)]">
+                  <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={c.icon} /></svg>
+                </span>
+                <span class="mt-8 text-sm text-slate-soft">{c.label}</span>
+                <span class="mt-1 break-words text-lg font-medium text-white">{c.value}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="glass relative mt-6 overflow-hidden rounded-[2rem] p-10 text-center md:p-14" data-reveal>
+        <div aria-hidden="true" class="absolute -top-24 left-1/2 h-48 w-96 -translate-x-1/2 rounded-full bg-cyan-glow/20 blur-3xl"></div>
+        <h2 class="relative font-display text-3xl font-semibold text-white sm:text-4xl">Receive an Ai Demo Call</h2>
+        <p class="relative mx-auto mt-4 max-w-lg text-mist/70">Chat with Trina — Your AI Demo Assistant.</p>
+        <button type="button" data-demo-open class="btn btn-primary relative mt-8 !px-8 !py-4 text-base" data-magnetic>Free Instant Demo</button>
+      </div>
+    </div>
+  </section>
+</Base>
