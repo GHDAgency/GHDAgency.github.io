@@ -95,7 +95,7 @@ const cloud = fragments.map((text) => ({
 }));
 ---
 
-<Layout title={page === 'home' ? `GHD Agency | V4 Liquid Metal: ${names[transition]}` : pageTitle} bodyClass={`v4 v4-${page}${page === 'services' || page === 'solutions' ? ' v4-light' : ''}`}>
+<Layout title={page === 'home' ? `GHD Agency | V4 Liquid Metal: ${names[transition]}` : pageTitle} bodyClass={`v4 v4-${page}${page !== 'home' ? ' v4-light' : ''}`}>
   <div class="pools" aria-hidden="true">
     <i data-par="0.12"></i>
     <i data-par="-0.08"></i>
@@ -1189,7 +1189,7 @@ const cloud = fragments.map((text) => ({
     display: none;
   }
   .v4-light .site-head {
-    background: rgb(10 11 13 / 0.97);
+    background: #0a0b0d;
     box-shadow: 0 1px 0 rgb(255 255 255 / 0.04);
   }
   .v4-light .site-foot {
@@ -1260,6 +1260,46 @@ const cloud = fragments.map((text) => ({
   .v4-light .sol-photo,
   .v4-light .svc-photo {
     box-shadow: 0 24px 48px -28px rgb(40 32 20 / 0.4);
+  }
+
+  /* LIGHT: About and legal pages */
+  .v4-light .abt-intro,
+  .v4-light .abt-founded,
+  .v4-light .legal-body h2,
+  .v4-light .legal-body strong,
+  .v4-light .legal-body a {
+    color: var(--ink);
+  }
+  .v4-light .abt-body,
+  .v4-light .abt-how-list p,
+  .v4-light .legal-body p,
+  .v4-light .legal-body li {
+    color: var(--ink-2);
+  }
+  .v4-light .who-label,
+  .v4-light .legal-updated {
+    color: #7a756d;
+  }
+  .v4-light .abt-how-list li + li,
+  .v4-light .who-list li + li {
+    border-image: linear-gradient(180deg, transparent, var(--rule-light), transparent) 1;
+  }
+  body.v4-light .who-icon {
+    stroke: var(--ink);
+  }
+  body.v4-light .who-icon .ac {
+    stroke: var(--champagne);
+    filter: none;
+  }
+  body.v4-light .who-icon .ac.fill {
+    fill: var(--champagne);
+  }
+  .v4-light .legal-body a {
+    border-bottom-color: var(--champagne);
+  }
+  /* The black-and-white stage photo: a soft warm shadow so it sits on the page like a printed portrait. */
+  .v4-light .abt-photo {
+    box-shadow: 0 30px 60px -30px rgb(40 32 20 / 0.45);
   }
 
   /* SITE FOOTER */
