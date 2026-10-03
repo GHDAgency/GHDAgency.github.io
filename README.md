@@ -52,3 +52,22 @@ Every site image's prompt lives in `scripts/images.manifest.mjs`: edit a prompt 
 npm run build     # outputs static files to dist/
 npm run preview   # serve the built site locally
 ```
+
+## Homepage design directions (/v1 to /v5)
+
+Five design directions for the same homepage, with identical copy. The index is at `/directions`.
+
+| What | Where |
+|---|---|
+| All copy, and the CTA label/link (`CTA_LABEL`, `CTA_HREF`) | `src/directions/copy.ts` |
+| Each direction | `src/pages/v1.astro` to `src/pages/v5.astro` |
+| Shared scroll engine (pinning progress, word reveal, count-up, fades) | `src/directions/engine.ts` |
+| Shared tokens, word-reveal styles, marquee | `src/directions/base.css` |
+| Client logos (drop files here) | `public/logos/` |
+
+The logo row reads every image in `public/logos` automatically. `scripts/process-logos.mjs` runs before `dev` and `build`
+(or on demand with `npm run logos`), converts each logo to one white tone, and writes the results to `public/logos-mono/`.
+That folder is generated, so it isn't committed.
+
+Motion uses no animation library: one passive scroll listener drives CSS variables. With `prefers-reduced-motion`,
+nothing is pinned or scrubbed and sections simply fade in. These pages are `noindex` and are left out of the sitemap.

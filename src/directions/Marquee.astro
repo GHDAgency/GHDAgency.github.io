@@ -1,0 +1,38 @@
+---
+// Client-logo marquee. Reads every logo that scripts/process-logos.mjs generated from
+// public/logos, so adding a file there is all it takes to add a logo.
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  class?: string;
+  /** Seconds for one full loop. */
+  duration?: number;
+}
+const { class: cls = '', duration = 45 } = Astro.props;
+
+type Logo = { src: string; width: number; height: number; scale: number; alt: string };
+const manifestPath = path.resolve('public/logos-mono/manifest.json');
+const logos: Logo[] = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : [];
+// Repeat short sets so one copy of the list is always wider than the screen.
+const reps = Math.max(1, Math.ceil(12 / Math.max(1, logos.length)));
+const items = Array.from({ length: reps }, (_, r) => logos.map((l) => ({ ...l, dup: r > 0 }))).flat();
+---
+
+{
+  logos.length > 0 && (
+    <div class={`mq ${cls}`} style={`--mq-dur:${duration}s`}>
+      <div class="mq-track">
+        {[0, 1].map((copy) => (
+          <ul class="mq-list" aria-hidden={copy ? 'true' : undefined} data-copy={copy}>
+            {items.map((l) => (
+              <li data-dup={l.dup ? '' : undefined} style={`--s:${l.scale}`}>
+                <img src={l.src} width={l.width} height={l.height} alt={copy || l.dup ? '' : l.alt} loading="lazy" decoding="async" />
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  )
+}

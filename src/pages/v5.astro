@@ -1,0 +1,574 @@
+---
+// V5: SPLIT CONTRAST. Architectural rhythm of black and soft-white sections. On light sections
+// type is near-black and teal appears only as lines, shapes and fills, never as text.
+// The problem section stays black and runs as a horizontal, pinned sequence of panels.
+import Layout from '../directions/Layout.astro';
+import Words from '../directions/Words.astro';
+import Marquee from '../directions/Marquee.astro';
+import { CTA_LABEL, CTA_HREF, hero, logoRow, problem, how, proof, footer, fmt } from '../directions/copy';
+---
+
+<Layout title="GHD Agency | V5 Split Contrast" bodyClass="v5" theme="#F2F5F7">
+  <main>
+    <!-- 1. HERO (light) -->
+    <section class="light hero">
+      <div class="cols" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="sq" aria-hidden="true"></span>{hero.eyebrow}</p>
+        <h1 class="display">{hero.headline}</h1>
+        <p class="sub">{hero.subhead.map((l) => <span>{l}</span>)}</p>
+        <a class="cta" href={CTA_HREF}><span class="cta-label">{CTA_LABEL}</span><span class="cta-block" aria-hidden="true"><i></i></span></a>
+      </div>
+      <div class="arch" aria-hidden="true">
+        <span class="a-teal" data-par="0.06"></span>
+        <span class="a-dark" data-par="-0.04"></span>
+        <span class="a-line a-line-h"></span>
+        <span class="a-line a-line-v"></span>
+      </div>
+    </section>
+
+    <!-- 2. LOGO ROW (dark) -->
+    <section class="dark logos">
+      <p class="label fade">{logoRow.label}</p>
+      <Marquee duration={42} />
+    </section>
+
+    <!-- 3. THE PROBLEM (dark) -->
+    <section class="dark problem" data-problem style={`--n:${problem.length}`}>
+      <div class="stage">
+        <div class="track">
+          {problem.map((line, i) => (
+            <div class="pl fade" data-line class:list={{ last: i === problem.length - 1 }}>
+              <p><Words text={line} /></p>
+            </div>
+          ))}
+        </div>
+        <div class="rail" aria-hidden="true"><i></i></div>
+      </div>
+    </section>
+
+    <!-- 4. HOW WE WORK (light, closing lines on black) -->
+    <section class="light how">
+      <ol class="steps">
+        {how.steps.map((s) => (
+          <li class="step fade">
+            <span class="n">{s.n}</span>
+            <h2>{s.title}</h2>
+          </li>
+        ))}
+      </ol>
+    </section>
+    <section class="dark closing">
+      <span class="rule" aria-hidden="true"></span>
+      <p class="partner" data-scrub><Words text={how.partner} class="w-silver" /></p>
+      <p class="result" data-scrub><Words text={how.result} class="w-cyan" /></p>
+    </section>
+
+    <!-- 5. PROOF BAND (light, figures on a black slab) -->
+    <section class="light proof" data-proof>
+      <div class="slab fade">
+        <dl class="stats">
+          {proof.stats.map((s) => (
+            <div class="stat">
+              <dt>{s.label}</dt>
+              <dd class:list={['num', 'figure', { amber: s.money }]} data-count={s.value} data-prefix={s.prefix} style={`min-width:${(s.prefix + fmt(s.value)).length}ch`}>
+                {s.prefix + fmt(s.value)}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p class="foot">{proof.footnote}</p>
+      </div>
+    </section>
+
+    <!-- 6. FINAL CTA (dark) -->
+    <section class="dark final">
+      <a class="cta fade" href={CTA_HREF}><span class="cta-label">{CTA_LABEL}</span><span class="cta-block" aria-hidden="true"><i></i></span></a>
+    </section>
+  </main>
+
+  <footer class="dark footer">
+    <p>{footer.name} · <a href={`mailto:${footer.email}`}>{footer.email}</a> · {footer.copyright}</p>
+  </footer>
+</Layout>
+
+<script>
+  import { motion, onFrame, problemTimeline, pinProgress, scrubOnView, fades, countUp, clamp, ease } from '../directions/engine';
+
+  fades();
+  countUp(document.querySelector('[data-proof]')!);
+
+  if (motion()) {
+    document.querySelectorAll<HTMLElement>('[data-scrub]').forEach((el) => scrubOnView(el));
+
+    const par = Array.from(document.querySelectorAll<HTMLElement>('[data-par]'));
+    onFrame(() => par.forEach((el) => (el.style.translate = `0 ${(-scrollY * Number(el.dataset.par)).toFixed(1)}px`)));
+
+    // Horizontal sequence: each line is a panel that slides to centre, then resolves word by word.
+    const section = document.querySelector<HTMLElement>('[data-problem]')!;
+    const track = section.querySelector<HTMLElement>('.track')!;
+    const rail = section.querySelector<HTMLElement>('.rail i')!;
+    const tl = problemTimeline(section);
+    onFrame(() => {
+      const { lines, pos, t } = tl(pinProgress(section));
+      const n = lines.length;
+      const k = Math.min(Math.floor(pos), n - 1);
+      const s = k - 1 + ease(clamp((pos - k) / 0.3));
+      const pw = lines[0].offsetWidth;
+      track.style.transform = `translate3d(${((innerWidth - pw) / 2 - s * pw).toFixed(1)}px, 0, 0)`;
+      lines.forEach((el, i) => (el.style.opacity = (1 - Math.min(1, Math.abs(s - i)) * 0.72).toFixed(3)));
+      rail.style.transform = `scaleX(${t.toFixed(4)})`;
+    });
+  }
+</script>
+
+<style is:global>
+  .v5 {
+    --ink: #0a0b0d;
+    --ink-2: #3f474e;
+    --paper: #f2f5f7;
+    --hair-l: rgb(10 11 13 / 0.1);
+    --hair-d: rgb(242 245 247 / 0.1);
+  }
+  .v5 .light {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .v5 .dark {
+    background: var(--base);
+    color: var(--white);
+  }
+
+  /* CTA: near-black on light sections, soft white on dark; a teal block carries the chevron. */
+  .v5 .cta {
+    display: inline-flex;
+    align-items: stretch;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    transition: transform 0.3s ease;
+  }
+  .v5 .cta-label {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .v5 .dark .cta-label {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .v5 .cta-block {
+    display: grid;
+    place-items: center;
+    width: 62px;
+    background: var(--teal);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  }
+  .v5 .dark .cta-block {
+    background: var(--cyan);
+  }
+  .v5 .cta-block i {
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--ink);
+    border-right: 2px solid var(--ink);
+    transform: rotate(45deg) translate(-2px, 2px);
+  }
+  .v5 .cta:hover .cta-block {
+    width: 80px;
+  }
+
+  /* HERO */
+  .v5 .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    align-items: center;
+    gap: clamp(32px, 5vw, 80px);
+    padding: clamp(88px, 12vh, 140px) var(--gutter) clamp(64px, 10vh, 120px);
+    overflow: hidden;
+  }
+  .v5 .cols {
+    position: absolute;
+    inset: 0 var(--gutter);
+    background: repeating-linear-gradient(90deg, var(--hair-l) 0 1px, transparent 1px calc(100% / 12));
+    pointer-events: none;
+  }
+  .v5 .hero-copy {
+    position: relative;
+  }
+  .v5 .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: clamp(24px, 4vh, 40px);
+  }
+  .v5 .sq {
+    width: 14px;
+    height: 14px;
+    background: var(--teal);
+  }
+  .v5 .display {
+    font-weight: 800;
+    font-size: clamp(46px, 6.8vw, 124px);
+    line-height: 0.97;
+    letter-spacing: -0.04em;
+    max-width: 13ch;
+  }
+  .v5 .sub {
+    margin-top: clamp(28px, 4vh, 44px);
+    padding-left: 20px;
+    border-left: 3px solid var(--teal);
+    font-weight: 300;
+    font-size: clamp(18px, 1.5vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+  .v5 .sub span {
+    display: block;
+  }
+  .v5 .hero .cta {
+    margin-top: clamp(36px, 5vh, 52px);
+  }
+  .v5 .arch {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-height: 72svh;
+    justify-self: end;
+    width: 100%;
+  }
+  .v5 .arch span {
+    position: absolute;
+    will-change: translate;
+  }
+  .v5 .a-teal {
+    left: 0;
+    bottom: 6%;
+    width: 62%;
+    height: 48%;
+    background: var(--teal);
+  }
+  .v5 .a-dark {
+    right: 0;
+    top: 0;
+    width: 64%;
+    height: 72%;
+    background: var(--ink);
+  }
+  .v5 .a-line {
+    background: var(--teal);
+  }
+  .v5 .a-line-h {
+    left: -8%;
+    right: 20%;
+    top: 58%;
+    height: 2px;
+  }
+  .v5 .a-line-v {
+    top: -6%;
+    bottom: 0;
+    left: 28%;
+    width: 2px;
+  }
+  .m .v5 .a-teal { animation: v5-wipe-x 1.2s 0.2s cubic-bezier(0.7, 0, 0.2, 1) both; }
+  .m .v5 .a-dark { animation: v5-wipe-y 1.2s 0.05s cubic-bezier(0.7, 0, 0.2, 1) both; }
+  .m .v5 .a-line-h { animation: v5-wipe-x 1s 0.6s cubic-bezier(0.7, 0, 0.2, 1) both; }
+  .m .v5 .a-line-v { animation: v5-wipe-y 1s 0.7s cubic-bezier(0.7, 0, 0.2, 1) both; }
+  @keyframes v5-wipe-x {
+    from { clip-path: inset(0 100% 0 0); }
+  }
+  @keyframes v5-wipe-y {
+    from { clip-path: inset(0 0 100% 0); }
+  }
+  /* The headline (LCP) stays visible from the first paint and only slides. */
+  .m .v5 .hero-copy > .display {
+    animation: v5-rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes v5-rise {
+    from { transform: translateY(16px); }
+  }
+  .m .v5 .hero-copy > :not(.display) {
+    animation: v5-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .m .v5 .hero-copy > :nth-child(2) { animation-delay: 0.08s; }
+  .m .v5 .hero-copy > :nth-child(3) { animation-delay: 0.2s; }
+  .m .v5 .hero-copy > :nth-child(4) { animation-delay: 0.3s; }
+  @keyframes v5-in {
+    from { opacity: 0; transform: translateY(16px); }
+  }
+
+  /* LOGOS */
+  .v5 .logos {
+    padding: clamp(56px, 9vh, 96px) 0;
+    border-bottom: 1px solid var(--hair-d);
+  }
+  .v5 .label {
+    padding: 0 var(--gutter);
+    font-size: 15px;
+    color: var(--gray);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* PROBLEM (static default) */
+  .v5 .problem {
+    padding: 12vh var(--gutter);
+  }
+  .v5 .track {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .v5 .pl {
+    padding: 28px 0 28px 24px;
+    border-left: 2px solid var(--teal);
+  }
+  .v5 .pl + .pl {
+    border-top: 1px solid var(--hair-d);
+  }
+  .v5 .pl p {
+    font-weight: 800;
+    font-size: clamp(32px, 5.4vw, 100px);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+  .v5 .rail {
+    display: none;
+  }
+  /* PROBLEM (pinned, horizontal) */
+  .m .v5 .problem {
+    height: calc(var(--n) * 50svh + 140svh);
+    padding: 0;
+  }
+  .m .v5 .stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+  .m .v5 .track {
+    flex-direction: row;
+    height: 100%;
+    width: max-content;
+    will-change: transform;
+  }
+  .m .v5 .pl {
+    flex: none;
+    width: min(76vw, 1100px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 clamp(24px, 4vw, 64px);
+    border-left: 1px solid var(--hair-d);
+    border-top: 0;
+    position: relative;
+  }
+  .m .v5 .pl::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    width: 2px;
+    height: 34%;
+    transform: translateY(-50%);
+    background: var(--teal);
+  }
+  .m .v5 .pl.last p {
+    font-weight: 900;
+  }
+  .m .v5 .rail {
+    display: block;
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: clamp(32px, 7vh, 64px);
+    height: 2px;
+    background: var(--hair-d);
+  }
+  .m .v5 .rail i {
+    display: block;
+    height: 100%;
+    background: var(--teal);
+    transform-origin: left;
+  }
+
+  /* HOW WE WORK */
+  .v5 .how {
+    padding: clamp(96px, 16vh, 180px) var(--gutter);
+  }
+  .v5 .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 3vw, 48px);
+  }
+  .v5 .step {
+    padding-top: 28px;
+    border-top: 4px solid var(--teal);
+  }
+  .v5 .n {
+    display: block;
+    font-weight: 900;
+    font-size: clamp(72px, 9vw, 150px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+  }
+  .v5 .step h2 {
+    margin-top: clamp(24px, 4vw, 48px);
+    font-weight: 700;
+    font-size: clamp(24px, 2.4vw, 36px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .m .v5 .step:nth-child(2) { transition-delay: 0.1s; }
+  .m .v5 .step:nth-child(3) { transition-delay: 0.2s; }
+
+  .v5 .closing {
+    padding: clamp(112px, 20vh, 220px) var(--gutter);
+  }
+  .v5 .closing .rule {
+    display: block;
+    width: 96px;
+    height: 4px;
+    background: var(--teal);
+    margin-bottom: clamp(40px, 6vh, 64px);
+  }
+  .v5 .closing p {
+    font-weight: 800;
+    font-size: clamp(38px, 6.4vw, 118px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    max-width: 18ch;
+  }
+  .v5 .result {
+    margin-top: 0.35em;
+  }
+
+  /* PROOF */
+  .v5 .proof {
+    padding: clamp(96px, 16vh, 180px) var(--gutter);
+  }
+  .v5 .proof-head {
+    font-weight: 800;
+    font-size: clamp(28px, 3.6vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    max-width: 22ch;
+  }
+  .v5 .slab {
+    position: relative;
+    margin-top: clamp(40px, 6vh, 64px);
+    padding: clamp(36px, 5vw, 72px) clamp(24px, 4vw, 64px) clamp(28px, 3vw, 44px);
+    background: var(--ink);
+    color: var(--white);
+  }
+  .v5 .slab::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30%;
+    height: 4px;
+    background: var(--teal);
+  }
+  .v5 .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .v5 .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 14px;
+    padding-right: 24px;
+  }
+  .v5 .stat + .stat {
+    padding-left: clamp(20px, 3vw, 44px);
+    border-left: 1px solid var(--hair-d);
+  }
+  .v5 .figure {
+    font-size: clamp(40px, 5.4vw, 92px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .v5 .stat dt {
+    font-size: 15px;
+    color: var(--gray);
+  }
+  .v5 .foot {
+    margin-top: clamp(32px, 4vw, 48px);
+    padding-top: 20px;
+    border-top: 1px solid var(--hair-d);
+    font-size: 13px;
+    color: var(--gray);
+    max-width: 90ch;
+  }
+
+  /* FINAL CTA */
+  .v5 .final {
+    display: grid;
+    place-items: center;
+    min-height: 80svh;
+    padding: 0 var(--gutter);
+  }
+  .v5 .final .cta {
+    font-size: 19px;
+  }
+  .v5 .final .cta-label {
+    padding: 24px 40px;
+  }
+
+  .v5 .footer {
+    padding: 28px var(--gutter) 40px;
+    border-top: 1px solid var(--hair-d);
+    font-size: 14px;
+    color: var(--gray);
+  }
+  .v5 .footer a:hover {
+    color: var(--white);
+  }
+
+  @media (max-width: 900px) {
+    .v5 .hero {
+      grid-template-columns: 1fr;
+      align-content: center;
+    }
+    .v5 .arch {
+      order: -1;
+      aspect-ratio: 16 / 7;
+      max-height: none;
+    }
+    .v5 .steps,
+    .v5 .stats {
+      grid-template-columns: 1fr;
+    }
+    .v5 .steps {
+      gap: 56px;
+    }
+    .v5 .stat {
+      padding: 24px 0;
+    }
+    .v5 .stat + .stat {
+      padding-left: 0;
+      border-left: 0;
+      border-top: 1px solid var(--hair-d);
+    }
+    .m .v5 .pl {
+      width: 88vw;
+    }
+    .v5 .pl p {
+      font-size: 40px;
+    }
+    .v5 .sub {
+      padding-left: 14px;
+      font-size: 16px;
+    }
+  }
+</style>

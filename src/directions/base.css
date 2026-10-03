@@ -1,0 +1,194 @@
+/* Shared foundation for the /v1 to /v5 design directions. Each direction layers its own look on top. */
+
+:root {
+  --base: #0a0b0d;
+  --raised: #14171a;
+  --white: #f2f5f7;
+  --gray: #8a949c;
+  --teal: #009fa4;
+  --cyan: #00ffff;
+  --amber: #ffb547;
+  --silver: linear-gradient(180deg, #e6ebee 0%, #8a949c 100%);
+  --tc: linear-gradient(90deg, #009fa4, #00ffff);
+  --font: 'Roboto Variable', Roboto, system-ui, sans-serif;
+  --mono: 'Roboto Mono Variable', 'Roboto Mono', ui-monospace, monospace;
+  --gutter: clamp(20px, 5vw, 80px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  background: var(--base);
+  color: var(--white);
+  font-family: var(--font);
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-x: clip;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul,
+ol {
+  list-style: none;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+/* ---- Scroll-scrubbed words: --p runs 0 (dim #8A949C at 25%) to 1 (resolved soft white). ---- */
+.w {
+  --p: 1;
+  opacity: calc(0.25 + 0.75 * var(--p));
+  color: color-mix(in srgb, var(--white) calc(var(--p) * 100%), var(--gray));
+}
+.m .w {
+  --p: 0;
+}
+/* Resolves into the brushed-silver gradient. */
+.w.w-silver {
+  color: transparent;
+  background: var(--silver);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+/* Resolves into cyan with a soft glow. */
+.w.w-cyan {
+  color: color-mix(in srgb, var(--cyan) calc(var(--p) * 100%), var(--gray));
+  text-shadow: 0 0 calc(var(--p) * 22px) color-mix(in srgb, var(--cyan) calc(var(--p) * 55%), transparent);
+}
+
+/* ---- Fade fallback (reduced motion) and simple entrances. ---- */
+.fade {
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.m .fade:not(.in) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.rm .fade:not(.in) {
+  opacity: 0;
+}
+
+/* ---- Logo marquee ---- */
+.mq {
+  --logo-h: 40px;
+  --mq-gap: clamp(40px, 6vw, 88px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.mq-track {
+  display: flex;
+  width: max-content;
+  animation: mq var(--mq-dur, 45s) linear infinite;
+}
+.mq:hover .mq-track {
+  animation-play-state: paused;
+}
+.mq-list {
+  display: flex;
+  align-items: center;
+  gap: var(--mq-gap);
+  padding-right: var(--mq-gap);
+}
+.mq li {
+  flex: none;
+  display: flex;
+  align-items: center;
+  height: calc(var(--logo-h) * 1.4);
+}
+.mq img {
+  height: calc(var(--logo-h) * var(--s, 1));
+  width: auto;
+  opacity: 0.6;
+  transition: opacity 0.35s ease, filter 0.35s ease;
+}
+.mq li:hover img {
+  opacity: 1;
+}
+@keyframes mq {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.rm .mq {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.rm .mq-track {
+  animation: none;
+  width: auto;
+}
+.rm .mq-list {
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  row-gap: 24px;
+  width: 100%;
+}
+.rm .mq-list[data-copy='1'],
+.rm .mq li[data-dup] {
+  display: none;
+}
+
+/* Numbers never shift width while counting. */
+.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.amber {
+  color: var(--amber);
+}
+
+/* Problem lines are driven frame by frame from JS when motion is on: no easing lag, no fade offset. */
+.m [data-line] {
+  transition: none !important;
+}
+.m [data-line].fade:not(.in) {
+  opacity: 1;
+  transform: none;
+}
+
+/* Even line breaks for display copy: avoids one-word orphans without touching the copy itself. */
+h1,
+h2,
+[data-line],
+[data-scrub] {
+  text-wrap: balance;
+}
+
+/* Reduced motion: no looping or entrance keyframes anywhere; only the simple .fade transitions remain. */
+.rm *,
+.rm *::before,
+.rm *::after {
+  animation: none !important;
+}

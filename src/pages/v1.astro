@@ -1,0 +1,552 @@
+---
+// V1: OBSIDIAN COMMAND. Dark command center: blueprint grid under glass, neon cyan edge glows,
+// condensed heavy caps. Problem lines stack centre-screen; each new line pushes the last one up and dims it.
+import Layout from '../directions/Layout.astro';
+import Words from '../directions/Words.astro';
+import Marquee from '../directions/Marquee.astro';
+import { CTA_LABEL, CTA_HREF, hero, logoRow, problem, how, proof, footer, fmt } from '../directions/copy';
+---
+
+<Layout title="GHD Agency | V1 Obsidian Command" bodyClass="v1">
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <main>
+    <!-- 1. HERO -->
+    <section class="hero">
+      <div class="hud" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <p class="eyebrow"><span class="led" aria-hidden="true"></span>{hero.eyebrow}</p>
+      <h1 class="display">{hero.headline}</h1>
+      <p class="sub">
+        {hero.subhead.map((l) => <span>{l}</span>)}
+      </p>
+      <a class="cta" href={CTA_HREF}><span>{CTA_LABEL}</span></a>
+    </section>
+
+    <!-- 2. LOGO ROW -->
+    <section class="logos fade">
+      <p class="label">{logoRow.label}</p>
+      <Marquee duration={40} />
+    </section>
+
+    <!-- 3. THE PROBLEM -->
+    <section class="problem" data-problem style={`--n:${problem.length}`}>
+      <div class="stage">
+        <div class="reticle" aria-hidden="true"></div>
+        <div class="stack">
+          {problem.map((line, i) => <p class="pl fade" data-line class:list={{ last: i === problem.length - 1 }}><Words text={line} /></p>)}
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. HOW WE WORK -->
+    <section class="how">
+      <ol class="modules">
+        {how.steps.map((s) => (
+          <li class="module fade">
+            <span class="num idx">{s.n}</span>
+            <h2>{s.title}</h2>
+          </li>
+        ))}
+      </ol>
+      <div class="closing">
+        <p class="partner" data-scrub><Words text={how.partner} class="w-silver" /></p>
+        <p class="result" data-scrub><Words text={how.result} class="w-cyan" /></p>
+      </div>
+    </section>
+
+    <!-- 5. PROOF BAND -->
+    <section class="proof fade" data-proof>
+      <dl class="stats">
+        {proof.stats.map((s) => (
+          <div class="stat">
+            <dt>{s.label}</dt>
+            <dd class:list={['num', { amber: s.money }]} data-count={s.value} data-prefix={s.prefix} style={`min-width:${(s.prefix + fmt(s.value)).length}ch`}>
+              {s.prefix + fmt(s.value)}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p class="foot">{proof.footnote}</p>
+    </section>
+
+    <!-- 6. FINAL CTA -->
+    <section class="final">
+      <div class="cross" aria-hidden="true"></div>
+      <a class="cta fade" href={CTA_HREF}><span>{CTA_LABEL}</span></a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>{footer.name} · <a href={`mailto:${footer.email}`}>{footer.email}</a> · {footer.copyright}</p>
+  </footer>
+</Layout>
+
+<script>
+  import { motion, onFrame, problemTimeline, pinProgress, scrubOnView, fades, countUp, ease, clamp } from '../directions/engine';
+
+  fades();
+  countUp(document.querySelector('[data-proof]')!);
+
+  if (motion()) {
+    document.querySelectorAll<HTMLElement>('[data-scrub]').forEach((el) => scrubOnView(el));
+
+    const section = document.querySelector<HTMLElement>('[data-problem]')!;
+    const stack = section.querySelector<HTMLElement>('.stack')!;
+    const tl = problemTimeline(section);
+    let centers: number[] = [];
+    const measure = () => {
+      centers = Array.from(stack.children as HTMLCollectionOf<HTMLElement>).map((el) => el.offsetTop + el.offsetHeight / 2);
+    };
+    measure();
+    addEventListener('resize', measure);
+    document.fonts?.ready.then(measure);
+
+    onFrame(() => {
+      const { lines, pos } = tl(pinProgress(section));
+      const n = lines.length;
+      const k = Math.min(Math.floor(pos), n - 1);
+      // The stack slides so the entering line reaches centre in the first 25% of its beat.
+      const s = k - 1 + ease(clamp((pos - k) / 0.25));
+      const lo = Math.floor(s);
+      const f = s - lo;
+      const c = (i: number) => (i < 0 ? centers[0] - (centers[1] - centers[0]) * 1.4 : centers[Math.min(i, n - 1)]);
+      const y = c(lo) + (c(lo + 1) - c(lo)) * f;
+      stack.style.transform = `translate3d(0, ${-y}px, 0)`;
+      lines.forEach((el, i) => {
+        const d = s - i; // > 0: pushed above centre
+        const o = d <= -1 ? 0 : d < 0 ? 1 + d : d < 1 ? 1 - d * 0.62 : Math.max(0, 0.38 - (d - 1) * 0.1);
+        el.style.opacity = o.toFixed(3);
+        el.classList.toggle('on', Math.abs(d) < 0.5);
+      });
+      section.classList.toggle('held', pos >= n - 0.3);
+    });
+  }
+</script>
+
+<style is:global>
+  .v1 {
+    --edge: rgb(0 255 255 / 0.22);
+    --glow: 0 0 0 1px rgb(0 255 255 / 0.35), 0 0 24px rgb(0 255 255 / 0.18), inset 0 0 24px rgb(0 255 255 / 0.06);
+  }
+  .v1 .grid-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(0 255 255 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(0 255 255 / 0.07) 1px, transparent 1px),
+      linear-gradient(rgb(0 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(0 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 320px 320px, 320px 320px, 32px 32px, 32px 32px;
+    background-position: center;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
+  }
+  .v1 .display,
+  .v1 h2,
+  .v1 .pl,
+  .v1 .closing p,
+  .v1 .cta,
+  .v1 .eyebrow,
+  .v1 .label,
+  .v1 dt {
+    font-stretch: 75%;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .v1 .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px var(--gutter) 96px;
+  }
+  .v1 .hud {
+    position: absolute;
+    inset: clamp(16px, 3vw, 40px);
+    pointer-events: none;
+  }
+  .v1 .hud i {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 0 solid var(--cyan);
+    opacity: 0.7;
+  }
+  .v1 .hud i:nth-child(1) { top: 0; left: 0; border-width: 2px 0 0 2px; }
+  .v1 .hud i:nth-child(2) { top: 0; right: 0; border-width: 2px 2px 0 0; }
+  .v1 .hud i:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+  .v1 .hud i:nth-child(4) { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+  .v1 .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 700;
+    font-size: clamp(16px, 1.6vw, 22px);
+    letter-spacing: 0.22em;
+    color: var(--cyan);
+    text-shadow: 0 0 18px rgb(0 255 255 / 0.5);
+    margin-bottom: clamp(20px, 3vw, 36px);
+  }
+  .v1 .led {
+    width: 10px;
+    height: 10px;
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
+    animation: v1-blink 1.6s steps(2, jump-none) infinite;
+  }
+  @keyframes v1-blink {
+    50% { opacity: 0.25; }
+  }
+  .v1 .display {
+    font-weight: 900;
+    font-size: clamp(52px, min(8.4vw, 13svh), 160px);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    max-width: 15ch;
+    background: var(--silver);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .v1 .sub {
+    margin-top: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    font-size: clamp(18px, 1.7vw, 24px);
+    line-height: 1.45;
+    color: var(--gray);
+  }
+  .v1 .sub span {
+    display: block;
+  }
+  .v1 .cta {
+    --cut: 14px;
+    align-self: flex-start;
+    position: relative;
+    display: inline-flex;
+    margin-top: clamp(32px, 4.5vw, 56px);
+    padding: 20px 40px;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.14em;
+    color: var(--base);
+    background: var(--cyan);
+    clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+    filter: drop-shadow(0 0 18px rgb(0 255 255 / 0.55));
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  .v1 .cta:hover {
+    filter: drop-shadow(0 0 32px rgb(0 255 255 / 0.9));
+    transform: translateY(-2px);
+  }
+  /* Chrome skips gradient-clipped text as an LCP candidate, so the subhead is what LCP measures:
+     the headline and subhead stay visible from the first paint and only slide in. */
+  .m .v1 .hero > :not(.hud, .display, .sub) {
+    animation: v1-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .m .v1 .hero > :nth-child(3) { animation-delay: 0.08s; }
+  .m .v1 .hero > :nth-child(4) { animation-delay: 0.22s; }
+  .m .v1 .hero > :nth-child(5) { animation-delay: 0.34s; }
+  .m .v1 .display,
+  .m .v1 .sub {
+    animation: v1-rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes v1-rise {
+    from { transform: translateY(18px); }
+  }
+  @keyframes v1-in {
+    from { opacity: 0; transform: translateY(18px); clip-path: inset(0 0 100% 0); }
+  }
+  .m .v1 .cta { animation-name: v1-in-cta !important; }
+  @keyframes v1-in-cta {
+    from { opacity: 0; transform: translateY(18px); }
+  }
+
+  /* LOGOS */
+  .v1 .logos {
+    margin: 0 var(--gutter);
+    padding: 36px 0 40px;
+    border-block: 1px solid var(--edge);
+    background: linear-gradient(90deg, transparent, rgb(20 23 26 / 0.8), transparent);
+  }
+  .v1 .label {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: var(--gray);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .v1 .mq li:hover img {
+    filter: drop-shadow(0 0 10px rgb(0 255 255 / 0.8));
+  }
+
+  /* PROBLEM: static list by default (no JS / reduced motion) */
+  .v1 .problem {
+    padding: 18vh var(--gutter);
+  }
+  .v1 .stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35em;
+    text-align: center;
+  }
+  .v1 .pl {
+    font-weight: 900;
+    font-size: clamp(34px, 5.6vw, 96px);
+    line-height: 0.95;
+    max-width: 26ch;
+    text-wrap: balance;
+  }
+  /* PROBLEM: pinned sequence */
+  .m .v1 .problem {
+    height: calc(var(--n) * 52svh + 150svh);
+    padding: 0;
+  }
+  .m .v1 .stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+  .m .v1 .stack {
+    position: absolute;
+    top: 50%;
+    left: var(--gutter);
+    right: var(--gutter);
+    will-change: transform;
+  }
+  .m .v1 .pl {
+    opacity: 0;
+    transform: none;
+    transition: none;
+  }
+  .v1 .reticle {
+    display: none;
+  }
+  .m .v1 .reticle {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(92vw, 1100px);
+    height: clamp(120px, 13vw, 200px);
+    transform: translate(-50%, -50%);
+    border-block: 1px solid var(--edge);
+    background: linear-gradient(90deg, transparent, rgb(0 255 255 / 0.04), transparent);
+  }
+  .m .v1 .reticle::before,
+  .m .v1 .reticle::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid var(--cyan);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  .m .v1 .reticle::before { left: -4px; }
+  .m .v1 .reticle::after { right: -4px; }
+  .m .v1 .problem.held .reticle {
+    border-color: rgb(0 255 255 / 0.6);
+    box-shadow: 0 0 40px rgb(0 255 255 / 0.15);
+    transition: all 0.6s ease;
+  }
+  .v1 .problem.held .pl.last {
+    text-shadow: 0 0 36px rgb(0 255 255 / 0.35);
+  }
+
+  /* HOW WE WORK */
+  .v1 .how {
+    padding: clamp(96px, 16vh, 180px) var(--gutter);
+  }
+  .v1 .modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 28px);
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .v1 .module {
+    position: relative;
+    min-height: clamp(220px, 24vw, 340px);
+    padding: clamp(24px, 2.5vw, 36px);
+    background: var(--raised);
+    border: 1px solid var(--edge);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--glow);
+    transition: box-shadow 0.4s ease, border-color 0.4s ease, opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .v1 .module::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: -1px;
+    height: 2px;
+    background: var(--tc);
+    box-shadow: 0 0 16px var(--cyan);
+  }
+  .v1 .module:hover {
+    border-color: rgb(0 255 255 / 0.6);
+    box-shadow: 0 0 0 1px rgb(0 255 255 / 0.6), 0 0 48px rgb(0 255 255 / 0.25), inset 0 0 40px rgb(0 255 255 / 0.08);
+  }
+  .m .v1 .module:nth-child(2) { transition-delay: 0.1s; }
+  .m .v1 .module:nth-child(3) { transition-delay: 0.2s; }
+  .v1 .idx {
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--cyan);
+    text-shadow: 0 0 20px rgb(0 255 255 / 0.6);
+  }
+  .v1 .module h2 {
+    font-weight: 800;
+    font-size: clamp(28px, 2.8vw, 42px);
+    line-height: 0.98;
+    margin-top: 40px;
+  }
+  .v1 .closing {
+    max-width: 1320px;
+    margin: clamp(96px, 14vh, 160px) auto 0;
+    text-align: center;
+  }
+  .v1 .closing p {
+    font-weight: 900;
+    line-height: 0.95;
+  }
+  .v1 .partner {
+    font-size: clamp(36px, 6vw, 96px);
+  }
+  .v1 .result {
+    margin-top: 0.4em;
+    font-size: clamp(40px, 7vw, 116px);
+  }
+
+  /* PROOF */
+  .v1 .proof {
+    position: relative;
+    margin: 0 var(--gutter);
+    padding: clamp(40px, 5vw, 72px);
+    background: rgb(20 23 26 / 0.92);
+    border: 1px solid var(--edge);
+    box-shadow: var(--glow);
+    max-width: 1320px;
+  }
+  @media (min-width: 1480px) {
+    .v1 .proof { margin: 0 auto; }
+  }
+  .v1 .proof-head {
+    font-weight: 800;
+    font-size: clamp(24px, 3vw, 44px);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+  }
+  .v1 .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: clamp(32px, 4vw, 56px);
+    border-top: 1px solid var(--edge);
+  }
+  .v1 .stat {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 32px 24px 8px 0;
+  }
+  .v1 .stat + .stat {
+    padding-left: 28px;
+    border-left: 1px solid var(--edge);
+  }
+  .v1 .stat .num {
+    font-size: clamp(36px, 4.6vw, 72px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .v1 .stat dt {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    color: var(--gray);
+  }
+  .v1 .foot {
+    margin-top: 28px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--gray);
+    max-width: 80ch;
+  }
+
+  /* FINAL CTA */
+  .v1 .final {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 80svh;
+    padding: 120px var(--gutter);
+  }
+  .v1 .final .cta {
+    align-self: center;
+    margin: 0;
+    padding: 26px 56px;
+    font-size: 22px;
+  }
+  .v1 .cross {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent calc(50% - 0.5px), var(--edge) 50%, transparent calc(50% + 0.5px)),
+      linear-gradient(transparent calc(50% - 0.5px), var(--edge) 50%, transparent calc(50% + 0.5px));
+    -webkit-mask-image: radial-gradient(circle at center, #000 0 25%, transparent 60%);
+    mask-image: radial-gradient(circle at center, #000 0 25%, transparent 60%);
+  }
+
+  .v1 .footer {
+    padding: 28px var(--gutter) 36px;
+    border-top: 1px solid var(--edge);
+    font-size: 14px;
+    color: var(--gray);
+    text-align: center;
+  }
+  .v1 .footer a:hover {
+    color: var(--cyan);
+  }
+
+  @media (max-width: 820px) {
+    .v1 .modules,
+    .v1 .stats {
+      grid-template-columns: 1fr;
+    }
+    .v1 .module {
+      min-height: 0;
+    }
+    .v1 .module h2 {
+      margin-top: 28px;
+    }
+    .v1 .stat {
+      padding: 24px 0;
+    }
+    .v1 .stat + .stat {
+      padding-left: 0;
+      border-left: 0;
+      border-top: 1px solid var(--edge);
+    }
+    .v1 .cta {
+      padding: 18px 28px;
+      font-size: 18px;
+    }
+    .v1 .final .cta {
+      padding: 22px 36px;
+      font-size: 20px;
+    }
+  }
+</style>

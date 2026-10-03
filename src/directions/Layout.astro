@@ -1,0 +1,37 @@
+---
+// Shell for the /v1 to /v5 design directions (and their index). Deliberately separate from the
+// main site layout: Roboto only, no header/footer chrome, not indexed.
+import '@fontsource-variable/roboto/wdth.css';
+import '@fontsource-variable/roboto-mono/wght.css';
+import './base.css';
+import robotoUrl from '@fontsource-variable/roboto/files/roboto-latin-wdth-normal.woff2?url';
+
+interface Props {
+  title: string;
+  bodyClass?: string;
+  theme?: string;
+}
+const { title, bodyClass = '', theme = '#0A0B0D' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content={theme} />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href={robotoUrl} as="font" type="font/woff2" crossorigin />
+    <script is:inline>
+      document.documentElement.classList.add(
+        matchMedia('(prefers-reduced-motion: reduce)').matches ? 'rm' : 'm'
+      );
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

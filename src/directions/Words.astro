@@ -1,0 +1,17 @@
+---
+// Splits a line of copy into word spans (<span class="w">) at build time, so the scroll-scrubbed
+// reveal needs no runtime DOM surgery and the text never shifts on load.
+// Each word's reveal state is the CSS variable --p (0 = dim, 1 = resolved); see base.css.
+interface Props {
+  text: string;
+  class?: string;
+}
+const { text, class: cls = '' } = Astro.props;
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const html = text
+  .split(' ')
+  .map((w) => `<span class="w${cls ? ' ' + cls : ''}">${esc(w)}</span>`)
+  .join(' ');
+---
+
+<Fragment set:html={html} />

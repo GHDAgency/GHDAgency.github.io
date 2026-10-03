@@ -4,8 +4,25 @@
     {
       "name": "astro-dev",
       "runtimeExecutable": "C:\\Users\\User\\AppData\\Local\\Programs\\nodejs\\npm.cmd",
-      "runtimeArgs": ["run", "dev", "--", "--port", "4321"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "4321"
+      ],
       "port": 4321
+    },
+    {
+      "name": "astro-preview",
+      "runtimeExecutable": "C:/Users/User/AppData/Local/Programs/nodejs/node.exe",
+      "runtimeArgs": [
+        "node_modules/astro/bin/astro.mjs",
+        "preview",
+        "--port",
+        "4400"
+      ],
+      "port": 4400
     }
   ]
 }

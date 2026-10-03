@@ -21,3 +21,9 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+# generated from public/logos by scripts/process-logos.mjs
+public/logos-mono/
+
+# design review captures (not part of the site)
+screenshots/
