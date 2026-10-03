@@ -95,7 +95,7 @@ const cloud = fragments.map((text) => ({
 }));
 ---
 
-<Layout title={page === 'home' ? `GHD Agency | V4 Liquid Metal: ${names[transition]}` : pageTitle} bodyClass={`v4 v4-${page}`}>
+<Layout title={page === 'home' ? `GHD Agency | V4 Liquid Metal: ${names[transition]}` : pageTitle} bodyClass={`v4 v4-${page}${page === 'services' || page === 'solutions' ? ' v4-light' : ''}`}>
   <div class="pools" aria-hidden="true">
     <i data-par="0.12"></i>
     <i data-par="-0.08"></i>
@@ -1172,6 +1172,94 @@ const cloud = fragments.map((text) => ({
     height: auto;
     object-fit: cover;
     object-position: 50% 30%;
+  }
+
+  /* LIGHT PAGES (Services, Solutions): Platinum + champagne. Warm off-white canvas, near-black type,
+     champagne as the third brand color for numerals, rules and labels; dark header and footer.
+     Brand rule: no cyan or teal text on a light background. */
+  body.v4-light {
+    --ink: #1a1a1a;
+    --ink-2: #55524d;
+    --champagne: #b59a63;
+    --rule-light: rgb(26 26 26 / 0.12);
+    background: #f2f1ee;
+    color: var(--ink);
+  }
+  .v4-light .pools {
+    display: none;
+  }
+  .v4-light .site-head {
+    background: rgb(10 11 13 / 0.97);
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.04);
+  }
+  .v4-light .site-foot {
+    background: var(--base);
+    color: var(--gray);
+  }
+  .v4-light .page-hero .eyebrow {
+    color: var(--ink);
+  }
+  .v4-light .page-hero .eyebrow::before,
+  .v4-light .page-hero .eyebrow::after {
+    background: var(--champagne);
+    box-shadow: none;
+  }
+  .v4-light .idx.metal {
+    background: linear-gradient(180deg, #cdb582, #9c814d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .v4-light .page-hero .display.metal {
+    background: linear-gradient(180deg, #2b2a28, #1a1a1a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .v4-light .page-sub,
+  .v4-light .sol-body dd,
+  .v4-light .svc-line,
+  .v4-light .svc-inc li {
+    color: var(--ink-2);
+  }
+  .v4-light .sol-body dd.sol-outcome,
+  .v4-light .sol-item h2,
+  .v4-light .svc-item h3,
+  .v4-light .svc-step h2 {
+    color: var(--ink);
+  }
+  .v4-light .sol-body dt {
+    color: #7a756d;
+  }
+  .v4-light .sol-n,
+  .v4-light .svc-n {
+    color: var(--champagne);
+  }
+  .v4-light .sol-n {
+    font-weight: 200;
+  }
+  .v4-light .sol-item {
+    border-image: linear-gradient(90deg, transparent, var(--rule-light), transparent) 1;
+  }
+  .v4-light .svc-item {
+    border-top-color: var(--rule-light);
+  }
+  .v4-light .svc-item:not(:nth-child(3n + 1)),
+  .v4-light .svc-grid.cols-4 .svc-item {
+    border-left-color: var(--rule-light);
+  }
+  .v4-light .svc-grid.cols-4 .svc-item:first-child {
+    border-left-color: transparent;
+  }
+  .v4-light .svc-inc li::before {
+    background: var(--champagne);
+  }
+  .v4-light .head-nav a[aria-current='page'] {
+    border-bottom-color: var(--champagne);
+  }
+  .v4-light .sol-photo,
+  .v4-light .svc-photo {
+    box-shadow: 0 24px 48px -28px rgb(40 32 20 / 0.4);
   }
 
   /* SITE FOOTER */
