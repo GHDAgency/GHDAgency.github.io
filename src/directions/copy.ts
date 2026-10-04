@@ -3,7 +3,7 @@
 
 /** The one primary CTA. Change the label (and where it points) here and all five directions update. */
 export const CTA_LABEL = 'Grow My Revenue';
-export const CTA_HREF = 'mailto:connect@ghdagency.ai';
+export const CTA_HREF = '/v4/apply/';
 /** One line set directly under the CTA button. */
 export const CTA_SUBLINE = 'Start with one conversation.';
 
@@ -255,4 +255,23 @@ export const legalPages = {
   'terms-and-conditions': { title: 'Terms & Conditions', updated: 'October 18, 2025' },
   'privacy-policy': { title: 'Privacy Policy', updated: 'October 17, 2025' },
   'cookie-policy': { title: 'Cookie Policy', updated: 'October 18, 2025' },
+};
+
+/* "Grow My Revenue" application (approved wording, 2026-10-03). Answers go to GHL. */
+export const applyForm = {
+  step1Title: "Let's see where your revenue is slipping.",
+  step2Title: 'A few quick questions so your call is worth your time.',
+  questions: [
+    { name: 'industry', label: 'What industry are you in?', options: ['Auto Dealerships', 'Optometry & Vision Care', 'Elective Aesthetics', 'Trades & Home Services', 'Other'] },
+    { name: 'revenue', label: "What's your annual revenue?", options: ['Under $1M', '$1M to $3M', '$3M to $10M', '$10M+'] },
+    { name: 'role', label: "What's your role?", options: ['Owner', 'Partner', 'General Manager', 'Other'] },
+    { name: 'leak', label: 'Where do you think revenue is slipping?', options: ['Leads wait too long for a reply', 'Leads never get followed up', "Appointments don't show", "Past customers don't come back", "Not sure, that's why I'm here"] },
+    { name: 'timeline', label: 'When do you want this fixed?', options: ['Now', 'In the next 90 days', 'Just exploring'] },
+  ],
+  consent: 'I agree to receive calls and texts from GHD Agency about my inquiry. Message and data rates may apply. Reply STOP to opt out.',
+  thanks: "Thanks, {first}. We'll review your answers and reach out within one business day.",
+  // Who goes straight to the calendar.
+  qualify: { revenue: ['$1M to $3M', '$3M to $10M', '$10M+'], timeline: ['Now', 'In the next 90 days'] },
+  webhook: 'https://services.leadconnectorhq.com/hooks/H4kd9KFulXDimXLU1DlP/webhook-trigger/96520cb1-da85-4b95-95fa-3ffa951d6b0a',
+  calendar: 'https://links.ghdagency.ai/widget/booking/16ibCnnbCNSihNaDQ6VI',
 };

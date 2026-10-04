@@ -1,0 +1,298 @@
+---
+// The "Grow My Revenue" application. Two steps; every answer goes to GHL through the
+// "Website: Revenue Map application" workflow. Qualified owners go straight to the calendar.
+import { applyForm } from './copy';
+const f = applyForm;
+---
+
+<section class="apply">
+  <form class="apply-card" data-apply novalidate>
+    <!-- Bots fill every field; people never see this one. -->
+    <input class="hp" type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <fieldset class="apply-step is-on" data-step="1">
+      <p class="apply-count">Step 1 of 2</p>
+      <h1 class="apply-title">{f.step1Title}</h1>
+      <div class="apply-grid">
+        <label><span>First name</span><input name="first_name" autocomplete="given-name" required /></label>
+        <label><span>Last name</span><input name="last_name" autocomplete="family-name" required /></label>
+        <label><span>Mobile number</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+()\-. ]{10,}" required /></label>
+        <label><span>Business email</span><input name="email" type="email" autocomplete="email" required /></label>
+        <label><span>Business name</span><input name="company_name" autocomplete="organization" required /></label>
+        <label><span>Website</span><input name="website" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" required /></label>
+      </div>
+      <div class="apply-actions">
+        <button type="button" class="cta" data-next><span>Continue</span></button>
+      </div>
+    </fieldset>
+
+    <fieldset class="apply-step" data-step="2">
+      <p class="apply-count">Step 2 of 2</p>
+      <h2 class="apply-title">{f.step2Title}</h2>
+      {f.questions.map((q) => (
+        <fieldset class="apply-q" data-q={q.name}>
+          <legend>{q.label}</legend>
+          <div class="chips">
+            {q.options.map((o) => (
+              <label class="chip"><input type="radio" name={q.name} value={o} required /><span>{o}</span></label>
+            ))}
+          </div>
+        </fieldset>
+      ))}
+      <label class="consent">
+        <input type="checkbox" name="sms_consent" value="Yes" required />
+        <span>{f.consent}</span>
+      </label>
+      <p class="apply-error" data-error hidden>Something went wrong sending your answers. Please try again, or call 725-241-0571.</p>
+      <div class="apply-actions">
+        <button type="button" class="apply-back" data-back>Back</button>
+        <button type="submit" class="cta" data-submit><span>Submit</span></button>
+      </div>
+    </fieldset>
+
+    <div class="apply-step apply-done" data-step="done" aria-live="polite">
+      <p class="apply-title" data-done></p>
+    </div>
+  </form>
+</section>
+
+<script define:vars={{ hook: f.webhook, calendar: f.calendar, qualify: f.qualify, thanks: f.thanks }}>
+  const form = document.querySelector('[data-apply]');
+  const steps = form.querySelectorAll('[data-step]');
+  const show = (n) => {
+    steps.forEach((s) => s.classList.toggle('is-on', s.dataset.step === n));
+    // Bring the card's top just below the fixed header.
+    const head = document.querySelector('[data-head]')?.offsetHeight || 0;
+    window.scrollTo({ top: form.getBoundingClientRect().top + scrollY - head - 24, behavior: 'smooth' });
+    const first = form.querySelector(`[data-step="${n}"] input, [data-step="${n}"] .apply-title`);
+    first?.focus?.({ preventScroll: true });
+  };
+  const valid = (n) => {
+    const fields = [...form.querySelectorAll(`[data-step="${n}"] input:not(.hp)`)];
+    const bad = fields.find((i) => !i.checkValidity());
+    if (bad) { bad.reportValidity(); return false; }
+    return true;
+  };
+  form.querySelector('[data-next]').addEventListener('click', () => valid('1') && show('2'));
+  form.querySelector('[data-back]').addEventListener('click', () => show('1'));
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!valid('2')) return;
+    const data = Object.fromEntries(new FormData(form));
+    if (data.company_url) return; // bot
+    delete data.company_url;
+    data.qualified = qualify.revenue.includes(data.revenue) && qualify.timeline.includes(data.timeline) ? 'yes' : 'no';
+    data.source = 'ghdagency.ai Grow My Revenue';
+    const btn = form.querySelector('[data-submit]');
+    btn.disabled = true;
+    form.querySelector('[data-error]').hidden = true;
+    try {
+      const r = await fetch(hook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error(r.status);
+    } catch {
+      form.querySelector('[data-error]').hidden = false;
+      btn.disabled = false;
+      return;
+    }
+    if (data.qualified === 'yes') {
+      const q = new URLSearchParams({ first_name: data.first_name, last_name: data.last_name, email: data.email, phone: data.phone });
+      location.href = `${calendar}?${q}`;
+    } else {
+      form.querySelector('[data-done]').textContent = thanks.replace('{first}', data.first_name);
+      show('done');
+    }
+  });
+</script>
+
+<style>
+  .apply {
+    padding: clamp(120px, 18vh, 180px) var(--gutter) clamp(96px, 14vh, 160px);
+  }
+  .apply-card {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(28px, 5vw, 56px);
+    border-radius: 24px;
+    background: linear-gradient(160deg, #fbfaf8, #efede8);
+    box-shadow: inset 0 1px 0 #fff, 0 30px 70px -40px rgb(0 0 0 / 0.35);
+  }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .apply-step {
+    display: none;
+  }
+  .apply-step.is-on {
+    display: block;
+    animation: apply-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes apply-in {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+  .apply-count {
+    margin: 0 0 14px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #9a7f4a;
+  }
+  .apply-title {
+    margin: 0 0 clamp(28px, 4vh, 40px);
+    font-weight: 300;
+    font-size: clamp(26px, 3.2vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: #1a1a1a;
+    outline: none;
+  }
+  .apply-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 24px;
+  }
+  label span,
+  legend {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: #55524d;
+  }
+  .apply-grid input {
+    width: 100%;
+    padding: 12px 2px;
+    border: 0;
+    border-bottom: 1px solid rgb(26 26 26 / 0.22);
+    background: transparent;
+    font: inherit;
+    font-size: 17px;
+    color: #1a1a1a;
+    transition: border-color 0.3s ease;
+  }
+  .apply-grid input:focus {
+    outline: none;
+    border-bottom-color: #b59a63;
+  }
+  .apply-grid input::placeholder {
+    color: #a8a39a;
+  }
+  .apply-q + .apply-q {
+    margin-top: 28px;
+  }
+  legend {
+    padding: 0;
+    font-size: 15px;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    position: relative;
+    cursor: pointer;
+  }
+  .chip input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .chip span {
+    display: inline-block;
+    margin: 0;
+    padding: 10px 16px;
+    border: 1px solid rgb(26 26 26 / 0.16);
+    border-radius: 999px;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: rgb(255 255 255 / 0.6);
+    transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+  .chip:hover span {
+    border-color: #b59a63;
+  }
+  .chip input:checked + span {
+    border-color: #b59a63;
+    background: #1a1a1a;
+    color: #f2f1ee;
+  }
+  .chip input:focus-visible + span {
+    outline: 2px solid #b59a63;
+    outline-offset: 2px;
+  }
+  .consent {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 32px;
+    cursor: pointer;
+  }
+  .consent input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #1a1a1a;
+  }
+  .consent span {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .apply-error {
+    margin: 20px 0 0;
+    font-size: 14px;
+    color: #a23b2a;
+  }
+  .apply-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: clamp(28px, 4vh, 40px);
+  }
+  .apply-actions .cta {
+    margin-top: 0;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .apply-actions .cta:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+  .apply-back {
+    margin-right: auto;
+    padding: 8px 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #55524d;
+    cursor: pointer;
+  }
+  .apply-done .apply-title {
+    margin: 0;
+    text-align: center;
+  }
+  @media (max-width: 640px) {
+    .apply-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
