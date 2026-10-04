@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<title>Your Revenue Map Session is paid in full</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; padding: 0; background: #e9e7e2; }
+  table { border-collapse: collapse; }
+  img { border: 0; display: block; }
+  @media (max-width: 620px) {
+    .wrap { width: 100% !important; }
+    .pad { padding-left: 24px !important; padding-right: 24px !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#e9e7e2;">
+<!-- Preheader (inbox preview line) -->
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Balance due: $0.00</div>
+
+<table role="presentation" width="100%" style="background:#e9e7e2;">
+<tr><td align="center" style="padding:40px 12px;">
+
+  <table role="presentation" class="wrap" width="600" style="width:600px;background:#ffffff;border-radius:14px;overflow:hidden;font-family:Roboto,Helvetica,Arial,sans-serif;color:#1a1a1a;">
+
+    <!-- Header band -->
+    <tr><td style="background:#0a0b0d;padding:28px 40px;" class="pad">
+      <table role="presentation" width="100%"><tr>
+        <td><img src="https://ghdagency.github.io/media/email/ghd-logo.png" width="120" alt="GHD Agency"></td>
+        <td align="right" style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#b59a63;">Invoice</td>
+      </tr></table>
+    </td></tr>
+
+    <!-- Bill to / meta -->
+    <tr><td style="padding:36px 40px 8px;" class="pad">
+      <table role="presentation" width="100%"><tr>
+        <td valign="top" style="font-size:13px;line-height:20px;color:#55524d;">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8a857c;margin-bottom:6px;">Billed to</div>
+          <strong style="color:#1a1a1a;font-weight:500;">{{contact.name}}</strong><br>
+          {{contact.company_name}}
+        </td>
+        <td valign="top" align="right" style="font-size:13px;line-height:20px;color:#55524d;">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8a857c;margin-bottom:6px;">Session</div>
+          {{appointment.only_start_date}}<br>
+          {{appointment.only_start_time}}
+        </td>
+      </tr></table>
+    </td></tr>
+
+    <!-- Line items -->
+    <tr><td style="padding:24px 40px 0;" class="pad">
+      <table role="presentation" width="100%" style="font-size:14px;">
+        <tr>
+          <td style="padding:0 0 10px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8a857c;border-bottom:1px solid #e4e1db;">Description</td>
+          <td align="right" style="padding:0 0 10px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8a857c;border-bottom:1px solid #e4e1db;">Amount</td>
+        </tr>
+        <tr>
+          <td style="padding:18px 0;border-bottom:1px solid #e4e1db;">
+            <div style="font-weight:500;">Revenue Map Session</div>
+            <div style="font-size:12px;color:#8a857c;margin-top:3px;">60 minutes, one-on-one</div>
+          </td>
+          <td align="right" valign="top" style="padding:18px 0;border-bottom:1px solid #e4e1db;">$997.00</td>
+        </tr>
+        <tr>
+          <td style="padding:18px 0;border-bottom:1px solid #e4e1db;">
+            <div style="font-weight:500;">Written Growth Plan</div>
+            <div style="font-size:12px;color:#8a857c;margin-top:3px;">Delivered within 48 hours</div>
+          </td>
+          <td align="right" valign="top" style="padding:18px 0;border-bottom:1px solid #e4e1db;">$500.00</td>
+        </tr>
+        <tr>
+          <td style="padding:16px 0 6px;color:#55524d;">Subtotal</td>
+          <td align="right" style="padding:16px 0 6px;color:#55524d;">$1,497.00</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 0 16px;color:#9a7f4a;">Paid by Rich Diaz</td>
+          <td align="right" style="padding:6px 0 16px;color:#9a7f4a;">&minus;$1,497.00</td>
+        </tr>
+        <tr>
+          <td style="padding:18px 0;border-top:2px solid #1a1a1a;font-size:16px;font-weight:500;">Balance due</td>
+          <td align="right" style="padding:18px 0;border-top:2px solid #1a1a1a;font-size:22px;font-weight:500;">$0.00</td>
+        </tr>
+      </table>
+    </td></tr>
+
+    <!-- Paid mark + signature -->
+    <tr><td style="padding:12px 40px 40px;" class="pad">
+      <table role="presentation" width="100%"><tr>
+        <td valign="bottom">
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:30px;line-height:30px;color:#1a1a1a;">Rich Diaz</div>
+          <div style="font-size:11px;letter-spacing:1px;color:#8a857c;margin-top:8px;">Rich Diaz, Founder, GHD Agency</div>
+        </td>
+        <td valign="bottom" align="right">
+          <span style="display:inline-block;border:1.5px solid #b59a63;color:#9a7f4a;border-radius:4px;padding:7px 14px;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;">Paid in full</span>
+        </td>
+      </tr></table>
+    </td></tr>
+
+    <!-- Footer -->
+    <tr><td style="background:#f2f1ee;padding:22px 40px;font-size:11px;line-height:18px;color:#8a857c;" class="pad">
+      GHD Agency &middot; 725-241-0571 &middot; connect@ghdagency.ai<br>
+      &copy; 2026 Greatest Home Decor LLC, DBA GHD Agency.ai
+    </td></tr>
+
+  </table>
+</td></tr>
+</table>
+</body>
+</html>
