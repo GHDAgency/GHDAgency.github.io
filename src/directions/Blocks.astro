@@ -1,7 +1,7 @@
 ---
 // Content blocks added to the Liquid Metal pages: the offer strip, who it is (and is not) for,
 // the data promises, the FAQ, and the revenue calculator. Pick the ones a page needs with `show`.
-import { offer, fit, security, faq, calc } from './copy';
+import { offer, fit, security, faq, calc, CTA_LABEL, CTA_HREF } from './copy';
 type Block = 'offer' | 'fit' | 'security' | 'faq' | 'calc';
 interface Props {
   show: Block[];
@@ -12,28 +12,18 @@ const on = (b: Block) => show.includes(b);
 
 {on('offer') && (
   <section class="blk blk-offer">
-    <p class="blk-label fade">{offer.eyebrow}</p>
+    <h2 class="offer-head fade">{offer.heading}</h2>
+    <p class="offer-cta fade"><a class="cta" href={CTA_HREF}><span>{CTA_LABEL}</span></a></p>
     <ul class="offer-grid">
-      {offer.rows.map((r) => (
+      {offer.cards.map((c) => (
         <li class="offer-card fade">
-          <p class="offer-price">{r.price}</p>
-          <h2>{r.name}</h2>
-          <p class="offer-line">{r.line}</p>
+          <h3>{c.name}</h3>
+          <p class="offer-tag">{c.tag}</p>
+          <p class="offer-line">{c.line}</p>
         </li>
       ))}
     </ul>
-    <p class="blk-label blk-sublabel fade">{offer.stepsLabel}</p>
-    <ol class="offer-steps">
-      {offer.steps.map((s, i) => (
-        <li class="fade">
-          <span class="offer-n">{i + 1}</span>
-          <div>
-            <h3>{s.title}</h3>
-            <p>{s.line}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
+    <p class="offer-cta offer-cta-end fade"><a class="cta" href={CTA_HREF}><span>{CTA_LABEL}</span></a></p>
   </section>
 )}
 
@@ -129,7 +119,26 @@ const on = (b: Block) => show.includes(b);
     margin-top: clamp(56px, 9vh, 96px);
   }
 
-  /* Offer */
+  /* Start here */
+  .v4 .offer-head {
+    text-align: center;
+    font-weight: 200;
+    font-size: clamp(40px, 5.4vw, 84px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--t1);
+  }
+  .v4 .offer-cta {
+    display: flex;
+    justify-content: center;
+    margin: clamp(8px, 1.5vh, 16px) 0 clamp(36px, 6vh, 64px);
+  }
+  .v4 .offer-cta-end {
+    margin: clamp(40px, 6vh, 64px) 0 0;
+  }
+  .v4 .offer-cta .cta {
+    margin-top: 0;
+  }
   .v4 .offer-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -142,17 +151,14 @@ const on = (b: Block) => show.includes(b);
     border: 1px solid var(--edge);
     text-align: center;
   }
-  .v4 .offer-price {
-    font-weight: 200;
-    font-size: clamp(26px, 2.6vw, 40px);
+  .v4 .offer-card h3 {
+    font-weight: 300;
+    font-size: clamp(26px, 2.5vw, 38px);
     line-height: 1.15;
-    letter-spacing: -0.01em;
-    background: var(--metal);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    letter-spacing: -0.015em;
+    color: var(--t1);
   }
-  .v4 .offer-card h2 {
+  .v4 .offer-tag {
     margin-top: 14px;
     font-weight: 400;
     font-size: 12px;
@@ -161,44 +167,11 @@ const on = (b: Block) => show.includes(b);
     color: var(--accent-t);
   }
   .v4 .offer-line {
-    margin: 16px auto 0;
+    margin: 18px auto 0;
     max-width: 34ch;
     font-weight: 300;
     font-size: clamp(15px, 1.1vw, 17px);
     line-height: 1.65;
-    color: var(--gray);
-  }
-  .v4 .offer-steps {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(20px, 3vw, 44px);
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .v4 .offer-steps li {
-    display: flex;
-    gap: 18px;
-    align-items: flex-start;
-  }
-  .v4 .offer-n {
-    font-weight: 100;
-    font-size: clamp(40px, 4vw, 56px);
-    line-height: 1;
-    background: var(--metal);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .v4 .offer-steps h3 {
-    font-weight: 300;
-    font-size: clamp(18px, 1.5vw, 22px);
-    color: var(--white);
-  }
-  .v4 .offer-steps p {
-    margin-top: 6px;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.6;
     color: var(--gray);
   }
 
@@ -372,7 +345,6 @@ const on = (b: Block) => show.includes(b);
 
   @media (max-width: 820px) {
     .v4 .offer-grid,
-    .v4 .offer-steps,
     .v4 .fit-cols,
     .v4 .calc-fields {
       grid-template-columns: 1fr;

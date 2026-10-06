@@ -54,7 +54,6 @@ export const how = {
  */
 export const beats: { lines: string[]; finale?: boolean }[] = [
   { lines: ['You have a new AI tool.', 'Watched the demo.', 'Even attended the webinars.'] },
-  { lines: ['You know you need it,', 'with zero time to spare.', 'It sits unused.'] },
   { lines: ['Do I have the right tool? Will it grow my revenue?'] },
   { lines: ['The Market Leaders are building with us.'] },
   // The GHD logo animation plays right before this beat.
@@ -200,7 +199,7 @@ export const aboutPage = {
   sub: '',
   // Owner's About copy, verbatim. Intro: two paragraphs, each on the owner's line breaks.
   intro: [
-    ['GHD, Generative Human Design™ is a Marketing and AI consultancy.', 'We are the growth partner for owners who are ready to step back without slowing down.'],
+    ['Generative Human Design™ is the craft of waking the revenue already sleeping inside a business.', 'GHD is where the Awakeners practice it.'],
     [
       'Every engagement starts by finding where revenue, time, and opportunity are being lost.',
       'We use the Vidian Method™ to map those opportunities, test the strongest ones with Prince Charming™, then build the systems that capture them and train your team to run them.',
@@ -296,31 +295,25 @@ export const confirmForm = {
    Offer, fit, data promises, FAQ and calculator (added 2026-10-06, wording agreed with the owner).
    --------------------------------------------------------------------------------------------- */
 
-/** How it starts: what is free, and what the build costs. Shown on Home and Services. */
+/** Start here: the three steps of working with GHD. Shown on Home and Services. */
 export const offer = {
-  eyebrow: 'How it starts',
-  rows: [
+  heading: 'Start here.',
+  cards: [
     {
-      name: 'Vidian Method session',
-      price: 'Free',
-      line: 'A 30-minute call. We map where your revenue is slipping and put numbers around the opportunity.',
+      name: 'The Vidian Method',
+      tag: 'Complimentary',
+      line: 'One-on-one. We go through your numbers and show you where the opportunities lie.',
     },
     {
-      name: 'Prince Charming pilot',
-      price: 'Free for two weeks',
-      line: 'We run it on your own list, so you see how your customers respond before you commit to anything.',
+      name: 'The Prince Charming Pilot',
+      tag: 'Two weeks',
+      line: 'We pressure test the outcome. Then GHD decides whether to move forward.',
     },
     {
-      name: 'The build',
-      price: 'Starting at $3,000',
-      line: "Strategy, systems and team training. We only fix what's necessary.",
+      name: 'The Build',
+      tag: 'Starting at $3,000',
+      line: "Custom for your business. We only fix what's necessary.",
     },
-  ],
-  stepsLabel: 'How your free session works',
-  steps: [
-    { title: 'Book.', line: 'Your details, then pick a time. We hold it for 24 hours.' },
-    { title: 'Confirm.', line: 'Watch a short video from Rich and answer five quick questions.' },
-    { title: 'Your invoice.', line: 'It shows the value of your session, marked paid by Rich Diaz. You owe $0.' },
   ],
 };
 
@@ -332,7 +325,7 @@ export const fit = {
     'Someone on your team who will own the follow-up and take the calls our system sets up',
     'Capacity to serve more customers than you do today',
     'Permission to contact your own customers by text, email and phone',
-    'A decision maker on the free session call',
+    'A decision maker on the complimentary session call',
   ],
   badLabel: 'Not a fit yet',
   bad: [
@@ -359,11 +352,15 @@ export const faq = {
   items: [
     {
       q: 'What does it cost?',
-      a: 'Your first session is free, and the Prince Charming pilot is free for two weeks. If we decide to move forward together, the build starts at $3,000. We only fix what is necessary.',
+      a: 'The Vidian Method is complimentary. The Prince Charming Pilot requires a $500 Setup Deposit, refunded if there are no results and applied to your build if we proceed. The build starts at $3,000.',
+    },
+    {
+      q: 'How does the Prince Charming Pilot work?',
+      a: 'A $500 Setup Deposit is required to create the system. At the conclusion of the pilot, if there are no results, your deposit will be refunded. When the pilot is successful and we decide to proceed, the $500 will be applied to the cost of the build.',
     },
     {
       q: 'What if it does not work?',
-      a: 'That is what the pilot is for. You see how your own list responds, for free, before you commit to a build.',
+      a: 'If the pilot produces no results, your $500 deposit is refunded.',
     },
     {
       q: 'Will my team actually use it?',
