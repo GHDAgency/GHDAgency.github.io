@@ -49,7 +49,7 @@ An earlier written brief asked for an all-dark "tonal ladder" (black and graphit
 - Not changed: the invoice email and the amber money figure in the Home stats block.
 
 ## Decisions made by Rich in this thread (they override the older handoff where they differ)
-- Pricing: Vidian Method session free, 30 minutes. Prince Charming pilot free for two weeks. The build starts at $3,000 ("We only fix what's necessary"). Monthly Grow price is unconfirmed, so it is not on the site.
+- Pricing: Vidian Method session is "complimentary" (never say free), 30 minutes. Prince Charming pilot: two weeks, no price on the card. Terms live only in the FAQ: $500 Setup Deposit, refunded if no results, applied to the build if GHD proceeds. The build starts at $3,000 ("We only fix what's necessary"). Monthly Grow price is unconfirmed, so it is not on the site.
 - Fit block is requirement bullets, not tied to a revenue number. The form collects the rest.
 - HIPAA wording: "We can build to HIPAA requirements when your business needs it." (not "is compliant").
 - Home stats block stays exactly as is (22,309 aged buyers, 588 in-market buyers, $211,680 recovered gross, with its footnote). The Solutions calculator uses those same numbers by default.
@@ -58,6 +58,13 @@ An earlier written brief asked for an all-dark "tonal ladder" (black and graphit
 - Closed sales are not ours to report. Do not claim them.
 - Do not use Hodge case-study cards. The Home stats block is the proof.
 - The cloud session may not rewrite approved copy without Rich seeing it first.
+
+## Home/offer pass (Rich, 2026-10-06, "GO")
+- Hero statement is bolder than the tagline. Scroll beat "You know you need it..." cut.
+- "Your Growth Partner. We answer with Results." loads automatically after the GHD logo animation ends.
+- Results (stats) block sits directly above "Start here". "Start here." has the CTA above and below three cards (Vidian Method, Prince Charming Pilot, The Build). No steps, no invoice mention.
+- About names GHD as a category: Generative Human Design is the craft, the Awakeners practice it.
+- Pending Rich's approval: Rich photo retouch (ring and watch removed) and brushed-silver 3D industry emblems. Not on the site yet.
 
 ## Open items
 - Rich's video: record it with the script in `ghl/booking-form.md`, host it (YouTube unlisted or Vimeo), give the embed link.

@@ -224,6 +224,26 @@ const cloud = fragments.map((text) => ({
       </ol>
     </section>
 
+
+    <!-- RESULTS: directly above Start here -->
+    {page === 'home' && (
+    <section class="proof" data-proof>
+      <div class="slab fade">
+        <dl class="stats">
+          {proof.stats.map((s) => (
+            <div class="stat">
+              <dt>{s.label}</dt>
+              <dd class:list={['num', 'figure', s.money ? 'amber' : 'metal']} data-count={s.value} data-prefix={s.prefix} style={`min-width:${(s.prefix + fmt(s.value)).length}ch`}>
+                {s.prefix + fmt(s.value)}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p class="foot">{proof.footnote}</p>
+      </div>
+    </section>
+    )}
+
     <Blocks show={['offer']} />
 
     </Fragment>
@@ -357,25 +377,6 @@ const cloud = fragments.map((text) => ({
     </Fragment>
     )}
 
-    <!-- 6. PROOF BAND (home only) -->
-    {page === 'home' && (
-    <section class="proof" data-proof>
-      <div class="slab fade">
-        <dl class="stats">
-          {proof.stats.map((s) => (
-            <div class="stat">
-              <dt>{s.label}</dt>
-              <dd class:list={['num', 'figure', s.money ? 'amber' : 'metal']} data-count={s.value} data-prefix={s.prefix} style={`min-width:${(s.prefix + fmt(s.value)).length}ch`}>
-                {s.prefix + fmt(s.value)}
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p class="foot">{proof.footnote}</p>
-      </div>
-    </section>
-    )}
-
     {false && showHomePhoto && (
       <section class="founder fade">
         <figure>
@@ -492,6 +493,12 @@ const cloud = fragments.map((text) => ({
       return video ? { video, started: false } : null;
     });
     let loaded = false;
+    // "Your Growth Partner. We answer with Results." loads by itself when the logo animation ends,
+    // so the visitor never has to scroll to see it. The timer covers a video that cannot play.
+    const logoIdx = beatEls.findIndex((el) => el.classList.contains('logo-beat'));
+    const finIdx = beatEls.findIndex((el) => el.classList.contains('finale'));
+    let logoDone = false;
+    let doneTimer = 0;
 
     // Per-word start offsets: scattered for Noise to Clarity, directional for Build the Engine.
     if (tr === 'noise' || tr === 'engine') {
@@ -539,10 +546,25 @@ const cloud = fragments.map((text) => ({
           l.started = true;
           l.video.currentTime = 0;
           l.video.play().catch(() => {});
+          if (i === logoIdx) {
+            logoDone = false;
+            clearTimeout(doneTimer);
+            // The frame loop only runs on scroll, so wake it when the animation is done.
+            const markDone = () => {
+              logoDone = true;
+              dispatchEvent(new Event('scroll'));
+            };
+            l.video.addEventListener('ended', markDone, { once: true });
+            doneTimer = window.setTimeout(markDone, 4300);
+          }
         } else if (leave && l.started) {
           l.started = false;
           l.video.pause();
           l.video.currentTime = 0;
+          if (i === logoIdx) {
+            logoDone = false;
+            clearTimeout(doneTimer);
+          }
         }
       });
 
@@ -569,7 +591,15 @@ const cloud = fragments.map((text) => ({
         } else if (tr === 'noise') {
           // The beat's words fly in from the noise and settle on their own (CSS transitions,
           // staggered word by word); when the next beat arrives they dissolve back into it.
-          el.classList.toggle('on', i === cur);
+          if (logoIdx >= 0 && finIdx >= 0 && i === logoIdx) {
+            const fin = cur === finIdx || (cur === logoIdx && logoDone);
+            el.classList.toggle('on', i === cur || cur === finIdx);
+            el.classList.toggle('lift', fin);
+          } else if (logoIdx >= 0 && finIdx >= 0 && i === finIdx) {
+            el.classList.toggle('on', i === cur || (cur === logoIdx && logoDone));
+          } else {
+            el.classList.toggle('on', i === cur);
+          }
         } else if (tr === 'engine') {
           // Words slide in and lock; the rails close in around them and light when it's complete.
           const o = clamp((d + 0.2) / 0.14);
@@ -1378,6 +1408,12 @@ const cloud = fragments.map((text) => ({
     max-width: 15ch;
     padding-bottom: 0.08em;
   }
+  /* Home hero: the tagline is the quiet line; the statement above it says what GHD does. */
+  .v4 .hero-inner .display {
+    font-size: clamp(30px, min(3.6vw, 5svh), 58px);
+    max-width: 22ch;
+    opacity: 0.78;
+  }
   .v4 .sub {
     margin-top: clamp(22px, 3.4svh, 40px);
     font-weight: 300;
@@ -1385,6 +1421,22 @@ const cloud = fragments.map((text) => ({
     line-height: 1.7;
     letter-spacing: 0.01em;
     color: var(--gray);
+  }
+  /* The statement of what we do: heavier, brighter and larger than the tagline beneath it. */
+  .v4 .hero-inner .sub {
+    font-weight: 500;
+    font-size: clamp(20px, min(2.3vw, 3.4svh), 36px);
+    line-height: 1.38;
+    letter-spacing: 0;
+    color: #f2f5f7;
+  }
+  .v4 .hero-inner .sub span {
+    text-wrap: balance;
+  }
+  @media (min-width: 900px) {
+    .v4 .hero-inner .sub span {
+      white-space: nowrap;
+    }
   }
   .v4 .sub span {
     display: block;
@@ -1394,7 +1446,7 @@ const cloud = fragments.map((text) => ({
     margin-top: 0;
   }
   .v4 .hero-inner .sub + .display {
-    margin-top: clamp(22px, 3.4svh, 40px);
+    margin-top: clamp(26px, 4svh, 48px);
   }
   .v4 .serves {
     margin-top: clamp(20px, 3svh, 36px);
@@ -1402,10 +1454,10 @@ const cloud = fragments.map((text) => ({
     border-block: 1px solid transparent;
     border-image: linear-gradient(90deg, transparent, rgb(230 235 238 / 0.35), transparent) 1;
     font-weight: 300;
-    font-size: clamp(18px, 1.9vw, 28px);
+    font-size: clamp(15px, 1.35vw, 21px);
     line-height: 1.4;
     letter-spacing: 0.01em;
-    color: #e6ebee;
+    color: #9aa3aa;
     text-wrap: balance;
   }
   .v4 .cta {
@@ -1568,6 +1620,17 @@ const cloud = fragments.map((text) => ({
   .m .v4 [data-tr='noise'] .pl.on {
     opacity: 1;
     transition: opacity 0.3s ease !important;
+  }
+  /* The logo lifts and the finale settles beneath it, so the two read as one closing frame. */
+  .m .v4 [data-tr='noise'] .pl.logo-beat {
+    transition: opacity 0.35s ease, transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .m .v4 [data-tr='noise'] .pl.logo-beat.lift {
+    transform: translate(-50%, calc(-50% - 15svh));
+  }
+  .m .v4 [data-tr='noise'] .pl.finale {
+    top: calc(50% + 7svh);
+    transform: translate(-50%, 0);
   }
   .m .v4 [data-tr='noise'] .pl .w {
     --p: 0;
