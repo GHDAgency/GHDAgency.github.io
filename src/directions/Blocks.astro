@@ -85,16 +85,12 @@ const on = (b: Block) => show.includes(b);
         {calc.fields.map((f) => (
           <label>
             <span>{f.label}</span>
-            <input type="number" inputmode="decimal" min="0" step={f.step} name={f.name} placeholder={f.placeholder} />
+            <input type="number" inputmode="decimal" min="0" step={f.step} name={f.name} value={f.value} />
           </label>
         ))}
       </div>
-      <p class="calc-empty" data-calc-empty>{calc.empty}</p>
-      <dl class="calc-out" data-calc-out hidden aria-live="polite">
-        <div class="calc-main"><dt>{calc.oneLabel}</dt><dd data-out="one"></dd></div>
-        <div><dt>{calc.hundredLabel}</dt><dd data-out="hundred"></dd></div>
-        <div><dt>{calc.monthLabel}</dt><dd data-out="month"></dd></div>
-      </dl>
+      <p class="calc-result-label">{calc.resultLabel}</p>
+      <p class="calc-result" data-calc-out aria-live="polite">$0</p>
       <p class="calc-foot">{calc.footnote}</p>
     </div>
   </section>
@@ -103,27 +99,11 @@ const on = (b: Block) => show.includes(b);
 <script>
   const card = document.querySelector<HTMLElement>('[data-calc]');
   if (card) {
-    const num = (n: string) => parseFloat(card.querySelector<HTMLInputElement>(`[name="${n}"]`)?.value || '');
-    const money = (v: number) => '$' + Math.round(v).toLocaleString('en-US');
-    const set = (k: string, v: string) => {
-      const el = card.querySelector<HTMLElement>(`[data-out="${k}"]`);
-      if (el) el.textContent = v;
-    };
-    const empty = card.querySelector<HTMLElement>('[data-calc-empty]')!;
+    const val = (n: string) => Math.max(0, parseFloat(card.querySelector<HTMLInputElement>(`[name="${n}"]`)?.value || '0') || 0);
     const out = card.querySelector<HTMLElement>('[data-calc-out]')!;
     const run = () => {
-      const leads = num('leads');
-      const close = num('close');
-      const sale = num('sale');
-      const ok = close >= 0 && sale >= 0 && !Number.isNaN(close) && !Number.isNaN(sale);
-      empty.hidden = ok;
-      out.hidden = !ok;
-      if (!ok) return;
-      const one = (Math.min(close, 100) / 100) * sale;
-      set('one', money(one));
-      set('hundred', money(one * 100));
-      set('month', Number.isNaN(leads) ? '' : money(one * leads));
-      card.querySelector<HTMLElement>('[data-out="month"]')!.closest('div')!.hidden = Number.isNaN(leads);
+      const total = val('buyers') * (val('close') / 100) * val('gross');
+      out.textContent = '$' + Math.round(total).toLocaleString('en-US');
     };
     card.addEventListener('input', run);
     run();
@@ -366,38 +346,6 @@ const on = (b: Block) => show.includes(b);
     outline: none;
     border-color: var(--cyan);
     box-shadow: 0 0 0 3px rgb(0 255 255 / 0.15);
-  }
-  .v4 .calc-empty {
-    margin-top: clamp(28px, 4vh, 44px);
-    font-weight: 300;
-    font-size: 15px;
-    color: var(--gray);
-  }
-  .v4 .calc-out {
-    margin-top: clamp(28px, 4vh, 44px);
-    display: grid;
-    gap: 22px;
-  }
-  .v4 .calc-out[hidden],
-  .v4 .calc-empty[hidden],
-  .v4 .calc-out div[hidden] { display: none; }
-  .v4 .calc-out dt {
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-  .v4 .calc-out dd {
-    margin-top: 6px;
-    font-weight: 200;
-    font-size: clamp(30px, 3.6vw, 48px);
-    line-height: 1.1;
-    color: #e6ebee;
-  }
-  .v4 .calc-main dd {
-    font-size: clamp(48px, 7vw, 96px);
-    color: var(--amber);
   }
   .v4 .calc-result-label {
     margin-top: clamp(32px, 5vh, 52px);

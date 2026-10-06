@@ -254,23 +254,42 @@ export const legalPages = {
   'cookie-policy': { title: 'Cookie Policy', updated: 'October 18, 2025' },
 };
 
-/* "Grow My Revenue" application (approved wording, 2026-10-03). Answers go to GHL. */
+/* "Grow My Revenue" booking (flow agreed with the owner, 2026-10-06):
+   1. Short form (this block)  2. Calendar: the time is held for 24 hours
+   3. "Time held" email with the VSL and a confirm link  4. Confirm page (five questions)
+   5. Confirmed: the $0 invoice goes out.  No confirmation in 24 hours: GHL releases the time. */
 export const applyForm = {
-  step1Title: "Let's see where your revenue is slipping.",
-  step2Title: 'A few quick questions so your call is worth your time.',
-  questions: [
-    { name: 'industry', label: 'What industry are you in?', options: ['Auto Dealerships', 'Optometry & Vision Care', 'Elective Aesthetics', 'Trades & Home Services', 'Other'] },
-    { name: 'revenue', label: "What's your annual revenue?", options: ['Under $1M', '$1M to $3M', '$3M to $10M', '$10M+'] },
-    { name: 'role', label: "What's your role?", options: ['Owner', 'Partner', 'General Manager', 'Other'] },
-    { name: 'leak', label: 'Where do you think revenue is slipping?', options: ['Leads wait too long for a reply', 'Leads never get followed up', "Appointments don't show", "Past customers don't come back", "Not sure, that's why I'm here"] },
-    { name: 'timeline', label: 'When do you want this fixed?', options: ['Now', 'In the next 90 days', 'Just exploring'] },
-  ],
+  title: "Let's see where your revenue is slipping.",
+  note: 'Next, you pick a time. We hold it for 24 hours.',
+  button: 'Pick My Time',
   consent: 'I agree to receive calls and texts from GHD Agency about my inquiry. Message and data rates may apply. Reply STOP to opt out.',
-  thanks: "Thanks, {first}. We'll review your answers and reach out within one business day.",
-  // Who goes straight to the calendar.
-  qualify: { revenue: ['$1M to $3M', '$3M to $10M', '$10M+'], timeline: ['Now', 'In the next 90 days'] },
   webhook: 'https://services.leadconnectorhq.com/hooks/H4kd9KFulXDimXLU1DlP/webhook-trigger/96520cb1-da85-4b95-95fa-3ffa951d6b0a',
   calendar: 'https://links.ghdagency.ai/widget/booking/16ibCnnbCNSihNaDQ6VI',
+};
+
+/** The confirm page that the "time held" email links to. */
+export const confirmForm = {
+  title: 'One more step to confirm your time.',
+  sub: 'Your time is held for 24 hours. Watch this short video from Rich, then answer five quick questions.',
+  /** Embed address of Rich's video (YouTube or Vimeo embed link). Empty shows a placeholder frame. */
+  vsl: '',
+  vslPlaceholder: "Rich's video goes here.",
+  /** GHL inbound webhook for the "confirm" workflow. Empty until the workflow exists. */
+  webhook: '',
+  questions: [
+    { name: 'lifetime_value', label: 'What is a customer worth to you over their lifetime? ($)', type: 'number' },
+    { name: 'average_sale', label: 'What is your average sale price? ($)', type: 'number' },
+    {
+      name: 'sources',
+      label: 'How do you get business today?',
+      type: 'chips',
+      options: ['Referrals', 'Google or search', 'Paid ads', 'Social media', 'Phone or walk-ins', 'Repeat customers', 'Other'],
+    },
+    { name: 'leads_per_month', label: 'About how many leads or inquiries do you get in a typical month?', type: 'number' },
+    { name: 'crm', label: 'What CRM or software do you use today? ("None" is fine)', type: 'text' },
+  ],
+  button: 'Confirm My Session',
+  done: 'Confirmed. Your invoice is on its way to your inbox.',
 };
 
 /* ---------------------------------------------------------------------------------------------
@@ -299,8 +318,8 @@ export const offer = {
   ],
   stepsLabel: 'How your free session works',
   steps: [
-    { title: 'Book.', line: 'Your name, mobile, email and business.' },
-    { title: 'Confirm.', line: 'We hold your spot and email you. A few quick questions about your business confirm it.' },
+    { title: 'Book.', line: 'Your details, then pick a time. We hold it for 24 hours.' },
+    { title: 'Confirm.', line: 'Watch a short video from Rich and answer five quick questions.' },
     { title: 'Your invoice.', line: 'It shows the value of your session, marked paid by Rich Diaz. You owe $0.' },
   ],
 };
@@ -365,18 +384,15 @@ export const faq = {
   ],
 };
 
-/** Calculator (Solutions): pure math on the visitor's own numbers. No assumed close rate, no promised recovery. */
+/** Revenue calculator (Solutions). The defaults are the same assumptions as the Home stats block. */
 export const calc = {
   eyebrow: 'Run your own numbers',
-  headline: 'What does one slipped lead cost you?',
+  headline: 'What are your unanswered leads costing you?',
   fields: [
-    { name: 'leads', label: 'Leads per month', placeholder: 'e.g. 200', step: 1 },
-    { name: 'close', label: 'Percent that become customers', placeholder: 'e.g. 20', step: 1 },
-    { name: 'sale', label: 'Average sale value ($)', placeholder: 'e.g. 2500', step: 50 },
+    { name: 'buyers', label: 'In-market buyers in your database', value: 588, prefix: '', step: 1 },
+    { name: 'close', label: 'Close rate (%)', value: 15, prefix: '', step: 1 },
+    { name: 'gross', label: 'Average gross per sale ($)', value: 2400, prefix: '$', step: 50 },
   ],
-  oneLabel: 'One lead is worth',
-  hundredLabel: 'Every 100 leads that go quiet cost you',
-  monthLabel: 'Your leads each month are worth',
-  empty: 'Enter your numbers to see the value.',
-  footnote: 'Math on your own numbers. It is not a promise of results.',
+  resultLabel: 'Revenue sitting in your database',
+  footnote: 'An estimate: buyers × close rate × average gross. Your numbers will vary.',
 };

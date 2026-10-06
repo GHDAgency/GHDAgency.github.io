@@ -1,28 +1,72 @@
-# GHL booking survey (approved wording, 2026-10-03)
+# GHL booking flow (agreed 2026-10-06)
 
-Build as a 2-step GHL Survey. Every field required. Embed code goes on the site; all four "Grow My Revenue" buttons point to it.
+Replaces the earlier two-step survey. Everyone books first. The five questions come after the time is held, and the time is released if they are not answered in 24 hours.
 
-## Step 1: "Let's see where your revenue is slipping."
-- First name
-- Last name
-- Mobile number
-- Business email
-- Business name
-- Website
+## The flow
 
-## Step 2: "A few quick questions so your call is worth your time."
-1. What industry are you in? Auto Dealerships / Optometry & Vision Care / Elective Aesthetics / Trades & Home Services / Other
-2. What's your annual revenue? Under $1M / $1M to $3M / $3M to $10M / $10M+
-3. What's your role? Owner / Partner / General Manager / Other
-4. Where do you think revenue is slipping? Leads wait too long for a reply / Leads never get followed up / Appointments don't show / Past customers don't come back / Not sure, that's why I'm here
-5. When do you want this fixed? Now / In the next 90 days / Just exploring
-6. Checkbox: I agree to receive calls and texts from GHD Agency about my inquiry. Message and data rates may apply. Reply STOP to opt out.
+1. **Short form** on `/v4/apply/`. First name, last name, mobile, business email, business name, website, and the SMS/email consent checkbox. Submit posts to the existing GHL webhook ("Website: Revenue Map application") and sends the visitor to the calendar with name, email and phone prefilled.
+2. **Calendar.** They pick a time. GHL holds it (an appointment with status Unconfirmed).
+3. **"Your time is held" email and text** (copy below). The email carries a thumbnail of Rich's video and a button to the confirm page.
+4. **Confirm page** `/v4/confirm/?email={{contact.email}}&first_name={{contact.first_name}}&last_name={{contact.last_name}}&phone={{contact.phone}}`. Rich's video, then five questions. Submit posts to a second GHL webhook ("Website: confirm").
+5. **Confirmed.** The workflow tags the contact `confirmed`, sets the appointment to Confirmed, and sends the invoice email (`paid-invoice-email.html`, subject "Your Revenue Map Session is paid in full").
+6. **Not confirmed in 24 hours.** The workflow cancels the appointment (this frees the slot) and sends the "released" message.
 
-## Routing (recommended: $1M+ revenue AND Now or next 90 days)
-- Qualified: redirect to the GHL Revenue Map calendar.
-- Not qualified: "Thanks, {{contact.first_name}}. We'll review your answers and reach out within one business day."
+## What must be set in GHL
 
-## After booking
-Workflow trigger "Customer Booked Appointment" sends `paid-invoice-email.html`.
-Subject: Your Revenue Map Session is paid in full
-Signature image: pending from Rich.
+- **Calendar "Revenue Map Session":** duration **30 minutes** (it was built as 60). Minimum scheduling notice **25 hours**, so a 24-hour hold always ends before the appointment starts. Weekday hours as built.
+- **Workflow A, "Website: Revenue Map application"** (exists): create or update the contact, tag `revenue map lead`, note with the answers. Remove the qualification branch. Everyone goes to the calendar.
+- **Workflow B, "Time held"** (new). Trigger: Customer Booked Appointment. Steps: send the email and text below, wait 12 hours, if tag `confirmed` is absent send the reminder, wait until 24 hours after booking, if tag `confirmed` is still absent cancel the appointment and send the released message.
+- **Workflow C, "Website: confirm"** (new). Trigger: inbound webhook. Steps: find the contact by email, save the five answers to custom fields and a note, tag `confirmed`, update the appointment status to Confirmed, send the invoice email.
+- **Site:** put Workflow C's webhook address into `confirmForm.webhook` in `src/directions/copy.ts`, and the video's embed address into `confirmForm.vsl`. Until then the confirm page shows a placeholder frame and the submit shows an error.
+
+## Fields to create (custom fields on the contact)
+
+| Field | Source question |
+|---|---|
+| Lifetime value | What is a customer worth to you over their lifetime? ($) |
+| Average sale | What is your average sale price? ($) |
+| Sources | How do you get business today? (multi-select) |
+| Leads per month | About how many leads or inquiries do you get in a typical month? |
+| CRM | What CRM or software do you use today? |
+
+Questions 4 and 5 are proposed and can be swapped.
+
+## Copy
+
+### Right after booking (on screen in GHL's confirmation, if possible)
+> **Congratulations, your time is held.**
+> It isn't confirmed yet. Check your email to confirm within 24 hours.
+
+### Email: your time is held
+**Subject:** Your time is held. Confirm within 24 hours.
+
+> Hi {{contact.first_name}},
+>
+> Your time is held for {{appointment.start_time}}. It isn't confirmed yet.
+>
+> Watch this one-minute video from me, then answer five quick questions. If I don't have them in 24 hours, the time is released so someone else can have it.
+>
+> [ video thumbnail linking to the confirm page ]
+> **[ Confirm My Session ]**
+>
+> Rich Diaz
+> GHD Agency
+
+### Text
+> {{contact.first_name}}, your time with Rich is held but not confirmed. Watch the video and answer 5 quick questions within 24 hours: {{confirm link}}. Reply STOP to opt out.
+
+### Reminder (12 hours, only if not confirmed)
+**Subject:** Your held time is released in 12 hours.
+
+> Hi {{contact.first_name}}, your time for {{appointment.start_time}} is still held, and I need your answers to keep it. It takes two minutes. [ Confirm My Session ]
+
+### Released
+**Subject:** Your held time was released.
+
+> Hi {{contact.first_name}}, I didn't get your answers, so I released your time. If you still want it, pick a new one here: [ calendar link ].
+
+### Video script (about 45 seconds, Rich on camera)
+> "Hi, it's Rich. Your time is held, and I want to keep it for you, but it isn't confirmed yet. I need you to answer five short questions: what a customer is worth to you, what a typical sale looks like, how business finds you today, and a couple more. Here's why. I don't do generic calls. Before we talk, I look at your numbers, so we spend our thirty minutes on your business, not on introductions. Answer them in the next 24 hours, because I release unconfirmed times. Hit the button below. It takes two minutes. I'll see you on the call."
+
+## Invoice
+Sent only after the confirm step. `paid-invoice-email.html`: Revenue Map Session $997 and Written Growth Plan $500, paid by Rich Diaz, balance $0. The session length is not printed on the invoice.

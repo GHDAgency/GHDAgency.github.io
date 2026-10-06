@@ -23,7 +23,7 @@ import {
 import { disclosures } from '../data/site';
 
 export type Transition = 'noise' | 'line' | 'engine' | 'plates' | 'rise';
-export type Page = 'home' | 'solutions' | 'services' | 'about' | 'legal' | 'apply';
+export type Page = 'home' | 'solutions' | 'services' | 'about' | 'legal' | 'apply' | 'confirm';
 interface Props {
   transition?: Transition;
   /** Which page of the Liquid Metal site to render (home is the full scroll story). */
@@ -39,8 +39,8 @@ const inner: Inner | null =
     ? null
     : page === 'legal'
       ? { eyebrow: legalInfo!.title, headline: '', sub: '' }
-      : page === 'apply'
-        ? { eyebrow: CTA_LABEL, headline: '', sub: '' }
+      : page === 'apply' || page === 'confirm'
+        ? { eyebrow: page === 'confirm' ? 'Confirm' : CTA_LABEL, headline: '', sub: '' }
         : { solutions: solutionsPage, services: servicesPage, about: aboutPage }[page];
 // Each inner page has its own button label; home (and the header) use the main CTA.
 const ctaLabel = inner?.cta || CTA_LABEL;
@@ -229,9 +229,10 @@ const cloud = fragments.map((text) => ({
     </Fragment>
     )}
 
-    {page === 'apply' && <ApplyForm />}
+    {page === 'apply' && <ApplyForm mode="apply" />}
+    {page === 'confirm' && <ApplyForm mode="confirm" />}
 
-    {inner && page !== 'apply' && (
+    {inner && page !== 'apply' && page !== 'confirm' && (
       <section class:list={['page-hero', { 'page-hero-short': !inner.headline }]}>
         {/* Without a headline, the page name itself is the h1. */}
         {inner.headline ? <p class="eyebrow">{inner.eyebrow}</p> : <h1 class="eyebrow">{inner.eyebrow}</h1>}
@@ -400,7 +401,7 @@ const cloud = fragments.map((text) => ({
     )}
 
     <!-- 7. FINAL CTA -->
-    {page !== 'legal' && page !== 'apply' && (
+    {page !== 'legal' && page !== 'apply' && page !== 'confirm' && (
       <section class="final">
         <a class="cta fade" href={CTA_HREF}><span>{ctaLabel}</span></a>
       </section>
