@@ -15,6 +15,7 @@ import GhdLogo from './GhdLogo.astro';
 import fs from 'node:fs';
 import { industryIcon, industryDefs } from './industryIcons';
 import ApplyForm from './ApplyForm.astro';
+import Blocks from './Blocks.astro';
 import {
   CTA_LABEL, CTA_HREF, HOME_HREF, nav, hero, heroServes, beats, howV4, industries, proof, fmt,
   solutionsPage, servicesPage, aboutPage, homePhoto, siteFooter, legalPages,
@@ -99,7 +100,7 @@ const cloud = fragments.map((text) => ({
 }));
 ---
 
-<Layout title={page === 'home' ? `GHD Agency | V4 Liquid Metal: ${names[transition]}` : pageTitle} bodyClass={`v4 v4-${page}${page !== 'home' ? ' v4-light' : ''}`}>
+<Layout title={page === 'home' ? `GHD Agency | V4 Liquid Metal: ${names[transition]}` : pageTitle} bodyClass={`v4 v4-${page}${page === 'legal' ? ' v4-light' : ''}`}>
   <div class="pools" aria-hidden="true">
     <i data-par="0.12"></i>
     <i data-par="-0.08"></i>
@@ -223,6 +224,8 @@ const cloud = fragments.map((text) => ({
       </ol>
     </section>
 
+    <Blocks show={['offer']} />
+
     </Fragment>
     )}
 
@@ -268,6 +271,8 @@ const cloud = fragments.map((text) => ({
       </section>
     )}
 
+    {page === 'solutions' && <Blocks show={['calc']} />}
+
     {page === 'services' && (
       <section class="svc">
         {servicesPage.groups.map((g, gi) => (
@@ -296,6 +301,8 @@ const cloud = fragments.map((text) => ({
         ))}
       </section>
     )}
+
+    {page === 'services' && <Blocks show={['offer', 'fit', 'security', 'faq']} />}
 
     {page === 'about' && (
       <section class="abt">
