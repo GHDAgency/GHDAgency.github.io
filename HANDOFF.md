@@ -31,19 +31,22 @@ Do not change site files. The cloud session will add the webhook URL and the vid
 - `src/directions/ApplyForm.astro`: one component, two modes (`apply`, `confirm`). Tested in a headless browser with GHL mocked.
 - `src/pages/v4/confirm.astro`: the confirm page. Shows a placeholder frame where the video goes and an error on submit until `confirmForm.vsl` and `confirmForm.webhook` are set in `copy.ts`.
 - `src/directions/Blocks.astro` (offer strip, fit, data promises, FAQ, calculator), wired into Home, Services and Solutions.
-- Tonal dark ladder on every page (see "Design decision" below). One CTA label, "Grow My Revenue", everywhere.
+- Black and light-gray bands on every page but Home (see "Design decision" below). One CTA label, "Grow My Revenue", everywhere.
 - Hero order: the three-line statement now sits above the headline.
 - Real `<title>`, meta description and social tags. Topa logo removed from the logo strip.
 
-## Design decision (approved by Rich, 2026-10-06): the light theme is gone
-The site is one dark family. Do not reintroduce a light or champagne theme (`v4-light` and every champagne color were removed).
-- Frame: every page opens on black `#0a0b0d` and closes on the black footer. Home stays the darkest, most dramatic page.
-- Inner pages (Services, Solutions, About, Terms, Privacy, Cookies, Apply, Confirm): sections alternate black `#0a0b0d` and graphite `#131518`. Cards are `#1b1e22` with a 1px edge `rgb(230 235 238 / 0.12)`. Text `#e6ebee`, secondary `#9aa3aa`. Legal text `#c9d0d5`.
-- One accent family, cyan and silver. Cyan (`#009FA4` to `#00FFFF`) is for buttons, key numbers and small highlights. The industry icons use a cyan swoop, cyan ticks and a cyan lit window.
-- People photos on Services and Solutions are near edge to edge (16:9 on desktop, 3:2 on phone) and framed so faces are never cropped.
-- Forms: dark cards, silver underline that turns cyan on focus, silver-outline chips, selected chip filled cyan with dark text.
-- Implementation: the "TONAL LADDER" block at the end of the global style in `src/directions/LiquidMetal.astro`, plus `Blocks.astro` and `ApplyForm.astro` styles. All body text passes WCAG AA (checked by script on every page).
-- Not changed: the invoice email (`ghl/paid-invoice-email.html`) and the amber money figure in the Home stats block. The old design-direction pages (`/v1` to `/v5`, `/w*`) were not touched.
+## Design decision (Rich, 2026-10-06, corrected same day): Home stays black, the other pages alternate black and light gray
+An earlier written brief asked for an all-dark "tonal ladder" (black and graphite, "not white"). Rich rejected it: it made every page solid black again. What he wants is the opposite.
+- Home is unchanged: dark and dramatic.
+- Every other page opens on a black hero and closes on the black footer. In between, black bands and light-gray bands (`#eef0f2`) alternate, so the black is broken up. White cards sit on the light bands, dark `#1b1e22` cards on the black bands.
+- Light bands: Services steps 1 and 3, the fit block and the FAQ, About's story section, every other Solutions row, the legal text, and the closing button band where it follows a black block. Black bands: everything else.
+- Text on light bands is `#14171a` with `#4a545c` secondary. Accents on light are deep teal `#00696d` for text and `#009fa4` for lines. Cyan `#00FFFF` is used on black bands and on the dark button pills.
+- Champagne gold and the old warm off-white are gone. The industry icons use cyan.
+- Apply and Confirm are white cards on the black page. Selected chips fill black with a cyan edge.
+- Header and footer are solid black on every inner page.
+- Photos on Services and Solutions are near edge to edge (16:9 desktop, 3:2 phone) and framed to keep faces.
+- How it is built: the band variables (`--t1`, `--t2`, `--card`, `--edge`, `--accent`, `--accent-t`, `--metal`) and the BANDS block at the end of the global style in `src/directions/LiquidMetal.astro`. A band is made light by listing it in the `:is(...)` selector there. `Blocks.astro` and `ApplyForm.astro` read the same variables.
+- Not changed: the invoice email and the amber money figure in the Home stats block.
 
 ## Decisions made by Rich in this thread (they override the older handoff where they differ)
 - Pricing: Vidian Method session free, 30 minutes. Prince Charming pilot free for two weeks. The build starts at $3,000 ("We only fix what's necessary"). Monthly Grow price is unconfirmed, so it is not on the site.

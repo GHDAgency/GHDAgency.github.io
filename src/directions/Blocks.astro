@@ -138,8 +138,8 @@ const on = (b: Block) => show.includes(b);
   .v4 .offer-card {
     padding: clamp(28px, 3vw, 44px);
     border-radius: 22px;
-    background: #1b1e22;
-    border: 1px solid rgb(230 235 238 / 0.12);
+    background: var(--card);
+    border: 1px solid var(--edge);
     text-align: center;
   }
   .v4 .offer-price {
@@ -147,7 +147,7 @@ const on = (b: Block) => show.includes(b);
     font-size: clamp(26px, 2.6vw, 40px);
     line-height: 1.15;
     letter-spacing: -0.01em;
-    background: var(--silver);
+    background: var(--metal);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -158,7 +158,7 @@ const on = (b: Block) => show.includes(b);
     font-size: 12px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--cyan);
+    color: var(--accent-t);
   }
   .v4 .offer-line {
     margin: 16px auto 0;
@@ -184,7 +184,7 @@ const on = (b: Block) => show.includes(b);
     font-weight: 100;
     font-size: clamp(40px, 4vw, 56px);
     line-height: 1;
-    background: var(--silver);
+    background: var(--metal);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -213,8 +213,8 @@ const on = (b: Block) => show.includes(b);
   .v4 .fit-col {
     padding: clamp(28px, 3vw, 44px);
     border-radius: 22px;
-    background: #1b1e22;
-    border: 1px solid rgb(230 235 238 / 0.12);
+    background: var(--card);
+    border: 1px solid var(--edge);
   }
   .v4 .fit-col h2 {
     font-weight: 400;
@@ -223,7 +223,7 @@ const on = (b: Block) => show.includes(b);
     text-transform: uppercase;
     margin-bottom: 20px;
   }
-  .v4 .fit-yes h2 { color: var(--cyan); }
+  .v4 .fit-yes h2 { color: var(--accent-t); }
   .v4 .fit-no h2 { color: var(--gray); }
   .v4 .fit-col li,
   .v4 .sec-list li {
@@ -232,7 +232,7 @@ const on = (b: Block) => show.includes(b);
     font-weight: 300;
     font-size: clamp(15px, 1.15vw, 18px);
     line-height: 1.55;
-    color: #d6dde1;
+    color: var(--t1);
   }
   .v4 .fit-col li + li,
   .v4 .sec-list li + li {
@@ -248,7 +248,7 @@ const on = (b: Block) => show.includes(b);
     height: 1px;
   }
   .v4 .fit-yes li::before,
-  .v4 .sec-list li::before { background: var(--cyan); box-shadow: 0 0 8px rgb(0 255 255 / 0.5); }
+  .v4 .sec-list li::before { background: var(--accent); }
   .v4 .fit-no li { color: var(--gray); }
   .v4 .fit-no li::before { background: var(--gray); }
 
@@ -262,10 +262,10 @@ const on = (b: Block) => show.includes(b);
   .v4 .faq-list {
     max-width: 820px;
     margin: 0 auto;
-    border-top: 1px solid rgb(230 235 238 / 0.14);
+    border-top: 1px solid var(--rule);
   }
   .v4 .faq-list details {
-    border-bottom: 1px solid rgb(230 235 238 / 0.14);
+    border-bottom: 1px solid var(--rule);
   }
   .v4 .faq-list summary {
     list-style: none;
@@ -284,11 +284,11 @@ const on = (b: Block) => show.includes(b);
     font-weight: 200;
     font-size: 28px;
     line-height: 1;
-    color: var(--cyan);
+    color: var(--accent-t);
     transition: transform 0.3s ease;
   }
   .v4 .faq-list details[open] summary::after { transform: rotate(45deg); }
-  .v4 .faq-list summary:focus-visible { outline: 1px solid var(--cyan); outline-offset: 4px; }
+  .v4 .faq-list summary:focus-visible { outline: 2px solid var(--accent-t); outline-offset: 4px; }
   .v4 .faq-list details p {
     padding: 0 40px 24px 0;
     font-weight: 300;
@@ -304,15 +304,15 @@ const on = (b: Block) => show.includes(b);
     padding: clamp(32px, 5vw, 64px);
     border-radius: 28px;
     text-align: center;
-    background: #1b1e22;
-    border: 1px solid rgb(230 235 238 / 0.12);
+    background: var(--card);
+    border: 1px solid var(--edge);
   }
   .v4 .calc-card h2 {
     font-weight: 200;
     font-size: clamp(26px, 3vw, 44px);
     line-height: 1.2;
     letter-spacing: -0.01em;
-    color: #e6ebee;
+    color: var(--t1);
   }
   .v4 .calc-fields {
     display: grid;
@@ -335,17 +335,17 @@ const on = (b: Block) => show.includes(b);
     margin-top: 8px;
     padding: 14px 16px;
     border-radius: 12px;
-    border: 1px solid rgb(230 235 238 / 0.3);
-    background: #0a0b0d;
-    color: #e6ebee;
+    border: 1px solid var(--field-edge);
+    background: var(--field);
+    color: var(--t1);
     font: inherit;
     font-size: 18px;
     font-weight: 300;
   }
   .v4 .calc-fields input:focus {
     outline: none;
-    border-color: var(--cyan);
-    box-shadow: 0 0 0 3px rgb(0 255 255 / 0.15);
+    border-color: var(--accent-t);
+    box-shadow: 0 0 0 3px rgb(0 159 164 / 0.25);
   }
   .v4 .calc-result-label {
     margin-top: clamp(32px, 5vh, 52px);
@@ -361,7 +361,7 @@ const on = (b: Block) => show.includes(b);
     font-size: clamp(48px, 7vw, 96px);
     line-height: 1.05;
     letter-spacing: -0.02em;
-    color: var(--cyan);
+    color: var(--accent-t);
   }
   .v4 .calc-foot {
     margin-top: 14px;
