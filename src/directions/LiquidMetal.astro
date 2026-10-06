@@ -135,8 +135,8 @@ const cloud = fragments.map((text) => ({
       <div class="hero-inner" data-hero>
         <GhdLogo class="hero-logo" />
         <p class="eyebrow">{hero.eyebrow}</p>
-        <h1 class="display metal">{hero.headline}</h1>
         <p class="sub">{hero.subhead.map((l) => <span>{l}</span>)}</p>
+        <h1 class="display metal">{hero.headline}</h1>
         <p class="serves">{heroServes}</p>
         <a class="cta" href={CTA_HREF}><span>{CTA_LABEL}</span></a>
       </div>
@@ -1515,6 +1515,13 @@ const cloud = fragments.map((text) => ({
   }
   .v4 .sub span {
     display: block;
+  }
+  /* Hero order: eyebrow, then the three-line statement, then the headline under it. */
+  .v4 .hero-inner .eyebrow + .sub {
+    margin-top: 0;
+  }
+  .v4 .hero-inner .sub + .display {
+    margin-top: clamp(22px, 3.4svh, 40px);
   }
   .v4 .serves {
     margin-top: clamp(20px, 3svh, 36px);
