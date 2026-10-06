@@ -1,106 +1,73 @@
-// Fine-line industry icons for "Who we work with". Each draws in one line, then ends in the GHD swoop.
-// viewBox 0 0 120 120. Lines use currentColor; the swoop is filled with the cyan gradient #ind-acc.
-const f = (n: number) => +n.toFixed(2);
-const pt = (cx: number, cy: number, r: number, deg: number) => [
-  f(cx + r * Math.cos((deg * Math.PI) / 180)),
-  f(cy - r * Math.sin((deg * Math.PI) / 180)),
-];
-const line = (d: string, cls = '') => `<path pathLength="1" class="ln ${cls}" d="${d}"/>`;
+// "Who we work with" emblems: brushed-silver 3D forms lit from above with a thin cyan rim light.
+// viewBox 0 0 120 120. Gradients and the brushed-metal filter live in industryDefs (render once per page).
+const body = 'fill="url(#ind-silver)" filter="url(#ind-brush)"';
+const dark = 'fill="url(#ind-shade)" filter="url(#ind-brush)"';
+const rim = 'fill="none" stroke="#00e5e8" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"';
+const spec = 'fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.75"';
 
-// Tapered swoop: a crescent built from two curves that share both ends.
-function swoop(x0: number, y0: number, x1: number, y1: number, bend: number, w: number) {
-  const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
-  const dx = x1 - x0, dy = y1 - y0, len = Math.hypot(dx, dy);
-  const nx = -dy / len, ny = dx / len;
-  const c1 = `${f(mx + nx * bend)} ${f(my + ny * bend)}`;
-  const c2 = `${f(mx + nx * (bend + w))} ${f(my + ny * (bend + w))}`;
-  return `<path class="sw" style="transform-origin:${x0}px ${y0}px" d="M${x0} ${y0}Q${c1} ${x1} ${y1}Q${c2} ${x0} ${y0}Z"/>`;
+// Auto Dealerships: a coupe in profile, glass cut dark, hubs lit.
+function car() {
+  const shell = 'M8 80C8 72 14 70 22 68L38 55C44 50 52 48 62 48H76C84 48 90 53 96 61L106 65C113 67 114 73 114 80V86H8Z';
+  return `<ellipse cx="61" cy="100" rx="46" ry="5" fill="#00e5e8" opacity="0.13"/>
+<path d="${shell}" ${body}/>
+<path d="M40 58L47 53C51 51 56 50 62 50H75C80 50 84 53 88 59H40Z" fill="#0b1013" opacity="0.92"/>
+<path d="M62 50V59" stroke="#58626a" stroke-width="1.6"/>
+<path d="M8 80H114" stroke="#3b444a" stroke-width="1.2"/>
+<path d="${shell}" ${rim}/>
+<path d="M22 68L38 55C44 50 52 48 62 48H76" ${spec}/>
+<g><circle cx="33" cy="86" r="12.5" fill="#0b1013"/><circle cx="33" cy="86" r="9.5" ${body}/><circle cx="33" cy="86" r="4" fill="#0b1013"/><circle cx="33" cy="86" r="2" fill="#00ffff"/></g>
+<g><circle cx="90" cy="86" r="12.5" fill="#0b1013"/><circle cx="90" cy="86" r="9.5" ${body}/><circle cx="90" cy="86" r="4" fill="#0b1013"/><circle cx="90" cy="86" r="2" fill="#00ffff"/></g>`;
 }
 
-// Auto Dealerships: the needle sweeps toward the red line.
-function gauge() {
-  const cx = 60, cy = 68, r = 38;
-  const [sx, sy] = pt(cx, cy, r, 215), [ex, ey] = pt(cx, cy, r, -35);
-  let ticks = '';
-  for (let a = 215; a >= -35; a -= 25) {
-    const red = a <= 15;
-    const [x0, y0] = pt(cx, cy, red ? 30 : 32, a), [x1, y1] = pt(cx, cy, 35, a);
-    ticks += line(`M${x0} ${y0}L${x1} ${y1}`, red ? 'acl' : '');
-  }
-  const [rx0, ry0] = pt(cx, cy, 27, 15), [rx1, ry1] = pt(cx, cy, 27, -35);
-  const [tx, ty] = pt(cx, cy, 31, 22);
-  return `${line(`M${sx} ${sy}A${r} ${r} 0 1 1 ${ex} ${ey}`)}${ticks}
-${line(`M${rx0} ${ry0}A27 27 0 0 1 ${rx1} ${ry1}`, 'acl')}
-<circle pathLength="1" class="ln" cx="${cx}" cy="${cy}" r="3.2"/>
-<path class="needle" style="transform-origin:${cx}px ${cy}px" d="M${cx} ${cy}L${tx} ${ty}"/>
-${swoop(tx, ty, 112, 14, -10, 5)}`;
-}
-
-// Optometry & Vision Care: iris rings slide into focus; the outer corner lifts like a liner wing.
+// Optometry & Vision Care: a sculpted eye; the iris is a lit cyan lens.
 function eye() {
-  const cx = 54, cy = 66;
-  return `${line('M12 66Q54 26 96 62Q54 104 12 66Z')}
-<circle class="ghost g1" cx="${cx - 5}" cy="${cy + 2}" r="17"/>
-<circle class="ghost g2" cx="${cx + 4}" cy="${cy - 3}" r="17"/>
-<circle pathLength="1" class="ln" cx="${cx}" cy="${cy}" r="17"/>
-<circle pathLength="1" class="ln" cx="${cx}" cy="${cy}" r="6.5"/>
-${line(`M${cx - 10} ${cy - 7}A12 12 0 0 1 ${cx - 3} ${cy - 11.5}`)}
-${swoop(96, 62, 114, 30, -6, 4.5)}`;
+  const lid = 'M6 62C26 32 94 32 114 62C94 92 26 92 6 62Z';
+  return `<ellipse cx="60" cy="102" rx="40" ry="4.5" fill="#00e5e8" opacity="0.12"/>
+<path d="${lid}" ${body}/>
+<path d="M17 62C34 42 86 42 103 62C86 82 34 82 17 62Z" fill="#0b1013"/>
+<circle cx="60" cy="62" r="19" fill="url(#ind-iris)"/>
+<circle cx="60" cy="62" r="19" ${rim} stroke-width="1.4"/>
+<circle cx="60" cy="62" r="8" fill="#04080a"/>
+<ellipse cx="53" cy="55" rx="4.5" ry="3" fill="#fff" opacity="0.85"/>
+<path d="${lid}" ${rim}/>
+<path d="M14 56C34 36 86 36 106 56" ${spec}/>`;
 }
 
-// Elective Aesthetics: the golden-ratio spiral, with its squares as faint guides.
-function golden() {
-  const dirs = ['right', 'up', 'left', 'down'];
-  const sizes = [1, 1, 2, 3, 5, 8, 13];
-  let [x0, y0, x1, y1] = [0, 0, 1, 1];
-  const squares: [number, number, number][] = [[0, 0, 1]];
-  for (let i = 1; i < sizes.length; i++) {
-    const d = dirs[(i - 1) % 4], s = sizes[i];
-    if (d === 'right') { squares.push([x1, y0, s]); x1 += s; }
-    if (d === 'up') { squares.push([x0, y0 - s, s]); y0 -= s; }
-    if (d === 'left') { squares.push([x0 - s, y0, s]); x0 -= s; }
-    if (d === 'down') { squares.push([x0, y1, s]); y1 += s; }
-  }
-  const W = x1 - x0, H = y1 - y0, k = 84 / Math.max(W, H);
-  const ox = 60 - (W * k) / 2, oy = 62 - (H * k) / 2;
-  const X = (x: number) => f(ox + (x - x0) * k), Y = (y: number) => f(oy + (y - y0) * k);
-  const K = 0.5523; // cubic approximation of a quarter circle
-  const pat = ['down', ...sizes.slice(1).map((_, i) => dirs[i % 4])];
-  let d = '', guides = '', end = [0, 0];
-  squares.forEach(([x, y, s], i) => {
-    guides += `<rect class="ghost" x="${X(x)}" y="${Y(y)}" width="${f(s * k)}" height="${f(s * k)}"/>`;
-    let A = [0, 0], B = [0, 0], C = [0, 0];
-    if (pat[i] === 'right') { A = [x, y + s]; B = [x + s, y]; C = [x, y]; }
-    if (pat[i] === 'up') { A = [x + s, y + s]; B = [x, y]; C = [x, y + s]; }
-    if (pat[i] === 'left') { A = [x + s, y]; B = [x, y + s]; C = [x + s, y + s]; }
-    if (pat[i] === 'down') { A = [x, y]; B = [x + s, y + s]; C = [x + s, y]; }
-    const c1 = [A[0] + K * (B[0] - C[0]), A[1] + K * (B[1] - C[1])];
-    const c2 = [B[0] + K * (A[0] - C[0]), B[1] + K * (A[1] - C[1])];
-    if (!d) d = `M${X(A[0])} ${Y(A[1])}`;
-    d += `C${X(c1[0])} ${Y(c1[1])} ${X(c2[0])} ${Y(c2[1])} ${X(B[0])} ${Y(B[1])}`;
-    end = [X(B[0]), Y(B[1])];
-  });
-  // Turned landscape; the outer end then sits upper right, where the swoop takes over.
-  const ex = f(60 - (end[1] - 62)), ey = f(62 + (end[0] - 60));
-  return `<g transform="rotate(90 60 62)">${guides}${line(d)}</g>
-${swoop(ex, ey, 114, 16, -6, 4.5)}`;
+// Elective Aesthetics: a cut gem, facets catching the light.
+function gem() {
+  return `<ellipse cx="60" cy="104" rx="34" ry="4.5" fill="#00e5e8" opacity="0.12"/>
+<path d="M34 28H86L106 54L60 104L14 54Z" ${body}/>
+<path d="M14 54H106L60 104Z" ${dark}/>
+<path d="M34 28L44 54L60 28L76 54L86 28" fill="#f6fafb" opacity="0.55"/>
+<path d="M44 54L60 104L76 54Z" fill="#00ffff" opacity="0.28"/>
+<path d="M34 28L44 54L14 54M86 28L76 54L106 54M60 28L44 54L60 104L76 54L60 28M44 54H76" fill="none" stroke="#1a2024" stroke-width="0.9" opacity="0.7"/>
+<path d="M34 28H86L106 54L60 104L14 54Z" ${rim}/>
+<path d="M36 31H84" ${spec}/>`;
 }
 
 // Trades & Home Services: a house at night, one window lit. Someone is about to call.
 function house() {
-  return `${line('M14 98H106')}
-${line('M26 98V58L60 30L94 58V98')}
-${line('M50 98V74H70V98')}
-<rect class="lit" x="34" y="62" width="11" height="11" rx="1"/>
-${line('M75 62h11v11h-11z')}
-${swoop(60, 30, 112, 12, -8, 5)}`;
+  return `<ellipse cx="60" cy="104" rx="42" ry="4.5" fill="#00e5e8" opacity="0.12"/>
+<path d="M22 56H98V100H22Z" ${dark}/>
+<path d="M12 58L60 16L108 58Z" ${body}/>
+<path d="M60 16L108 58H96L60 26Z" fill="#fff" opacity="0.35"/>
+<rect x="64" y="70" width="20" height="30" rx="1.5" fill="#0b1013"/>
+<rect x="32" y="68" width="22" height="20" rx="1.5" fill="#bffcff" style="filter:drop-shadow(0 0 6px #00e5e8) drop-shadow(0 0 14px rgb(0 255 255 / .55))"/>
+<path d="M43 68V88M32 78H54" stroke="#4b565d" stroke-width="1.3"/>
+<path d="M12 58L60 16L108 58" ${rim}/>
+<path d="M18 58L60 21" ${spec}/>`;
 }
 
-const art = [gauge, eye, golden, house];
+const art = [car, eye, gem, house];
 
 export function industryIcon(i: number) {
   return `<svg class="ind" viewBox="0 0 120 120" aria-hidden="true">${art[i % art.length]()}</svg>`;
 }
 
-/** Shared gradient for every swoop; render once per page. */
-export const industryDefs = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ind-acc" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#009fa4"/><stop offset="1" stop-color="#00ffff"/></linearGradient></defs></svg>`;
+/** Shared gradients and the brushed-metal grain; render once per page. */
+export const industryDefs = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="ind-silver" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#f7fafb"/><stop offset="0.28" stop-color="#b9c2c8"/><stop offset="0.55" stop-color="#6c767d"/><stop offset="0.78" stop-color="#cdd5da"/><stop offset="1" stop-color="#5a646b"/></linearGradient>
+<linearGradient id="ind-shade" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#9aa4ab"/><stop offset="0.6" stop-color="#48515a"/><stop offset="1" stop-color="#2b3238"/></linearGradient>
+<radialGradient id="ind-iris" cx="0.4" cy="0.35" r="0.8"><stop offset="0" stop-color="#b8ffff"/><stop offset="0.45" stop-color="#00c8cc"/><stop offset="1" stop-color="#004b4f"/></radialGradient>
+<filter id="ind-brush" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency="0.008 0.9" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.05" result="g"/><feComposite in="g" in2="SourceAlpha" operator="in" result="gg"/><feBlend in="SourceGraphic" in2="gg" mode="multiply"/></filter>
+</defs></svg>`;

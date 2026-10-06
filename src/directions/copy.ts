@@ -318,21 +318,21 @@ export const offer = {
 };
 
 export const fit = {
-  eyebrow: 'Is this a fit?',
-  goodLabel: 'What we require',
+  eyebrow: 'Are you a fit?',
+  goodLabel: 'You are a fit if',
   good: [
-    'A customer list or CRM with past leads or customers in it, even a messy one',
-    'Someone on your team who will own the follow-up and take the calls our system sets up',
-    'Capacity to serve more customers than you do today',
-    'Permission to contact your own customers by text, email and phone',
-    'A decision maker on the complimentary session call',
+    'You have a customer list, even a messy one',
+    'Someone on your team will take the calls we set up',
+    'You can serve more customers than you do today',
+    'You can contact your customers by text, email and phone',
+    'A decision maker joins the call',
   ],
-  badLabel: 'Not a fit yet',
+  badLabel: 'Not yet a fit if',
   bad: [
-    'No customer list or lead history to work from',
-    'Nobody available to answer when a buyer raises their hand',
-    'Looking for a one-time ad campaign or a software tool to buy',
-    'Not ready to change how follow-up gets handled',
+    'You have no customer list or lead history',
+    'Nobody is available when a buyer raises their hand',
+    'You want a one-time ad campaign or a software tool',
+    'You are not ready to change how follow-up gets handled',
   ],
 };
 
