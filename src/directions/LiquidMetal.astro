@@ -1383,8 +1383,8 @@ const cloud = fragments.map((text) => ({
     align-items: center;
     gap: 18px;
     font-weight: 300;
-    font-size: clamp(18px, 1.9vw, 28px);
-    letter-spacing: 0.34em;
+    font-size: clamp(14px, 1.4vw, 20px);
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     color: #e6ebee;
     margin-bottom: clamp(20px, 3.2svh, 36px);
@@ -1410,9 +1410,9 @@ const cloud = fragments.map((text) => ({
   }
   /* Home hero: the tagline is the quiet line; the statement above it says what GHD does. */
   .v4 .hero-inner .display {
-    font-size: clamp(30px, min(3.6vw, 5svh), 58px);
-    max-width: 22ch;
-    opacity: 0.78;
+    font-size: clamp(34px, min(4.6vw, 6.4svh), 74px);
+    max-width: 18ch;
+    color: #aab3b9;
   }
   .v4 .sub {
     margin-top: clamp(22px, 3.4svh, 40px);
@@ -1424,16 +1424,16 @@ const cloud = fragments.map((text) => ({
   }
   /* The statement of what we do: heavier, brighter and larger than the tagline beneath it. */
   .v4 .hero-inner .sub {
-    font-weight: 500;
-    font-size: clamp(20px, min(2.3vw, 3.4svh), 36px);
-    line-height: 1.38;
+    font-weight: 400;
+    font-size: clamp(16px, min(2vw, 3.1svh), 31px);
+    line-height: 1.45;
     letter-spacing: 0;
-    color: #f2f5f7;
+    color: #ffffff;
   }
   .v4 .hero-inner .sub span {
     text-wrap: balance;
   }
-  @media (min-width: 900px) {
+  @media (min-width: 900px), (max-width: 480px) {
     .v4 .hero-inner .sub span {
       white-space: nowrap;
     }
@@ -1446,13 +1446,11 @@ const cloud = fragments.map((text) => ({
     margin-top: 0;
   }
   .v4 .hero-inner .sub + .display {
-    margin-top: clamp(26px, 4svh, 48px);
+    margin-top: clamp(30px, 5svh, 56px);
   }
   .v4 .serves {
-    margin-top: clamp(20px, 3svh, 36px);
-    padding: 14px clamp(8px, 2vw, 32px);
-    border-block: 1px solid transparent;
-    border-image: linear-gradient(90deg, transparent, rgb(230 235 238 / 0.35), transparent) 1;
+    margin-top: clamp(18px, 2.8svh, 32px);
+    padding: 0 clamp(8px, 2vw, 32px);
     font-weight: 300;
     font-size: clamp(15px, 1.35vw, 21px);
     line-height: 1.4;
