@@ -165,8 +165,9 @@ const c = confirmForm;
     margin: 0 auto;
     padding: clamp(28px, 5vw, 56px);
     border-radius: 24px;
-    background: linear-gradient(160deg, #fbfaf8, #efede8);
-    box-shadow: inset 0 1px 0 #fff, 0 30px 70px -40px rgb(0 0 0 / 0.35);
+    background: #1b1e22;
+    border: 1px solid rgb(230 235 238 / 0.12);
+    box-shadow: 0 30px 70px -40px rgb(0 0 0 / 0.8);
   }
   .hp {
     position: absolute;
@@ -196,7 +197,7 @@ const c = confirmForm;
     font-size: 11px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: #9a7f4a;
+    color: #9aa3aa;
   }
   .apply-title {
     margin: 0 0 clamp(28px, 4vh, 40px);
@@ -204,7 +205,7 @@ const c = confirmForm;
     font-size: clamp(26px, 3.2vw, 38px);
     line-height: 1.15;
     letter-spacing: -0.015em;
-    color: #1a1a1a;
+    color: #e6ebee;
     outline: none;
   }
   .apply-grid {
@@ -218,25 +219,25 @@ const c = confirmForm;
     margin-bottom: 8px;
     font-size: 13px;
     letter-spacing: 0.02em;
-    color: #55524d;
+    color: #9aa3aa;
   }
   .apply-grid input {
     width: 100%;
     padding: 12px 2px;
     border: 0;
-    border-bottom: 1px solid rgb(26 26 26 / 0.22);
+    border-bottom: 1px solid rgb(230 235 238 / 0.4);
     background: transparent;
     font: inherit;
     font-size: 17px;
-    color: #1a1a1a;
+    color: #e6ebee;
     transition: border-color 0.3s ease;
   }
   .apply-grid input:focus {
     outline: none;
-    border-bottom-color: #b59a63;
+    border-bottom-color: #00ffff;
   }
   .apply-grid input::placeholder {
-    color: #a8a39a;
+    color: #7d878e;
   }
   .apply-q + .apply-q {
     margin-top: 28px;
@@ -244,7 +245,7 @@ const c = confirmForm;
   legend {
     padding: 0;
     font-size: 15px;
-    color: #1a1a1a;
+    color: #e6ebee;
     margin-bottom: 12px;
   }
   .chips {
@@ -265,23 +266,23 @@ const c = confirmForm;
     display: inline-block;
     margin: 0;
     padding: 10px 16px;
-    border: 1px solid rgb(26 26 26 / 0.16);
+    border: 1px solid rgb(230 235 238 / 0.35);
     border-radius: 999px;
     font-size: 14px;
-    color: #1a1a1a;
-    background: rgb(255 255 255 / 0.6);
+    color: #e6ebee;
+    background: transparent;
     transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
   }
   .chip:hover span {
-    border-color: #b59a63;
+    border-color: #00ffff;
   }
   .chip input:checked + span {
-    border-color: #b59a63;
-    background: #1a1a1a;
-    color: #f2f1ee;
+    border-color: #00ffff;
+    background: #00ffff;
+    color: #0a0b0d;
   }
   .chip input:focus-visible + span {
-    outline: 2px solid #b59a63;
+    outline: 2px solid #00ffff;
     outline-offset: 2px;
   }
   .consent {
@@ -296,7 +297,7 @@ const c = confirmForm;
     width: 18px;
     height: 18px;
     margin-top: 2px;
-    accent-color: #1a1a1a;
+    accent-color: #00ffff;
   }
   .consent span {
     margin: 0;
@@ -306,7 +307,7 @@ const c = confirmForm;
   .apply-error {
     margin: 20px 0 0;
     font-size: 14px;
-    color: #a23b2a;
+    color: #ff9d8f;
   }
   .apply-actions {
     display: flex;
@@ -333,7 +334,7 @@ const c = confirmForm;
     font-size: 13px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #55524d;
+    color: #9aa3aa;
     cursor: pointer;
   }
   .apply-done .apply-title {
@@ -344,14 +345,20 @@ const c = confirmForm;
     margin: -14px 0 28px;
     font-size: 16px;
     line-height: 1.6;
-    color: #55524d;
+    color: #9aa3aa;
   }
   .apply-note {
     margin: 22px 0 0;
     font-size: 14px;
-    color: #55524d;
+    color: #9aa3aa;
+  }
+  input:-webkit-autofill {
+    -webkit-text-fill-color: #e6ebee;
+    box-shadow: 0 0 0 1000px #1b1e22 inset;
+    caret-color: #e6ebee;
   }
   .apply-vsl {
+    box-shadow: 0 0 0 1px rgb(230 235 238 / 0.12);
     display: grid;
     place-items: center;
     aspect-ratio: 16 / 9;
