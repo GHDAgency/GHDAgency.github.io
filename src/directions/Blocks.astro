@@ -201,7 +201,6 @@ const on = (b: Block) => show.includes(b);
   .v4 .fit-col li,
   .v4 .sec-list li {
     position: relative;
-    padding-left: 26px;
     font-weight: 300;
     font-size: clamp(15px, 1.15vw, 18px);
     line-height: 1.55;
@@ -211,19 +210,7 @@ const on = (b: Block) => show.includes(b);
   .v4 .sec-list li + li {
     margin-top: 14px;
   }
-  .v4 .fit-col li::before,
-  .v4 .sec-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.75em;
-    width: 12px;
-    height: 1px;
-  }
-  .v4 .fit-yes li::before,
-  .v4 .sec-list li::before { background: var(--accent); }
   .v4 .fit-no li { color: var(--gray); }
-  .v4 .fit-no li::before { background: var(--gray); }
 
   /* Data promises */
   .v4 .sec-list {
