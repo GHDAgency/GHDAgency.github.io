@@ -365,15 +365,18 @@ export const faq = {
   ],
 };
 
-/** Revenue calculator (Solutions). The defaults are the same assumptions as the Home stats block. */
+/** Calculator (Solutions): pure math on the visitor's own numbers. No assumed close rate, no promised recovery. */
 export const calc = {
   eyebrow: 'Run your own numbers',
-  headline: 'What are your unanswered leads costing you?',
+  headline: 'What does one slipped lead cost you?',
   fields: [
-    { name: 'buyers', label: 'In-market buyers in your database', value: 588, prefix: '', step: 1 },
-    { name: 'close', label: 'Close rate (%)', value: 15, prefix: '', step: 1 },
-    { name: 'gross', label: 'Average gross per sale ($)', value: 2400, prefix: '$', step: 50 },
+    { name: 'leads', label: 'Leads per month', placeholder: 'e.g. 200', step: 1 },
+    { name: 'close', label: 'Percent that become customers', placeholder: 'e.g. 20', step: 1 },
+    { name: 'sale', label: 'Average sale value ($)', placeholder: 'e.g. 2500', step: 50 },
   ],
-  resultLabel: 'Revenue sitting in your database',
-  footnote: 'An estimate: buyers × close rate × average gross. Your numbers will vary.',
+  oneLabel: 'One lead is worth',
+  hundredLabel: 'Every 100 leads that go quiet cost you',
+  monthLabel: 'Your leads each month are worth',
+  empty: 'Enter your numbers to see the value.',
+  footnote: 'Math on your own numbers. It is not a promise of results.',
 };
