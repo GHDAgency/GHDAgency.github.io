@@ -125,7 +125,6 @@ export const EXPLORE = { label: 'Explore What We Do', href: '/v4/services/' };
 
 export const solutionsPage = {
   eyebrow: 'Solutions',
-  cta: 'Map my growth.',
   headline: '',
   sub: '',
   // Final copy from the owner: set verbatim.
@@ -160,7 +159,6 @@ export const solutionsPage = {
 
 export const servicesPage = {
   eyebrow: 'Services',
-  cta: 'Build my systems.',
   headline: 'Everything your growth engine runs on.',
   sub: 'Built around your business. Run with your team.',
   // Grouped by the three steps of How We Work, in order.
@@ -200,7 +198,6 @@ export const aboutPage = {
   eyebrow: 'About',
   headline: '',
   sub: '',
-  cta: "I'm ready to live it.",
   // Owner's About copy, verbatim. Intro: two paragraphs, each on the owner's line breaks.
   intro: [
     ['GHD, Generative Human Design™ is a Marketing and AI consultancy.', 'We are the growth partner for owners who are ready to step back without slowing down.'],
@@ -257,21 +254,145 @@ export const legalPages = {
   'cookie-policy': { title: 'Cookie Policy', updated: 'October 18, 2025' },
 };
 
-/* "Grow My Revenue" application (approved wording, 2026-10-03). Answers go to GHL. */
+/* "Grow My Revenue" booking (flow agreed with the owner, 2026-10-06):
+   1. Short form (this block)  2. Calendar: the time is held for 24 hours
+   3. "Time held" email with the VSL and a confirm link  4. Confirm page (five questions)
+   5. Confirmed: the $0 invoice goes out.  No confirmation in 24 hours: GHL releases the time. */
 export const applyForm = {
-  step1Title: "Let's see where your revenue is slipping.",
-  step2Title: 'A few quick questions so your call is worth your time.',
-  questions: [
-    { name: 'industry', label: 'What industry are you in?', options: ['Auto Dealerships', 'Optometry & Vision Care', 'Elective Aesthetics', 'Trades & Home Services', 'Other'] },
-    { name: 'revenue', label: "What's your annual revenue?", options: ['Under $1M', '$1M to $3M', '$3M to $10M', '$10M+'] },
-    { name: 'role', label: "What's your role?", options: ['Owner', 'Partner', 'General Manager', 'Other'] },
-    { name: 'leak', label: 'Where do you think revenue is slipping?', options: ['Leads wait too long for a reply', 'Leads never get followed up', "Appointments don't show", "Past customers don't come back", "Not sure, that's why I'm here"] },
-    { name: 'timeline', label: 'When do you want this fixed?', options: ['Now', 'In the next 90 days', 'Just exploring'] },
-  ],
+  title: "Let's see where your revenue is slipping.",
+  note: 'Next, you pick a time. We hold it for 24 hours.',
+  button: 'Pick My Time',
   consent: 'I agree to receive calls and texts from GHD Agency about my inquiry. Message and data rates may apply. Reply STOP to opt out.',
-  thanks: "Thanks, {first}. We'll review your answers and reach out within one business day.",
-  // Who goes straight to the calendar.
-  qualify: { revenue: ['$1M to $3M', '$3M to $10M', '$10M+'], timeline: ['Now', 'In the next 90 days'] },
   webhook: 'https://services.leadconnectorhq.com/hooks/H4kd9KFulXDimXLU1DlP/webhook-trigger/96520cb1-da85-4b95-95fa-3ffa951d6b0a',
   calendar: 'https://links.ghdagency.ai/widget/booking/16ibCnnbCNSihNaDQ6VI',
+};
+
+/** The confirm page that the "time held" email links to. */
+export const confirmForm = {
+  title: 'One more step to confirm your time.',
+  sub: 'Your time is held for 24 hours. Watch this short video from Rich, then answer five quick questions.',
+  /** Embed address of Rich's video (YouTube or Vimeo embed link). Empty shows a placeholder frame. */
+  vsl: '',
+  vslPlaceholder: "Rich's video goes here.",
+  /** GHL inbound webhook for the "confirm" workflow. Empty until the workflow exists. */
+  webhook: '',
+  questions: [
+    { name: 'lifetime_value', label: 'What is a customer worth to you over their lifetime? ($)', type: 'number' },
+    { name: 'average_sale', label: 'What is your average sale price? ($)', type: 'number' },
+    {
+      name: 'sources',
+      label: 'How do you get business today?',
+      type: 'chips',
+      options: ['Referrals', 'Google or search', 'Paid ads', 'Social media', 'Phone or walk-ins', 'Repeat customers', 'Other'],
+    },
+    { name: 'leads_per_month', label: 'About how many leads or inquiries do you get in a typical month?', type: 'number' },
+    { name: 'crm', label: 'What CRM or software do you use today? ("None" is fine)', type: 'text' },
+  ],
+  button: 'Confirm My Session',
+  done: 'Confirmed. Your invoice is on its way to your inbox.',
+};
+
+/* ---------------------------------------------------------------------------------------------
+   Offer, fit, data promises, FAQ and calculator (added 2026-10-06, wording agreed with the owner).
+   --------------------------------------------------------------------------------------------- */
+
+/** How it starts: what is free, and what the build costs. Shown on Home and Services. */
+export const offer = {
+  eyebrow: 'How it starts',
+  rows: [
+    {
+      name: 'Vidian Method session',
+      price: 'Free',
+      line: 'A 30-minute call. We map where your revenue is slipping and put numbers around the opportunity.',
+    },
+    {
+      name: 'Prince Charming pilot',
+      price: 'Free for two weeks',
+      line: 'We run it on your own list, so you see how your customers respond before you commit to anything.',
+    },
+    {
+      name: 'The build',
+      price: 'Starting at $3,000',
+      line: "Strategy, systems and team training. We only fix what's necessary.",
+    },
+  ],
+  stepsLabel: 'How your free session works',
+  steps: [
+    { title: 'Book.', line: 'Your details, then pick a time. We hold it for 24 hours.' },
+    { title: 'Confirm.', line: 'Watch a short video from Rich and answer five quick questions.' },
+    { title: 'Your invoice.', line: 'It shows the value of your session, marked paid by Rich Diaz. You owe $0.' },
+  ],
+};
+
+export const fit = {
+  eyebrow: 'Is this a fit?',
+  goodLabel: 'What we require',
+  good: [
+    'A customer list or CRM with past leads or customers in it, even a messy one',
+    'Someone on your team who will own the follow-up and take the calls our system sets up',
+    'Capacity to serve more customers than you do today',
+    'Permission to contact your own customers by text, email and phone',
+    'A decision maker on the free session call',
+  ],
+  badLabel: 'Not a fit yet',
+  bad: [
+    'No customer list or lead history to work from',
+    'Nobody available to answer when a buyer raises their hand',
+    'Looking for a one-time ad campaign or a software tool to buy',
+    'Not ready to change how follow-up gets handled',
+  ],
+};
+
+export const security = {
+  eyebrow: 'Your business, your data',
+  items: [
+    'Every account we build is in your name. If we part ways, you keep everything.',
+    'Your team approves anything high-stakes before it goes out.',
+    'We test on sample data before anything touches a real customer.',
+    'Customers opt in, and every message honors STOP.',
+    'We can build to HIPAA requirements when your business needs it.',
+  ],
+};
+
+export const faq = {
+  eyebrow: 'Questions',
+  items: [
+    {
+      q: 'What does it cost?',
+      a: 'Your first session is free, and the Prince Charming pilot is free for two weeks. If we decide to move forward together, the build starts at $3,000. We only fix what is necessary.',
+    },
+    {
+      q: 'What if it does not work?',
+      a: 'That is what the pilot is for. You see how your own list responds, for free, before you commit to a build.',
+    },
+    {
+      q: 'Will my team actually use it?',
+      a: 'That is step 5. We train your people to run the engine, and the playbooks are written for them, not for us.',
+    },
+    {
+      q: 'We already have a CRM. Do we start over?',
+      a: 'No. We work with what you have and fix where it leaks.',
+    },
+    {
+      q: 'Can you work with a regulated business?',
+      a: 'Yes. We can build to HIPAA requirements when your business needs it.',
+    },
+    {
+      q: 'Who will I talk to?',
+      a: 'Rich Diaz, the founder, runs your session. You talk to him, not an account manager.',
+    },
+  ],
+};
+
+/** Revenue calculator (Solutions). The defaults are the same assumptions as the Home stats block. */
+export const calc = {
+  eyebrow: 'Run your own numbers',
+  headline: 'What are your unanswered leads costing you?',
+  fields: [
+    { name: 'buyers', label: 'In-market buyers in your database', value: 588, prefix: '', step: 1 },
+    { name: 'close', label: 'Close rate (%)', value: 15, prefix: '', step: 1 },
+    { name: 'gross', label: 'Average gross per sale ($)', value: 2400, prefix: '$', step: 50 },
+  ],
+  resultLabel: 'Revenue sitting in your database',
+  footnote: 'An estimate: buyers × close rate × average gross. Your numbers will vary.',
 };

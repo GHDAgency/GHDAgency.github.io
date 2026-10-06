@@ -1,18 +1,21 @@
 ---
-// The "Grow My Revenue" application. Two steps; every answer goes to GHL through the
-// "Website: Revenue Map application" workflow. Qualified owners go straight to the calendar.
-import { applyForm } from './copy';
+// Two forms share this card. mode="apply": the short form that leads to the calendar.
+// mode="confirm": the five questions behind the "time held" email. Every answer goes to GHL.
+import { applyForm, confirmForm } from './copy';
+interface Props {
+  mode?: 'apply' | 'confirm';
+}
+const { mode = 'apply' } = Astro.props;
 const f = applyForm;
+const c = confirmForm;
 ---
 
 <section class="apply">
-  <form class="apply-card" data-apply novalidate>
-    <!-- Bots fill every field; people never see this one. -->
-    <input class="hp" type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
-    <fieldset class="apply-step is-on" data-step="1">
-      <p class="apply-count">Step 1 of 2</p>
-      <h1 class="apply-title">{f.step1Title}</h1>
+  {mode === 'apply' && (
+    <form class="apply-card" data-apply novalidate>
+      <!-- Bots fill every field; people never see this one. -->
+      <input class="hp" type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <h1 class="apply-title">{f.title}</h1>
       <div class="apply-grid">
         <label><span>First name</span><input name="first_name" autocomplete="given-name" required /></label>
         <label><span>Last name</span><input name="last_name" autocomplete="family-name" required /></label>
@@ -21,88 +24,135 @@ const f = applyForm;
         <label><span>Business name</span><input name="company_name" autocomplete="organization" required /></label>
         <label><span>Website</span><input name="website" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" required /></label>
       </div>
-      <div class="apply-actions">
-        <button type="button" class="cta" data-next><span>Continue</span></button>
-      </div>
-    </fieldset>
-
-    <fieldset class="apply-step" data-step="2">
-      <p class="apply-count">Step 2 of 2</p>
-      <h2 class="apply-title">{f.step2Title}</h2>
-      {f.questions.map((q) => (
-        <fieldset class="apply-q" data-q={q.name}>
-          <legend>{q.label}</legend>
-          <div class="chips">
-            {q.options.map((o) => (
-              <label class="chip"><input type="radio" name={q.name} value={o} required /><span>{o}</span></label>
-            ))}
-          </div>
-        </fieldset>
-      ))}
       <label class="consent">
         <input type="checkbox" name="sms_consent" value="Yes" required />
         <span>{f.consent}</span>
       </label>
-      <p class="apply-error" data-error hidden>Something went wrong sending your answers. Please try again, or call 725-241-0571.</p>
+      <p class="apply-note">{f.note}</p>
+      <p class="apply-error" data-error hidden>Something went wrong sending your details. Please try again, or call 725-241-0571.</p>
       <div class="apply-actions">
-        <button type="button" class="apply-back" data-back>Back</button>
-        <button type="submit" class="cta" data-submit><span>Submit</span></button>
+        <button type="submit" class="cta" data-submit><span>{f.button}</span></button>
       </div>
-    </fieldset>
+    </form>
+  )}
 
-    <div class="apply-step apply-done" data-step="done" aria-live="polite">
-      <p class="apply-title" data-done></p>
-    </div>
-  </form>
+  {mode === 'confirm' && (
+    <Fragment>
+      <form class="apply-card" data-confirm novalidate>
+        <input class="hp" type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input type="hidden" name="email" />
+        <input type="hidden" name="phone" />
+        <input type="hidden" name="first_name" />
+        <input type="hidden" name="last_name" />
+        <input type="hidden" name="contact_id" />
+        <h1 class="apply-title">{c.title}</h1>
+        <p class="apply-sub">{c.sub}</p>
+        <div class="apply-vsl">
+          {c.vsl ? (
+            <iframe src={c.vsl} title="A short video from Rich" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          ) : (
+            <p>{c.vslPlaceholder}</p>
+          )}
+        </div>
+        <div class="apply-grid">
+          {c.questions.map((q) =>
+            q.type === 'chips' ? (
+              <fieldset class="apply-q full">
+                <legend>{q.label}</legend>
+                <div class="chips">
+                  {q.options!.map((o) => (
+                    <label class="chip"><input type="checkbox" name={q.name} value={o} /><span>{o}</span></label>
+                  ))}
+                </div>
+              </fieldset>
+            ) : (
+              <label class="full">
+                <span>{q.label}</span>
+                <input name={q.name} type={q.type} inputmode={q.type === 'number' ? 'decimal' : undefined} min={q.type === 'number' ? '0' : undefined} required />
+              </label>
+            ),
+          )}
+        </div>
+        <p class="apply-error" data-error hidden>Something went wrong sending your answers. Please try again, or call 725-241-0571.</p>
+        <div class="apply-actions">
+          <button type="submit" class="cta" data-submit><span>{c.button}</span></button>
+        </div>
+      </form>
+      <div class="apply-card apply-done" data-done hidden>
+        <p class="apply-title">{c.done}</p>
+      </div>
+    </Fragment>
+  )}
 </section>
 
-<script define:vars={{ hook: f.webhook, calendar: f.calendar, qualify: f.qualify, thanks: f.thanks }}>
-  const form = document.querySelector('[data-apply]');
-  const steps = form.querySelectorAll('[data-step]');
-  const show = (n) => {
-    steps.forEach((s) => s.classList.toggle('is-on', s.dataset.step === n));
-    // Bring the card's top just below the fixed header.
-    const head = document.querySelector('[data-head]')?.offsetHeight || 0;
-    window.scrollTo({ top: form.getBoundingClientRect().top + scrollY - head - 24, behavior: 'smooth' });
-    const first = form.querySelector(`[data-step="${n}"] input, [data-step="${n}"] .apply-title`);
-    first?.focus?.({ preventScroll: true });
+<script define:vars={{ hook: f.webhook, calendar: f.calendar, confirmHook: c.webhook }}>
+  const fail = (form, btn) => {
+    form.querySelector('[data-error]').hidden = false;
+    btn.disabled = false;
   };
-  const valid = (n) => {
-    const fields = [...form.querySelectorAll(`[data-step="${n}"] input:not(.hp)`)];
-    const bad = fields.find((i) => !i.checkValidity());
-    if (bad) { bad.reportValidity(); return false; }
-    return true;
-  };
-  form.querySelector('[data-next]').addEventListener('click', () => valid('1') && show('2'));
-  form.querySelector('[data-back]').addEventListener('click', () => show('1'));
+  const post = (url, data) =>
+    fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((r) => {
+      if (!r.ok) throw new Error(r.status);
+    });
 
-  form.addEventListener('submit', async (e) => {
+  // Short form: save the lead, then send them to the calendar. The time they pick is held for 24 hours.
+  const apply = document.querySelector('[data-apply]');
+  apply?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!valid('2')) return;
-    const data = Object.fromEntries(new FormData(form));
+    const bad = [...apply.querySelectorAll('input:not(.hp)')].find((i) => !i.checkValidity());
+    if (bad) return void bad.reportValidity();
+    const data = Object.fromEntries(new FormData(apply));
     if (data.company_url) return; // bot
     delete data.company_url;
-    data.qualified = qualify.revenue.includes(data.revenue) && qualify.timeline.includes(data.timeline) ? 'yes' : 'no';
     data.source = 'ghdagency.ai Grow My Revenue';
-    const btn = form.querySelector('[data-submit]');
+    data.stage = 'Form 1 submitted';
+    const btn = apply.querySelector('[data-submit]');
     btn.disabled = true;
-    form.querySelector('[data-error]').hidden = true;
+    apply.querySelector('[data-error]').hidden = true;
     try {
-      const r = await fetch(hook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-      if (!r.ok) throw new Error(r.status);
+      await post(hook, data);
     } catch {
-      form.querySelector('[data-error]').hidden = false;
-      btn.disabled = false;
-      return;
+      return fail(apply, btn);
     }
-    if (data.qualified === 'yes') {
-      const q = new URLSearchParams({ first_name: data.first_name, last_name: data.last_name, email: data.email, phone: data.phone });
-      location.href = `${calendar}?${q}`;
-    } else {
-      form.querySelector('[data-done]').textContent = thanks.replace('{first}', data.first_name);
-      show('done');
-    }
+    const q = new URLSearchParams({ first_name: data.first_name, last_name: data.last_name, email: data.email, phone: data.phone });
+    location.href = `${calendar}?${q}`;
   });
+
+  // Confirm page: the contact arrives from the email link (?email=...&first_name=...). Answers go to GHL.
+  const confirm = document.querySelector('[data-confirm]');
+  if (confirm) {
+    const params = new URLSearchParams(location.search);
+    ['email', 'phone', 'first_name', 'last_name', 'contact_id'].forEach((k) => {
+      const el = confirm.querySelector(`input[name="${k}"]`);
+      if (el && params.get(k)) el.value = params.get(k);
+    });
+    confirm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const bad = [...confirm.querySelectorAll('input:not(.hp):not([type="hidden"]):not([type="checkbox"])')].find((i) => !i.checkValidity());
+      if (bad) return void bad.reportValidity();
+      const fd = new FormData(confirm);
+      if (fd.get('company_url')) return; // bot
+      const data = Object.fromEntries(fd);
+      delete data.company_url;
+      data.sources = fd.getAll('sources').join(', ');
+      data.source = 'ghdagency.ai confirm';
+      data.stage = 'Confirmed';
+      const btn = confirm.querySelector('[data-submit]');
+      btn.disabled = true;
+      confirm.querySelector('[data-error]').hidden = true;
+      try {
+        if (!confirmHook) throw new Error('confirm webhook not set');
+        await post(confirmHook, data);
+      } catch {
+        return fail(confirm, btn);
+      }
+      confirm.hidden = true;
+      const done = document.querySelector('[data-done]');
+      done.hidden = false;
+      const head = document.querySelector('[data-head]')?.offsetHeight || 0;
+      window.scrollTo({ top: done.getBoundingClientRect().top + scrollY - head - 24, behavior: 'smooth' });
+    });
+  }
 </script>
 
 <style>
@@ -115,8 +165,8 @@ const f = applyForm;
     margin: 0 auto;
     padding: clamp(28px, 5vw, 56px);
     border-radius: 24px;
-    background: linear-gradient(160deg, #fbfaf8, #efede8);
-    box-shadow: inset 0 1px 0 #fff, 0 30px 70px -40px rgb(0 0 0 / 0.35);
+    background: #ffffff;
+    box-shadow: 0 30px 70px -40px rgb(0 0 0 / 0.7);
   }
   .hp {
     position: absolute;
@@ -146,7 +196,7 @@ const f = applyForm;
     font-size: 11px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: #9a7f4a;
+    color: #4a545c;
   }
   .apply-title {
     margin: 0 0 clamp(28px, 4vh, 40px);
@@ -154,7 +204,7 @@ const f = applyForm;
     font-size: clamp(26px, 3.2vw, 38px);
     line-height: 1.15;
     letter-spacing: -0.015em;
-    color: #1a1a1a;
+    color: #14171a;
     outline: none;
   }
   .apply-grid {
@@ -168,25 +218,25 @@ const f = applyForm;
     margin-bottom: 8px;
     font-size: 13px;
     letter-spacing: 0.02em;
-    color: #55524d;
+    color: #4a545c;
   }
   .apply-grid input {
     width: 100%;
     padding: 12px 2px;
     border: 0;
-    border-bottom: 1px solid rgb(26 26 26 / 0.22);
+    border-bottom: 1px solid rgb(20 23 26 / 0.35);
     background: transparent;
     font: inherit;
     font-size: 17px;
-    color: #1a1a1a;
+    color: #14171a;
     transition: border-color 0.3s ease;
   }
   .apply-grid input:focus {
     outline: none;
-    border-bottom-color: #b59a63;
+    border-bottom-color: #009fa4;
   }
   .apply-grid input::placeholder {
-    color: #a8a39a;
+    color: #6b757d;
   }
   .apply-q + .apply-q {
     margin-top: 28px;
@@ -194,7 +244,7 @@ const f = applyForm;
   legend {
     padding: 0;
     font-size: 15px;
-    color: #1a1a1a;
+    color: #14171a;
     margin-bottom: 12px;
   }
   .chips {
@@ -215,23 +265,23 @@ const f = applyForm;
     display: inline-block;
     margin: 0;
     padding: 10px 16px;
-    border: 1px solid rgb(26 26 26 / 0.16);
+    border: 1px solid rgb(20 23 26 / 0.3);
     border-radius: 999px;
     font-size: 14px;
-    color: #1a1a1a;
-    background: rgb(255 255 255 / 0.6);
+    color: #14171a;
+    background: transparent;
     transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
   }
   .chip:hover span {
-    border-color: #b59a63;
+    border-color: #009fa4;
   }
   .chip input:checked + span {
-    border-color: #b59a63;
-    background: #1a1a1a;
-    color: #f2f1ee;
+    border-color: #00ffff;
+    background: #0a0b0d;
+    color: #ffffff;
   }
   .chip input:focus-visible + span {
-    outline: 2px solid #b59a63;
+    outline: 2px solid #009fa4;
     outline-offset: 2px;
   }
   .consent {
@@ -246,7 +296,7 @@ const f = applyForm;
     width: 18px;
     height: 18px;
     margin-top: 2px;
-    accent-color: #1a1a1a;
+    accent-color: #0a0b0d;
   }
   .consent span {
     margin: 0;
@@ -283,12 +333,54 @@ const f = applyForm;
     font-size: 13px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #55524d;
+    color: #4a545c;
     cursor: pointer;
   }
   .apply-done .apply-title {
     margin: 0;
     text-align: center;
+  }
+  .apply-sub {
+    margin: -14px 0 28px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4a545c;
+  }
+  .apply-note {
+    margin: 22px 0 0;
+    font-size: 14px;
+    color: #4a545c;
+  }
+  input:-webkit-autofill {
+    -webkit-text-fill-color: #14171a;
+    box-shadow: 0 0 0 1000px #ffffff inset;
+    caret-color: #14171a;
+  }
+  .apply-vsl {
+    box-shadow: 0 0 0 1px rgb(230 235 238 / 0.12);
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    margin-bottom: clamp(28px, 4vh, 40px);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0a0b0d;
+    color: #8a949c;
+    font-size: 15px;
+  }
+  .apply-vsl iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .apply-grid .full {
+    grid-column: 1 / -1;
+  }
+  .apply-q.full legend {
+    margin-bottom: 12px;
+  }
+  .apply-card[hidden] {
+    display: none;
   }
   @media (max-width: 640px) {
     .apply-grid {

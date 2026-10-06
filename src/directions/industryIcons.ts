@@ -1,5 +1,5 @@
 // Fine-line industry icons for "Who we work with". Each draws in one line, then ends in the GHD swoop.
-// viewBox 0 0 120 120. Lines use currentColor; the swoop is filled with the champagne gradient #ind-acc.
+// viewBox 0 0 120 120. Lines use currentColor; the swoop is filled with the cyan gradient #ind-acc.
 const f = (n: number) => +n.toFixed(2);
 const pt = (cx: number, cy: number, r: number, deg: number) => [
   f(cx + r * Math.cos((deg * Math.PI) / 180)),
@@ -103,4 +103,4 @@ export function industryIcon(i: number) {
 }
 
 /** Shared gradient for every swoop; render once per page. */
-export const industryDefs = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ind-acc" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#b59a63"/><stop offset="1" stop-color="#e6d3a3"/></linearGradient></defs></svg>`;
+export const industryDefs = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ind-acc" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#009fa4"/><stop offset="1" stop-color="#00ffff"/></linearGradient></defs></svg>`;
