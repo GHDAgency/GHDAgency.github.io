@@ -62,7 +62,7 @@ An earlier written brief asked for an all-dark "tonal ladder" (black and graphit
 ## Home/offer pass (Rich, 2026-10-06, "GO")
 - Hero statement is bolder than the tagline. Scroll beat "You know you need it..." cut.
 - "Your Growth Partner. We answer with Results." loads automatically after the GHD logo animation ends.
-- Results (stats) block sits directly above "Start here". "Start here." has the CTA above and below three cards (Vidian Method, Prince Charming Pilot, The Build). No steps, no invoice mention.
+- Results (stats) block sits directly above the offer section ("Come see what you're missing."), which has the CTA above and below three cards (Vidian Method, Prince Charming Pilot, The Build). No steps, no invoice mention.
 - About names GHD as a category: Generative Human Design is the craft, the Awakeners practice it.
 - Pending Rich's approval: Rich photo retouch (ring and watch removed) and brushed-silver 3D industry emblems. Not on the site yet.
 
