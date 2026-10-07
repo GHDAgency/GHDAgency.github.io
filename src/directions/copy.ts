@@ -297,7 +297,7 @@ export const confirmForm = {
 
 /** Start here: the three steps of working with GHD. Shown on Home and Services. */
 export const offer = {
-  heading: 'Wake the revenue you already own.',
+  heading: 'Wake the Giant.',
   cards: [
     {
       name: 'Vidian Method',
