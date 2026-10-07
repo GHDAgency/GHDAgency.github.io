@@ -167,7 +167,6 @@ const on = (b: Block) => show.includes(b);
     text-wrap: balance;
   }
   .v4 .offer-line span { display: block; }
-  .v4 .offer-line span + span { margin-top: 0.35em; color: var(--t1); }
   .v4 .offer-tag {
     margin-top: auto;
     padding-top: 22px;
@@ -179,11 +178,14 @@ const on = (b: Block) => show.includes(b);
   }
   .v4 .offer-line {
     margin: 18px auto 0;
-    max-width: 34ch;
+    max-width: none;
     font-weight: 300;
-    font-size: clamp(15px, 1.1vw, 17px);
+    font-size: clamp(14px, 1.05vw, 16px);
     line-height: 1.65;
     color: var(--gray);
+  }
+  @media (min-width: 1100px) {
+    .v4 .offer-line span { white-space: nowrap; }
   }
 
   /* Fit / not a fit */

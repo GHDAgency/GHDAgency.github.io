@@ -54,7 +54,7 @@ export const how = {
  */
 export const beats: { lines: string[]; finale?: boolean }[] = [
   { lines: ['You have a new AI tool.', 'Watched the demo.', 'Even attended the webinars.'] },
-  { lines: ['Do I have the right tool? Will it grow my revenue?'] },
+  { lines: ['The question you are still asking yourself:', 'Do I have the right tool? Will it grow my revenue?'] },
   { lines: ['The Market Leaders are building with us.'] },
   // The GHD logo animation plays right before this beat.
   { lines: ['Your Growth Partner.', 'We answer with Results.'], finale: true },
@@ -67,10 +67,10 @@ export const howV4 = {
   // Same five steps, same wording, as the About page.
   steps: [
     { n: '1', title: 'Find the Sleeping Giant.', line: 'The revenue already inside your business, waiting to be woken.' },
-    { n: '2', title: 'Map it with Vidian.', line: "See where time and money slip away. Put a number on it. We'll decide if it's worth chasing." },
-    { n: '3', title: 'Test it with Prince Charming.', line: 'A focused pilot proves the opportunity is real before you commit to more.' },
-    { n: '4', title: 'Build the engine.', line: 'Custom strategy, systems, follow-up and customer journeys, built to capture it.' },
-    { n: '5', title: 'Train the team to run it.', line: 'Your people run the engine from the Helm, your custom dashboard. The gains keep compounding. Nothing lands back on your desk.' },
+    { n: '2', title: 'Map it with Vidian.', line: "See where time and money slip away. Put a number on it.\nWe'll decide if it's worth chasing." },
+    { n: '3', title: 'Test it with Prince Charming.', line: 'A focused pilot proves the opportunity is real,\nbefore you commit to more.' },
+    { n: '4', title: 'Build the engine.', line: 'Custom strategy, systems, follow-up and customer journeys,\nbuilt to capture it.' },
+    { n: '5', title: 'Train the team to run it.', line: 'Run the engine from the Helm, your custom dashboard.\nThe gains keep compounding.' },
   ],
   engagement: [
     { name: 'Find & Fix', line: 'a one-time deep dive and build.' },
@@ -217,10 +217,10 @@ export const aboutPage = {
   howLabel: 'How We Work',
   how: [
     { title: 'Find the Sleeping Giant.', line: 'The revenue already inside your business, waiting to be woken.' },
-    { title: 'Map it with Vidian.', line: "See where time and money slip away. Put a number on it. We'll decide if it's worth chasing." },
-    { title: 'Test it with Prince Charming.', line: 'A focused pilot proves the opportunity is real before you commit to more.' },
-    { title: 'Build the engine.', line: 'Custom strategy, systems, follow-up and customer journeys, built to capture it.' },
-    { title: 'Train the team to run it.', line: 'Your people run the engine from the Helm, your custom dashboard. The gains keep compounding. Nothing lands back on your desk.' },
+    { title: 'Map it with Vidian.', line: "See where time and money slip away. Put a number on it.\nWe'll decide if it's worth chasing." },
+    { title: 'Test it with Prince Charming.', line: 'A focused pilot proves the opportunity is real,\nbefore you commit to more.' },
+    { title: 'Build the engine.', line: 'Custom strategy, systems, follow-up and customer journeys,\nbuilt to capture it.' },
+    { title: 'Train the team to run it.', line: 'Run the engine from the Helm, your custom dashboard.\nThe gains keep compounding.' },
   ],
   // Photo of Rich on stage, mirrored so he faces into the page (left to right).
   photo: '/media/rich-stage.jpg',
@@ -302,17 +302,17 @@ export const offer = {
     {
       name: 'Vidian Method',
       tag: 'Complimentary',
-      line: 'Proprietary software that identifies where opportunities are being missed and what it is costing you, measured in time and dollars.',
+      line: 'Proprietary software that\nidentifies where opportunities are\nbeing missed and\nwhat it is costing you\nmeasured in time and dollars',
     },
     {
       name: 'The Prince Charming',
       tag: 'Two weeks',
-      line: 'A pilot test to pressure test outcomes, then decide how to proceed.',
+      line: 'A pilot test to\npressure test outcomes,\nthen decide how to proceed.',
     },
     {
       name: 'The Build',
       tag: 'Starting at $3,000',
-      line: 'Custom built for your business and measured by the numbers.\nYou see proof, not promises.',
+      line: 'Custom built for your business\nand measured by the numbers.\nYou see proof, not promises.',
     },
   ],
 };

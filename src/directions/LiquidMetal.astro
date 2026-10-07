@@ -217,7 +217,7 @@ const cloud = fragments.map((text) => ({
             <span class="num idx metal">{s.n}</span>
             <div class="step-copy">
               <h2>{s.title}</h2>
-              <p>{s.line}</p>
+              <p>{s.line.split('\n').map((l) => <span>{l}</span>)}</p>
             </div>
           </li>
         ))}
@@ -349,7 +349,7 @@ const cloud = fragments.map((text) => ({
             {aboutPage.how.map((h) => (
               <li class="fade">
                 <h2>{h.title}</h2>
-                <p>{h.line}</p>
+                <p>{h.line.split('\n').map((l) => <span>{l}</span>)}</p>
               </li>
             ))}
           </ol>
@@ -1394,10 +1394,10 @@ const cloud = fragments.map((text) => ({
     max-width: 15ch;
     padding-bottom: 0.08em;
   }
-  /* Home hero: the tagline is the quiet line; the statement above it says what GHD does. */
+  /* Home hero: the tagline and the statement share one size and face; the statement is the brighter line. */
   .v4 .hero-inner .display {
-    font-size: clamp(20px, min(2.1vw, 3.4svh), 34px);
-    max-width: 26ch;
+    font-size: clamp(30px, min(3.6vw, 5svh), 58px);
+    max-width: none;
     color: #aab3b9;
   }
   .v4 .sub {
@@ -1408,20 +1408,21 @@ const cloud = fragments.map((text) => ({
     letter-spacing: 0.01em;
     color: var(--gray);
   }
-  /* The statement of what we do: heavier, brighter and larger than the tagline beneath it. */
+  /* The statement of what we do: the tagline's exact face and size, brighter. */
   .v4 .hero-inner .sub {
+    margin-top: 0;
     font-weight: 200;
-    font-size: clamp(24px, min(3.7vw, 5.4svh), 62px);
-    line-height: 1.18;
-    letter-spacing: 0;
+    font-size: clamp(30px, min(3.6vw, 5svh), 58px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
     color: #ffffff;
-    letter-spacing: -0.02em;
   }
   .v4 .hero-inner .sub span {
     text-wrap: balance;
   }
   @media (min-width: 900px) {
-    .v4 .hero-inner .sub span {
+    .v4 .hero-inner .sub span,
+    .v4 .hero-inner .display {
       white-space: nowrap;
     }
   }
@@ -1491,7 +1492,7 @@ const cloud = fragments.map((text) => ({
     padding: clamp(12px, 2svh, 22px) 0 clamp(14px, 2.2svh, 26px);
   }
   .v4 .logos-hero .mq {
-    --logo-h: clamp(24px, 3.2svh, 30px);
+    --logo-h: clamp(32px, 4.2svh, 40px);
   }
   .m .v4 .logos-hero {
     animation: v4-up 1.2s 1.35s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -1515,7 +1516,7 @@ const cloud = fragments.map((text) => ({
     background: var(--edge-hi);
   }
   .v4 .mq {
-    --logo-h: 36px;
+    --logo-h: 46px;
   }
   .v4 .mq li:hover img {
     filter: drop-shadow(0 0 12px rgb(230 235 238 / 0.45));
@@ -1590,11 +1591,11 @@ const cloud = fragments.map((text) => ({
   }
   /* Scroll travel = one equal share per beat (the stage itself adds one screen). */
   .m .v4 .problem[data-tr='noise'] {
-    height: calc(var(--n) * 64svh + 100svh);
+    height: calc(var(--n) * 46svh + 100svh);
   }
   /* The final beat sits mid-stage; pull the next section up so the gap matches the story's rhythm. */
   .m .v4 .problem[data-tr='noise'] + .how {
-    margin-top: -26svh;
+    margin-top: -8svh;
     position: relative;
   }
   .m .v4 [data-tr='noise'] .pl {
@@ -1870,6 +1871,15 @@ const cloud = fragments.map((text) => ({
     line-height: 1.2;
     letter-spacing: -0.005em;
     color: var(--white);
+  }
+  .v4 .step p span,
+  .v4 .abt-how-list p span {
+    display: block;
+  }
+  @media (min-width: 760px) {
+    .v4 .step p span {
+      white-space: nowrap;
+    }
   }
   .v4 .step p {
     margin-top: 10px;
