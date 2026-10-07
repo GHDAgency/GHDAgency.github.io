@@ -13,7 +13,14 @@ const { class: cls = '', duration = 45 } = Astro.props;
 
 type Logo = { src: string; width: number; height: number; scale: number; alt: string };
 const manifestPath = path.resolve('public/logos-mono/manifest.json');
-const logos: Logo[] = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : [];
+const raw: Logo[] = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : [];
+// Set order: the two James Hodge logos never sit side by side, and neither do Advanced Vision and RevitalEyes.
+const order = ['hyundai', 'miller', 'advanced-vision', 'construct', 'jameshodgeford', 'revitaleyes'];
+const rank = (l: Logo) => {
+  const i = order.findIndex((k) => l.src.toLowerCase().includes(k));
+  return i === -1 ? order.length : i;
+};
+const logos: Logo[] = [...raw].sort((a, b) => rank(a) - rank(b));
 // Repeat short sets so one copy of the list is always wider than the screen.
 const reps = Math.max(1, Math.ceil(12 / Math.max(1, logos.length)));
 const items = Array.from({ length: reps }, (_, r) => logos.map((l) => ({ ...l, dup: r > 0 }))).flat();
