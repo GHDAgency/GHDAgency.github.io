@@ -1396,8 +1396,8 @@ const cloud = fragments.map((text) => ({
   }
   /* Home hero: the tagline is the quiet line; the statement above it says what GHD does. */
   .v4 .hero-inner .display {
-    font-size: clamp(34px, min(4.6vw, 6.4svh), 74px);
-    max-width: 18ch;
+    font-size: clamp(20px, min(2.1vw, 3.4svh), 34px);
+    max-width: 26ch;
     color: #aab3b9;
   }
   .v4 .sub {
@@ -1410,16 +1410,17 @@ const cloud = fragments.map((text) => ({
   }
   /* The statement of what we do: heavier, brighter and larger than the tagline beneath it. */
   .v4 .hero-inner .sub {
-    font-weight: 400;
-    font-size: clamp(16px, min(2vw, 3.1svh), 31px);
-    line-height: 1.45;
+    font-weight: 200;
+    font-size: clamp(24px, min(3.7vw, 5.4svh), 62px);
+    line-height: 1.18;
     letter-spacing: 0;
     color: #ffffff;
+    letter-spacing: -0.02em;
   }
   .v4 .hero-inner .sub span {
     text-wrap: balance;
   }
-  @media (min-width: 900px), (max-width: 480px) {
+  @media (min-width: 900px) {
     .v4 .hero-inner .sub span {
       white-space: nowrap;
     }
@@ -1448,7 +1449,7 @@ const cloud = fragments.map((text) => ({
     position: relative;
     display: inline-flex;
     margin-top: clamp(26px, 4svh, 48px);
-    padding: 19px 40px;
+    padding: 13px 30px;
     border-radius: 999px;
     border: 1px solid transparent;
     background:
@@ -1456,8 +1457,8 @@ const cloud = fragments.map((text) => ({
       linear-gradient(135deg, #e6ebee, #8a949c 40%, #009fa4 70%, #00ffff) border-box;
     color: var(--cyan);
     font-weight: 400;
-    font-size: 13px;
-    letter-spacing: 0.28em;
+    font-size: 11.5px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 8px 24px -14px rgb(0 255 255 / 0.35);
     transition: box-shadow 0.4s ease, transform 0.4s ease;
@@ -2160,10 +2161,10 @@ const cloud = fragments.map((text) => ({
     }
     /* The three intro lines stay whole on a phone. */
     .v4 .how-intro {
-      font-size: clamp(16px, 4.7vw, 24px);
+      font-size: clamp(20px, 5.6vw, 26px);
     }
     .v4 .how-intro span {
-      white-space: nowrap;
+      text-wrap: balance;
     }
     .v4 .stats {
       grid-template-columns: 1fr;
