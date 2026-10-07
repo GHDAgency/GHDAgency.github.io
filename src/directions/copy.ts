@@ -297,22 +297,22 @@ export const confirmForm = {
 
 /** Start here: the three steps of working with GHD. Shown on Home and Services. */
 export const offer = {
-  heading: 'Start here.',
+  heading: "Come see what you're missing.",
   cards: [
     {
       name: 'The Vidian Method',
       tag: 'Complimentary',
-      line: 'One-on-one. We go through your numbers and show you where the opportunities lie.',
+      line: 'Proprietary software that identifies where opportunities are being missed and what it is costing you, measured in time and dollars.',
     },
     {
-      name: 'The Prince Charming Pilot',
+      name: 'The Prince Charming',
       tag: 'Two weeks',
-      line: 'We pressure test the outcome. Then GHD decides whether to move forward.',
+      line: 'A pilot test to pressure test outcomes, then decide how to proceed.',
     },
     {
       name: 'The Build',
       tag: 'Starting at $3,000',
-      line: "Custom for your business. We only fix what's necessary.",
+      line: 'Customized to your business, with the data analytics to prove results.',
     },
   ],
 };
