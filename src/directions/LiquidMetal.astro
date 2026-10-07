@@ -1393,7 +1393,7 @@ const cloud = fragments.map((text) => ({
     will-change: transform, opacity;
   }
   .v4 .hero-logo {
-    width: clamp(140px, min(14vw, 22svh), 220px);
+    width: clamp(119px, min(11.9vw, 18.7svh), 187px);
     margin-bottom: clamp(20px, 3.4svh, 36px);
   }
   .v4 .eyebrow {
@@ -1573,7 +1573,8 @@ const cloud = fragments.map((text) => ({
   }
   .v4 .pl {
     font-weight: 200;
-    font-size: clamp(30px, 4.2vw, 76px);
+    /* Scroll beats: two points above the header size. */
+    font-size: calc(var(--hd) + 2px);
     line-height: 1.18;
     letter-spacing: -0.02em;
   }
@@ -1588,7 +1589,7 @@ const cloud = fragments.map((text) => ({
     font-weight: 300;
   }
   .v4 .beat-logo {
-    width: min(84vw, 760px);
+    width: min(71vw, 646px);
     margin: 0 auto;
   }
   .v4 .noise,
@@ -1624,7 +1625,7 @@ const cloud = fragments.map((text) => ({
     will-change: transform, opacity;
   }
   .m .v4 .pl.logo-beat {
-    width: min(90vw, 780px);
+    width: min(76.5vw, 663px);
   }
 
   /* ================= 1. Noise to Clarity ================= */
@@ -2205,7 +2206,7 @@ const cloud = fragments.map((text) => ({
     }
     /* Keep each of the beat lines on one line on a phone. */
     .v4 .pl {
-      font-size: clamp(22px, 6.6vw, 30px);
+      font-size: calc(var(--hd) + 2px);
     }
     /* The three intro lines stay whole on a phone. */
     .v4 .how-intro span {
