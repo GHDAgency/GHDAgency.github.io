@@ -18,6 +18,7 @@ import ApplyForm from './ApplyForm.astro';
 import Blocks from './Blocks.astro';
 import Who from './Who.astro';
 import A11y from './A11y.astro';
+import { pageMeta, jsonLdFor } from './seo';
 import {
   CTA_LABEL, CTA_HREF, HOME_HREF, nav, hero, heroServes, beats, howV4, industries, proof, fmt, security,
   solutionsPage, servicesPage, aboutPage, homePhoto, siteFooter, legalPages,
@@ -66,7 +67,9 @@ const socialIcon: Record<string, string> = {
   Instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><path d="M17.2 6.9v.1"/>',
 };
 const socials = siteFooter.social.filter((x) => x.href);
-const pageTitle = page === 'home' ? 'GHD Agency' : `GHD Agency | ${inner!.eyebrow}`;
+const metaKey = page === 'legal' ? legal! : page;
+const seoMeta = pageMeta[metaKey];
+const pageTitle = seoMeta ? seoMeta.title : page === 'home' ? 'GHD Agency' : `GHD Agency | ${inner!.eyebrow}`;
 const here = page === 'home' ? HOME_HREF : nav.find((n) => n.href.includes(`/${page}/`))?.href;
 const names: Record<Transition, string> = {
   noise: 'Noise to Clarity',
@@ -102,7 +105,15 @@ const cloud = fragments.map((text) => ({
 }));
 ---
 
-<Layout title={page === 'home' ? 'GHD Agency' : pageTitle} bodyClass={`v4 v4-${page}`}>
+<Layout
+  title={pageTitle}
+  description={seoMeta?.description}
+  canonicalPath={seoMeta?.path}
+  index={seoMeta?.index}
+  jsonLd={seoMeta ? jsonLdFor(metaKey) : []}
+  bodyClass={`v4 v4-${page}`}
+>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="pools" aria-hidden="true">
     <i data-par="0.12"></i>
     <i data-par="-0.08"></i>
@@ -129,7 +140,7 @@ const cloud = fragments.map((text) => ({
     )}
   </header>
 
-  <main>
+  <main id="main">
     {page === 'home' && (
     <Fragment>
     <!-- 1. HERO: the logo animation plays once on arrival, above the statement. -->
@@ -2730,5 +2741,20 @@ const cloud = fragments.map((text) => ({
   /* About: the founded line matches the founder label. */
   .v4 .abt-founded {
     font-size: var(--sh);
+  }
+  .v4 .skip-link {
+    position: fixed;
+    left: 12px;
+    top: -60px;
+    z-index: 100;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #f2f5f7;
+    color: #0a0b0d;
+    font-size: 14px;
+    transition: top 0.2s ease;
+  }
+  .v4 .skip-link:focus {
+    top: 12px;
   }
 </style>

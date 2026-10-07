@@ -11,7 +11,7 @@ export const hero = {
   eyebrow: 'Giant Seekers',
   headline: "We'll Build the Engine That Gets You There.",
   subhead: [
-    'We go after the massive, sleeping capital locked inside a business and bring it to life.',
+    'We go after the sleeping capital locked inside a business and bring it to life.',
     'Every business owner knows they have a massive, slumbering opportunity inside their business.',
   ],
 };
@@ -199,7 +199,7 @@ export const aboutPage = {
   // Owner's About copy, verbatim. Intro: two paragraphs, each on the owner's line breaks.
   title: 'GHD Agency : Giant Seekers',
   intro: [
-    ['We go after the massive, sleeping capital locked inside a business and bring it to life.', 'Every business owner knows they have a massive, slumbering opportunity inside their business.'],
+    ['We go after the sleeping capital locked inside a business and bring it to life.', 'Every business owner knows they have a massive, slumbering opportunity inside their business.'],
     [
       'We expose the hidden fortune bleeding out of your current pipeline, pressure-test it with a high-velocity pilot, and build a permanent revenue engine directly inside your company.',
       'Then we hand you the Helm, train your team to run it, and leave you in total command.',
