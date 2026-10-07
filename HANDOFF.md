@@ -64,7 +64,7 @@ An earlier written brief asked for an all-dark "tonal ladder" (black and graphit
 - "Your Growth Partner. We answer with Results." loads automatically after the GHD logo animation ends.
 - Results (stats) block sits directly above the offer section ("Come see what you're missing."), which has the CTA above and below three cards (Vidian Method, Prince Charming Pilot, The Build). No steps, no invoice mention.
 - About names GHD as a category: Generative Human Design is the craft, the Awakeners practice it.
-- Pending Rich's approval: Rich photo retouch (ring and watch removed) and brushed-silver 3D industry emblems. Not on the site yet.
+- Industry emblems are Rich's supplied 3D art (public/media/industries, transparent WebP). Pending: Rich photo retouch (ring and watch removed).
 
 ## Open items
 - Rich's video: record it with the script in `ghl/booking-form.md`, host it (YouTube unlisted or Vimeo), give the embed link.
