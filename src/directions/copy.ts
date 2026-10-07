@@ -158,13 +158,13 @@ export const solutionsPage = {
 
 export const servicesPage = {
   eyebrow: 'Services',
-  headline: 'Everything your growth engine runs on.',
-  sub: 'Built around your business. Run with your team.',
+  headline: 'Built around your business.\nRun with your team.',
+  sub: 'Everything your growth engine runs on.',
   // Grouped by the three steps of How We Work, in order.
   groups: [
     {
       n: '1',
-      title: 'Find the leaks',
+      title: "Find what's slipping",
       items: [
         { name: 'Revenue Mapping', line: 'Every step from first contact to closed deal, mapped.', includes: ['Customer journey', 'Lead sources', 'Handoffs', 'Drop-off points'] },
         { name: 'Response Audit', line: 'Where calls, forms and leads go unanswered.', includes: ['Call handling', 'Speed to lead', 'Follow-up gaps', 'No-shows'] },
@@ -186,7 +186,7 @@ export const servicesPage = {
       items: [
         { name: 'Training', line: 'Your people, confident running it.', includes: ['Hands-on training', 'Playbooks', 'New-hire onboarding'] },
         { name: 'Websites & Paid Media', line: 'Traffic that turns into conversations.', includes: ['Landing pages', 'Google Ads', 'Meta Ads', 'Tracking'] },
-        { name: 'Monthly Growth Reviews', line: 'What the numbers say, and what we change next.', includes: ['Revenue recovered', "What's working", "What's still leaking", "Next month's plan"] },
+        { name: 'Monthly Growth Reviews', line: 'What the numbers say, and what we change next.', includes: ['Revenue recovered', "What's working", "What's still slipping", "Next month's plan"] },
         { name: 'Continuous Optimization', line: 'Every insight turned into an improvement.', includes: ['Testing', 'Tuning follow-up', 'New automations', 'Scaling what works'] },
       ],
     },
@@ -302,7 +302,7 @@ export const offer = {
     {
       name: 'Vidian Method',
       tag: 'Complimentary',
-      line: 'Proprietary software that\nidentifies where opportunities are\nbeing missed and\nwhat it is costing you\nmeasured in time and dollars',
+      line: 'Proprietary software that identifies\nwhere opportunities are being missed\nand what it is costing you,\nmeasured in time and dollars',
     },
     {
       name: 'The Prince Charming',
@@ -321,18 +321,18 @@ export const fit = {
   eyebrow: 'Are you a fit? Read this before you call.',
   goodLabel: 'This is for you if',
   good: [
-    'You are ready to scale and increase profits without added time',
+    'You are ready to scale and increase profits\nwithout added time',
     'There is capacity to serve more customers',
-    'Your customer list is sitting there, messy and full of money',
+    'Your customer list is sitting there, messy and\nfull of money',
     'The team delivers exceptional service and products',
     'You are an action taker',
   ],
   badLabel: 'Not for you yet if',
   bad: [
     'You are unsure if you want to grow',
-    'You have no customer list, no lead history, nothing to wake',
+    'You have no customer list, no lead history,\nnothing to wake',
     'Buyers raise their hand and nobody answers',
-    'You want a one-time ad campaign or a software tool to buy',
+    'You want a one-time ad campaign or\na software tool to buy',
     'You like to collect information and do nothing with it',
   ],
 };
@@ -369,7 +369,7 @@ export const faq = {
     },
     {
       q: 'We already have a CRM. Do we start over?',
-      a: 'No. We work with what you have and fix where it leaks.',
+      a: 'No. We work with what you have and fix where it slips.',
     },
     {
       q: 'Can you work with a regulated business?',
