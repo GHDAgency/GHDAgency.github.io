@@ -1422,11 +1422,18 @@ const cloud = fragments.map((text) => ({
     max-width: 15ch;
     padding-bottom: 0.08em;
   }
-  /* Home hero: the tagline and the statement share one size and face; the statement is the brighter line. */
+  /* Home hero: the statement leads; the tagline and the serves line share one small gray Roboto style. */
   .v4 .hero-inner .display {
-    font-size: clamp(30px, min(3.6vw, 5svh), 58px);
+    font-weight: 300;
+    font-size: clamp(15px, 1.35vw, 21px);
+    line-height: 1.4;
+    letter-spacing: 0.01em;
     max-width: none;
-    color: #aab3b9;
+    padding-bottom: 0;
+    color: #9aa3aa;
+  }
+  .v4 .hero-inner .display + .serves {
+    margin-top: 8px;
   }
   .v4 .sub {
     margin-top: clamp(22px, 3.4svh, 40px);
@@ -1436,14 +1443,14 @@ const cloud = fragments.map((text) => ({
     letter-spacing: 0.01em;
     color: var(--gray);
   }
-  /* The statement of what we do: the tagline's exact face and size, brighter. */
+  /* The statement of what we do: large, thin, gray. */
   .v4 .hero-inner .sub {
     margin-top: 0;
     font-weight: 200;
     font-size: clamp(30px, min(3.6vw, 5svh), 58px);
     line-height: 1.04;
     letter-spacing: -0.025em;
-    color: #ffffff;
+    color: #aab3b9;
   }
   .v4 .hero-inner .sub span {
     text-wrap: balance;
