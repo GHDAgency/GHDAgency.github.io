@@ -385,12 +385,19 @@ export const faq = {
 /** Revenue calculator (Solutions). The defaults are the same assumptions as the Home stats block. */
 export const calc = {
   eyebrow: 'Run your own numbers',
-  headline: 'What are your unanswered leads costing you?',
+  headline: 'What are your missed calls costing you?',
   fields: [
-    { name: 'buyers', label: 'In-market buyers in your database', value: 588, prefix: '', step: 1 },
-    { name: 'close', label: 'Close rate (%)', value: 15, prefix: '', step: 1 },
-    { name: 'gross', label: 'Average gross per sale ($)', value: 2400, prefix: '$', step: 50 },
+    { name: 'calls', label: 'Missed calls per day', value: 5, min: 0, max: 50, step: 1 },
+    { name: 'close', label: 'Calls that convert to customers (%)', value: 30, min: 0, max: 100, step: 1 },
+    { name: 'price', label: 'Average service price ($)', value: 1000, min: 0, max: 10000, step: 50 },
   ],
-  resultLabel: 'Revenue sitting in your database',
-  footnote: 'An estimate: buyers × close rate × average gross. Your numbers will vary.',
+  periods: [
+    { key: 'day', label: 'Daily', days: 1 },
+    { key: 'week', label: 'Weekly', days: 7 },
+    { key: 'month', label: 'Monthly', days: 30 },
+    { key: 'year', label: 'Annually', days: 365 },
+  ],
+  defaultPeriod: 'month',
+  resultLabel: 'Estimated revenue at risk per',
+  footnote: 'Illustrative estimate based on the values you enter. Actual results vary.',
 };
