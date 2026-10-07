@@ -8,12 +8,11 @@ export const CTA_HREF = '/v4/apply/';
 export const CTA_SUBLINE = 'Start with one conversation.';
 
 export const hero = {
-  eyebrow: 'Ready to Scale?',
+  eyebrow: 'Giant Seekers',
   headline: "We'll Build the Engine That Gets You There.",
   subhead: [
-    'We find the opportunities in your business,',
-    'build the systems that capture them,',
-    'and make sure your team can run them.',
+    'We go after the massive, sleeping capital locked inside a business and bring it to life.',
+    'Every business owner knows they have a massive, slumbering opportunity inside their business.',
   ],
 };
 

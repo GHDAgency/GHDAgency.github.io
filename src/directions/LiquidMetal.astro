@@ -1459,8 +1459,13 @@ const cloud = fragments.map((text) => ({
   .v4 .hero-inner .sub span {
     text-wrap: balance;
   }
+  .v4 .hero-inner .sub {
+    max-width: min(1100px, 92vw);
+  }
+  .v4 .hero-inner .sub span + span {
+    margin-top: 0.5em;
+  }
   @media (min-width: 900px) {
-    .v4 .hero-inner .sub span,
     .v4 .hero-inner .display {
       white-space: nowrap;
     }
@@ -1602,11 +1607,15 @@ const cloud = fragments.map((text) => ({
     height: calc(var(--n) * 95svh + 140svh);
     padding: 0;
     /* Pull the first beat up under the logo band so there is no dead scroll after the hero. */
-    margin-top: -16svh;
+    margin-top: -10svh;
     position: relative;
   }
   .m .v4 .stage {
     pointer-events: none;
+  }
+  /* The drifting words never show over the hero: the top band of the stage stays clear. */
+  .m .v4 .noise {
+    clip-path: inset(10svh 0 0 0);
   }
   .m .v4 .stage {
     position: sticky;
