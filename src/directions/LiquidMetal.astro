@@ -1393,7 +1393,7 @@ const cloud = fragments.map((text) => ({
     will-change: transform, opacity;
   }
   .v4 .hero-logo {
-    width: clamp(119px, min(11.9vw, 18.7svh), 187px);
+    width: clamp(95px, min(9.5vw, 15svh), 150px);
     margin-bottom: clamp(20px, 3.4svh, 36px);
   }
   .v4 .eyebrow {
@@ -1459,8 +1459,13 @@ const cloud = fragments.map((text) => ({
   .v4 .hero-inner .sub span {
     text-wrap: balance;
   }
+  .v4 .hero-inner .sub {
+    max-width: min(1100px, 92vw);
+  }
+  .v4 .hero-inner .sub span + span {
+    margin-top: 0.5em;
+  }
   @media (min-width: 900px) {
-    .v4 .hero-inner .sub span,
     .v4 .hero-inner .display {
       white-space: nowrap;
     }
@@ -1589,7 +1594,7 @@ const cloud = fragments.map((text) => ({
     font-weight: 300;
   }
   .v4 .beat-logo {
-    width: min(71vw, 646px);
+    width: clamp(190px, min(19vw, 30svh), 300px); /* twice the header logo */
     margin: 0 auto;
   }
   .v4 .noise,
@@ -1602,11 +1607,15 @@ const cloud = fragments.map((text) => ({
     height: calc(var(--n) * 95svh + 140svh);
     padding: 0;
     /* Pull the first beat up under the logo band so there is no dead scroll after the hero. */
-    margin-top: -16svh;
+    margin-top: -10svh;
     position: relative;
   }
   .m .v4 .stage {
     pointer-events: none;
+  }
+  /* The drifting words never show over the hero: the top band of the stage stays clear. */
+  .m .v4 .noise {
+    clip-path: inset(10svh 0 0 0);
   }
   .m .v4 .stage {
     position: sticky;
@@ -1625,7 +1634,7 @@ const cloud = fragments.map((text) => ({
     will-change: transform, opacity;
   }
   .m .v4 .pl.logo-beat {
-    width: min(76.5vw, 663px);
+    width: clamp(190px, min(19vw, 30svh), 300px); /* twice the header logo */
   }
 
   /* ================= 1. Noise to Clarity ================= */
@@ -1641,7 +1650,7 @@ const cloud = fragments.map((text) => ({
   }
   /* The final beat sits mid-stage; pull the next section up so the gap matches the story's rhythm. */
   .m .v4 .problem[data-tr='noise'] + .how {
-    margin-top: -8svh;
+    margin-top: -22svh;
     position: relative;
   }
   .m .v4 [data-tr='noise'] .pl {
