@@ -28,8 +28,7 @@ jobs:
         env:
           # Set in repo Settings → Secrets and variables → Actions → Variables.
           PUBLIC_GHL_WEBHOOK_URL: ${{ vars.PUBLIC_GHL_WEBHOOK_URL }}
-          # Remove once ghdagency.ai points at this site.
-          PUBLIC_DEPLOY_ORIGIN: https://ghdagency.github.io
+          PUBLIC_INDEXABLE: 'true'
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

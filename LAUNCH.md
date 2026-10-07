@@ -38,8 +38,8 @@ Status key: DONE = built and merged, ME = I can do it, YOU = needs Rich or his a
 - ME: wire the webhook and video, test the apply and confirm flow, final accessibility and speed pass.
 
 ## Cutover (Wednesday, in this order)
-1. ME: DONE on 2026-10-07: step 1 of `scripts/go-live.mjs` ran. The new site is now at the root of ghdagency.github.io (indexing OFF, no custom domain). On DNS day I run `node scripts/go-live.mjs --domain`, which writes the CNAME and turns indexing ON, then build, audit, merge.
-2. YOU or ME: GitHub, Settings, Pages, Custom domain `ghdagency.ai`, tick Enforce HTTPS once the certificate appears (can take up to an hour).
+1. ME: DONE on 2026-10-07: step 1 and step 2 (`--domain`) of `scripts/go-live.mjs` ran. The new site is now at the root of ghdagency.github.io (indexing OFF, no custom domain). On DNS day I run `node scripts/go-live.mjs --domain`, which writes the CNAME and turns indexing ON, then build, audit, merge.
+2. DESKTOP SESSION (see `ghl/DESKTOP-PROMPT.md`): GitHub, Settings, Pages, Custom domain `ghdagency.ai`, tick Enforce HTTPS once the certificate appears (can take up to an hour).
 3. YOU: GoDaddy DNS (read from Rich's screenshot, 2026-10-07; nameservers are GoDaddy's, so all changes are made in GoDaddy):
    - `A  @  162.159.140.166` (the old GoHighLevel site): **delete it**, then add four A records for `@`: 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153.
    - `CNAME  www  sites.ludicrous.cloud` (old GoHighLevel site): **edit the value to** `ghdagency.github.io`.
