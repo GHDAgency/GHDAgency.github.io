@@ -9,6 +9,12 @@ Status key: DONE = built and merged, ME = I can do it, YOU = needs Rich or his a
 - DONE Every "Grow My Revenue" button goes to the form (`/apply/`). Link audit: 0 broken internal links.
 - DONE Cutover rehearsed: `node scripts/go-live.mjs` moves the new site to the domain root, redirects the old URLs (about-us, our-solutions, pricing, contact-us, home), writes the CNAME, turns indexing on. Rehearsal build passes with 0 broken links.
 
+## Added tonight
+- DONE Cookie banner and preferences (analytics, marketing). Choice is saved. Footer "Cookie Preferences" and the Cookie Policy button reopen it. Tracking loads only after consent: paste GA4 and Meta Pixel IDs in `src/directions/tracking.ts`.
+- DONE SMS consent on the form: carrier-style wording (automated messages, not a condition of purchase, frequency varies, rates apply, STOP and HELP, links to Terms and Privacy). SMS sections added to the Privacy Policy and Terms.
+- DONE Street address removed from the site, structured data and `llms.txt`.
+- DONE Confirm video script (in `ghl/booking-form.md`).
+
 ## Blockers (YOU)
 1. **GoDaddy DNS access.** Need a login or an invite for whoever manages ghdagency.ai. First question: where does the root domain point today (the old site)? If it points at GoHighLevel, the checkout funnel (ghdagency.ai/checkout-page) and any GHL pages on the root will stop working when it moves. They must be moved to a subdomain (for example links.ghdagency.ai) first.
 2. **GoHighLevel, "Website: confirm" workflow.** Needs an inbound webhook URL. Send it to me and I add it to the site.
@@ -20,10 +26,10 @@ Status key: DONE = built and merged, ME = I can do it, YOU = needs Rich or his a
    - C: "Website: confirm". Save the five answers, tag `confirmed`, mark the appointment confirmed, send the invoice email.
 6. **Approve** confirm questions 4 and 5 (leads per month, CRM), or swap them.
 7. **Real photos.** I cannot reach stock sites from here. Send 7 real-people photos (3 for Services, 4 for Solutions) or tell me to remove the photos.
-8. **Confirm facts that go into search results:** phone 725-241-0571 everywhere (the old site said 702-581-8617), the Henderson NV street address, and that the LinkedIn link (a personal profile) is the one you want. Add a company page if there is one.
-9. **Confirm logos can be shown:** Miller Ad Agency, James Hodge Ford and Hyundai.
+8. ~~Facts~~ Phone 725-241-0571 confirmed. No street address anywhere (home address): the site and search data say Las Vegas, NV only. Still open: is the LinkedIn link (a personal profile) the one you want, or is there a company page?
+9. ~~Logo permission~~ Confirmed by Rich: Miller Ad Agency and James Hodge logos are cleared.
 10. **Security-block lines are true in practice:** "Your team approves anything high-stakes before it goes out" and "We test on sample data before anything touches a real customer."
-11. **Legal review** of the copy of Terms, Privacy and Cookie policy, which were written for the old product. The Cookie Policy mentions a cookie banner; the new site sets no cookies yet. If you add analytics or ad pixels, a consent banner is needed first.
+11. **Legal review** of Terms, Privacy and Cookie policy (written for the old product; I added SMS sections and the cookie banner now matches the Cookie Policy). Have your attorney read them.
 
 ## Tonight (Tuesday)
 - YOU: send DNS access, the GHL webhook, the video link, the photos.

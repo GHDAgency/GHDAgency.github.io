@@ -1,6 +1,6 @@
 # GHD Agency
 
-> GHD Agency finds the revenue sleeping inside a business, builds the systems that capture it, and trains the team to run them. Founded by Rich Diaz. Based in Henderson, Nevada, serving businesses across the United States.
+> GHD Agency finds the revenue sleeping inside a business, builds the systems that capture it, and trains the team to run them. Founded by Rich Diaz. Based in Las Vegas, Nevada, serving businesses across the United States.
 
 GHD calls the sleeping, unclaimed revenue inside a business the "Sleeping Giant". The agency goes after it with a three-step engagement and hands the owner a system they own.
 
@@ -27,4 +27,4 @@ Every account built is in the client's name. Nothing high-stakes goes out withou
 ## Contact
 - Phone: 725-241-0571
 - Email: connect@ghdagency.ai
-- Address: 1672 Sabatini Dr, Henderson, NV 89052
+- Location: Las Vegas, Nevada

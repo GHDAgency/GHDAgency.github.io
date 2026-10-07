@@ -249,9 +249,9 @@ export const siteFooter = {
 };
 
 export const legalPages = {
-  'terms-and-conditions': { title: 'Terms & Conditions', updated: 'October 18, 2025' },
-  'privacy-policy': { title: 'Privacy Policy', updated: 'October 17, 2025' },
-  'cookie-policy': { title: 'Cookie Policy', updated: 'October 18, 2025' },
+  'terms-and-conditions': { title: 'Terms & Conditions', updated: 'October 7, 2026' },
+  'privacy-policy': { title: 'Privacy Policy', updated: 'October 7, 2026' },
+  'cookie-policy': { title: 'Cookie Policy', updated: 'October 7, 2026' },
   'accessibility-statement': { title: 'Accessibility Statement', updated: 'October 7, 2026' },
 };
 
@@ -263,7 +263,8 @@ export const applyForm = {
   title: 'Find where your revenue is slipping away.',
   note: 'Next, choose the time that works for you.',
   button: 'Choose My Time',
-  consent: 'I agree to receive calls and texts from GHD Agency about my inquiry. Message and data rates may apply. Reply STOP to opt out.',
+  consent:
+    'By checking this box, I agree to receive calls and text messages from GHD Agency, including automated messages, at the mobile number above about my inquiry and appointment. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. See our <a href="/v4/terms-and-conditions/" target="_blank" rel="noopener">Terms</a> and <a href="/v4/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.',
   webhook: 'https://services.leadconnectorhq.com/hooks/H4kd9KFulXDimXLU1DlP/webhook-trigger/96520cb1-da85-4b95-95fa-3ffa951d6b0a',
   calendar: 'https://links.ghdagency.ai/widget/booking/16ibCnnbCNSihNaDQ6VI',
 };

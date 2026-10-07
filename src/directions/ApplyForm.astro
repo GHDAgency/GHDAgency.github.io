@@ -26,7 +26,7 @@ const c = confirmForm;
       </div>
       <label class="consent">
         <input type="checkbox" name="sms_consent" value="Yes" required />
-        <span>{f.consent}</span>
+        <span set:html={f.consent} />
       </label>
       <p class="apply-note">{f.note}</p>
       <p class="apply-error" data-error hidden>Something went wrong sending your details. Please try again, or call 725-241-0571.</p>
@@ -297,6 +297,10 @@ const c = confirmForm;
     height: 18px;
     margin-top: 2px;
     accent-color: #0a0b0d;
+  }
+  .consent a {
+    color: var(--accent-t, #00696d);
+    text-decoration: underline;
   }
   .consent span {
     margin: 0;

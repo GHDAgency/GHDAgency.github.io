@@ -18,6 +18,7 @@ import ApplyForm from './ApplyForm.astro';
 import Blocks from './Blocks.astro';
 import Who from './Who.astro';
 import A11y from './A11y.astro';
+import Consent from './Consent.astro';
 import { pageMeta, jsonLdFor } from './seo';
 import {
   CTA_LABEL, CTA_HREF, HOME_HREF, nav, hero, heroServes, beats, howV4, industries, proof, fmt, security,
@@ -441,6 +442,7 @@ const cloud = fragments.map((text) => ({
     <div class="foot-legal">
       <p class="foot-links">
         {siteFooter.legal.map((l) => <a href={l.href}>{l.label}</a>)}
+        <button type="button" class="consent-link-btn" data-cookie-prefs>Cookie Preferences</button>
       </p>
       <p class="foot-copy">{siteFooter.copyright}</p>
       <div class="foot-disclosures">
@@ -450,6 +452,7 @@ const cloud = fragments.map((text) => ({
   </footer>
 
   <A11y />
+  <Consent />
 </Layout>
 
 <script>
