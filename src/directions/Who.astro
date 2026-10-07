@@ -1,0 +1,18 @@
+---
+// "Who we work with": the four industry emblems. Used on Home, About and Solutions.
+import { industries } from './copy';
+import { industryIcon, industryDefs } from './industryIcons';
+---
+
+<section class="who">
+  <Fragment set:html={industryDefs} />
+  <p class="who-label fade">{industries.label}</p>
+  <ul class="who-list">
+    {industries.items.map((name, i) => (
+      <li class="fade">
+        <div class="ind-tile" set:html={industryIcon(i)} />
+        <span>{name}</span>
+      </li>
+    ))}
+  </ul>
+</section>

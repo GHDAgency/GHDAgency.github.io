@@ -16,6 +16,7 @@ import fs from 'node:fs';
 import { industryIcon, industryDefs } from './industryIcons';
 import ApplyForm from './ApplyForm.astro';
 import Blocks from './Blocks.astro';
+import Who from './Who.astro';
 import {
   CTA_LABEL, CTA_HREF, HOME_HREF, nav, hero, heroServes, beats, howV4, industries, proof, fmt, security,
   solutionsPage, servicesPage, aboutPage, homePhoto, siteFooter, legalPages,
@@ -224,6 +225,8 @@ const cloud = fragments.map((text) => ({
       </ol>
     </section>
 
+    <!-- WHO WE WORK WITH: right after step five -->
+    <Who />
 
     <!-- RESULTS: directly above Start here -->
     {page === 'home' && (
@@ -265,10 +268,14 @@ const cloud = fragments.map((text) => ({
       <section class="sol">
         <ol class="sol-list">
           {solutionsPage.items.map((it, i) => (
-            <li class:list={['sol-item', 'fade', { flip: i % 2 === 1 }]}>
-              <figure class="sol-photo" aria-hidden="true">
-                <img src={solPhotos[i]} alt="" width="1400" height="933" loading="lazy" decoding="async" />
-              </figure>
+            <li class:list={['sol-item', 'fade', { flip: i % 2 === 1, 'has-calc': i === 3 }]}>
+              {i === 3 ? (
+                <div class="sol-calc"><Blocks show={['calc']} inline /></div>
+              ) : (
+                <figure class="sol-photo" aria-hidden="true">
+                  <img src={solPhotos[i]} alt="" width="1400" height="933" loading="lazy" decoding="async" />
+                </figure>
+              )}
               <div class="sol-copy">
               <div class="sol-head">
                 <span class="num sol-n">{i + 1}</span>
@@ -292,7 +299,7 @@ const cloud = fragments.map((text) => ({
       </section>
     )}
 
-    {page === 'solutions' && <Blocks show={['calc']} />}
+    {page === 'solutions' && <Who />}
 
     {page === 'services' && (
       <section class="svc">
@@ -365,25 +372,7 @@ const cloud = fragments.map((text) => ({
       </section>
     )}
 
-    {(page === 'home' || page === 'about') && (
-    <Fragment>
-    <!-- 5. WHO WE WORK WITH -->
-    <section class="who">
-      <Fragment set:html={industryDefs} />
-      <p class="who-label fade">{industries.label}</p>
-      <ul class="who-list">
-        {industries.items.map((name, i) => (
-          <li class="fade">
-            <div class="ind-tile" set:html={industryIcon(i)} />
-            {/* Keep "Trades &" and "Home Services" together so the name breaks cleanly. */}
-            <span>{name.replace(' & ', ' & ').replace('Home Services', 'Home Services')}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-
-    </Fragment>
-    )}
+    {page === 'about' && <Who />}
 
     {false && showHomePhoto && (
       <section class="founder fade">
@@ -640,6 +629,9 @@ const cloud = fragments.map((text) => ({
 
 <style is:global>
   .v4 {
+    /* Type scale: headers share one size everywhere; subheaders share another. */
+    --hd: clamp(30px, min(3.6vw, 5svh), 58px);
+    --sh: clamp(15px, 1.35vw, 21px);
     --alloy: linear-gradient(180deg, #1a1d21 0%, #121417 55%, #0e1012 100%);
     --brush: repeating-linear-gradient(90deg, rgb(255 255 255 / 0.014) 0 1px, transparent 1px 3px);
     --edge-hi: linear-gradient(90deg, transparent, rgb(230 235 238 / 0.45), transparent);
@@ -825,7 +817,7 @@ const cloud = fragments.map((text) => ({
     color: var(--gray);
   }
   .v4 .sol-body dd.sol-outcome {
-    color: var(--t1);
+    color: var(--gray);
   }
 
   /* SERVICES: a ruled 3 x 2 grid, no cards */
@@ -1422,11 +1414,18 @@ const cloud = fragments.map((text) => ({
     max-width: 15ch;
     padding-bottom: 0.08em;
   }
-  /* Home hero: the tagline and the statement share one size and face; the statement is the brighter line. */
+  /* Home hero: the statement leads; the tagline and the serves line share one small gray Roboto style. */
   .v4 .hero-inner .display {
-    font-size: clamp(30px, min(3.6vw, 5svh), 58px);
+    font-weight: 300;
+    font-size: var(--sh);
+    line-height: 1.4;
+    letter-spacing: 0.01em;
     max-width: none;
-    color: #aab3b9;
+    padding-bottom: 0;
+    color: #9aa3aa;
+  }
+  .v4 .hero-inner .display + .serves {
+    margin-top: 8px;
   }
   .v4 .sub {
     margin-top: clamp(22px, 3.4svh, 40px);
@@ -1436,14 +1435,14 @@ const cloud = fragments.map((text) => ({
     letter-spacing: 0.01em;
     color: var(--gray);
   }
-  /* The statement of what we do: the tagline's exact face and size, brighter. */
+  /* The statement of what we do: large, thin, gray. */
   .v4 .hero-inner .sub {
     margin-top: 0;
     font-weight: 200;
-    font-size: clamp(30px, min(3.6vw, 5svh), 58px);
+    font-size: var(--hd);
     line-height: 1.04;
     letter-spacing: -0.025em;
-    color: #ffffff;
+    color: #aab3b9;
   }
   .v4 .hero-inner .sub span {
     text-wrap: balance;
@@ -1589,6 +1588,12 @@ const cloud = fragments.map((text) => ({
   .m .v4 .problem {
     height: calc(var(--n) * 95svh + 140svh);
     padding: 0;
+    /* Pull the first beat up under the logo band so there is no dead scroll after the hero. */
+    margin-top: -16svh;
+    position: relative;
+  }
+  .m .v4 .stage {
+    pointer-events: none;
   }
   .m .v4 .stage {
     position: sticky;
@@ -1858,17 +1863,15 @@ const cloud = fragments.map((text) => ({
     margin: 0 auto clamp(64px, 12vh, 128px);
     text-align: center;
     font-weight: 200;
-    font-size: clamp(26px, 3.3vw, 56px);
-    line-height: 1.24;
-    letter-spacing: -0.015em;
+    font-size: var(--hd);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: #aab3b9;
   }
   .v4 .how-intro span {
     display: block;
   }
-  .v4 .how-intro span:last-child {
-    margin-top: 0.35em;
-    color: #e6ebee;
-  }
+
   /* Steps stack top to bottom in one centered column. Numerals share a fixed-width column so
      every title and line starts on the same vertical edge. */
   .v4 .steps {
@@ -1971,7 +1974,6 @@ const cloud = fragments.map((text) => ({
   /* Industry emblems float on the page, as supplied: no card behind them. */
   .v4 .ind-tile {
     width: 100%;
-    aspect-ratio: 1;
     display: grid;
     place-items: center;
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1981,9 +1983,8 @@ const cloud = fragments.map((text) => ({
   }
   .v4 .ind {
     display: block;
-    width: 78%;
-    height: 78%;
-    object-fit: contain;
+    width: max(39%, 96px);
+    height: auto;
   }
   .v4 .who-label {
     font-size: 13px;
@@ -2195,9 +2196,6 @@ const cloud = fragments.map((text) => ({
       font-size: clamp(22px, 6.6vw, 30px);
     }
     /* The three intro lines stay whole on a phone. */
-    .v4 .how-intro {
-      font-size: clamp(20px, 5.6vw, 26px);
-    }
     .v4 .how-intro span {
       text-wrap: balance;
     }
@@ -2376,7 +2374,7 @@ const cloud = fragments.map((text) => ({
   .v4:not(.v4-home) .abt {
     padding: clamp(64px, 10vh, 112px) var(--gutter) clamp(72px, 12vh, 128px);
   }
-  .v4.v4-about .who {
+  .v4:not(.v4-home) .who {
     padding: clamp(64px, 10vh, 112px) var(--gutter) clamp(72px, 12vh, 128px);
   }
   .v4:not(.v4-home) .final {
@@ -2421,6 +2419,66 @@ const cloud = fragments.map((text) => ({
     }
     .v4 .svc-group {
       padding-block: clamp(48px, 8vh, 72px);
+    }
+  }
+
+  /* PHOTOS: small, beside the copy (real photography only; never full width). */
+  .v4 .sol-item,
+  .v4 .sol-item.flip {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+    align-items: center;
+  }
+  .v4 .sol-item.has-calc {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+    align-items: start;
+  }
+  .v4 .sol-item .sol-copy {
+    order: 1;
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 3vh, 28px);
+  }
+  .v4 .sol-item .sol-photo,
+  .v4 .sol-item.flip .sol-photo,
+  .v4 .sol-item .sol-calc {
+    order: 2;
+  }
+  .v4 .sol-item .sol-photo img {
+    aspect-ratio: 3 / 2;
+    object-position: 50% 20%;
+  }
+  .v4 .sol-calc .blk-label {
+    margin-bottom: 18px;
+  }
+  .v4 .sol-calc .calc-card {
+    max-width: none;
+  }
+  .v4 .svc-lead {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+    max-width: 1320px;
+    padding: 0;
+  }
+  .v4 .svc-lead .svc-photo {
+    order: 2;
+  }
+  .v4 .svc-photo img {
+    aspect-ratio: 3 / 2;
+    object-position: 50% 20%;
+  }
+  @media (max-width: 820px) {
+    .v4 .sol-item,
+    .v4 .sol-item.flip,
+    .v4 .sol-item.has-calc,
+    .v4 .svc-lead {
+      grid-template-columns: 1fr;
+    }
+    .v4 .sol-item .sol-photo,
+    .v4 .sol-item .sol-calc,
+    .v4 .svc-lead .svc-photo {
+      order: 2;
+    }
+    .v4 .sol-photo,
+    .v4 .svc-photo {
+      max-width: 260px;
     }
   }
 </style>

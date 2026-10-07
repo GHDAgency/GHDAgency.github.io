@@ -5,8 +5,10 @@ import { offer, fit, security, faq, calc, CTA_LABEL, CTA_HREF } from './copy';
 type Block = 'offer' | 'fit' | 'security' | 'faq' | 'calc';
 interface Props {
   show: Block[];
+  /** Calculator only: render just the card, to sit inside another section. */
+  inline?: boolean;
 }
-const { show } = Astro.props;
+const { show, inline = false } = Astro.props;
 const on = (b: Block) => show.includes(b);
 ---
 
@@ -67,7 +69,7 @@ const on = (b: Block) => show.includes(b);
 )}
 
 {on('calc') && (
-  <section class="blk blk-calc">
+  <section class:list={['blk-calc', { blk: !inline, 'calc-inline': inline }]}>
     <p class="blk-label fade">{calc.eyebrow}</p>
     <div class="calc-card fade" data-calc>
       <h2>{calc.headline}</h2>
@@ -156,7 +158,7 @@ const on = (b: Block) => show.includes(b);
   .v4 .offer-head {
     text-align: center;
     font-weight: 200;
-    font-size: clamp(34px, 4.4vw, 68px);
+    font-size: var(--hd);
     line-height: 1.1;
     letter-spacing: -0.025em;
     color: var(--t1);
@@ -224,10 +226,11 @@ const on = (b: Block) => show.includes(b);
   /* Fit / not a fit */
   .v4 .blk-fit .blk-label {
     font-weight: 700;
-    font-size: clamp(24px, 3.2vw, 48px);
-    line-height: 1.15;
-    letter-spacing: 0.04em;
-    color: var(--t1);
+    font-size: var(--hd);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: #0a0b0d;
     margin-bottom: clamp(32px, 6vh, 56px);
   }
   .v4 .fit-col li span { display: block; }
@@ -245,19 +248,19 @@ const on = (b: Block) => show.includes(b);
     border: 1px solid var(--edge);
   }
   .v4 .fit-col h2 {
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0.3em;
+    font-weight: 700;
+    font-size: clamp(17px, 1.4vw, 21px);
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     margin-bottom: 20px;
   }
   .v4 .fit-yes h2 { color: var(--accent-t); }
-  .v4 .fit-no h2 { color: var(--gray); }
+  .v4 .fit-no h2 { color: var(--t1); }
   .v4 .fit-col li,
   .v4 .sec-list li {
     position: relative;
     font-weight: 300;
-    font-size: clamp(15px, 1.15vw, 18px);
+    font-size: clamp(14px, 1.02vw, 16px);
     line-height: 1.55;
     color: var(--t1);
   }
