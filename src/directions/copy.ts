@@ -63,14 +63,14 @@ export const beats: { lines: string[]; finale?: boolean }[] = [
 /** V4: How We Work, reworked as Find → Fix → Grow (draft, pending approval). */
 export const howV4 = {
   // Set on exactly three lines.
-  intro: ['Somewhere between the first call and', 'the closed deal, customers slip away.', 'Quietly. Every day.'],
+  intro: ['Somewhere between the first call and the closed deal,', 'opportunity is quietly slipping away.'],
   // Same five steps, same wording, as the About page.
   steps: [
-    { n: '1', title: 'Find the Sleeping Giant.', line: 'Uncover the revenue, capacity, or opportunity already inside the business.' },
-    { n: '2', title: 'Map it with Vidian.', line: 'Find where time and revenue are slipping away, put numbers around the opportunity, and decide what is worth pursuing.' },
-    { n: '3', title: 'Test it with Prince Charming.', line: 'Run a focused pilot to see if the opportunity is real before making a bigger commitment.' },
-    { n: '4', title: 'Build the engine.', line: 'Custom-build the strategy, systems, workflows, AI, CRM, follow-up, and customer journeys needed to capture it.' },
-    { n: '5', title: 'Train the team to run it.', line: 'Your people learn how to run the engine so the gains keep compounding without everything coming back to the owner.' },
+    { n: '1', title: 'Find the Sleeping Giant.', line: 'The revenue already inside your business, waiting to be woken.' },
+    { n: '2', title: 'Map it with Vidian.', line: "See where time and money slip away. Put a number on it. We'll decide if it's worth chasing." },
+    { n: '3', title: 'Test it with Prince Charming.', line: 'A focused pilot proves the opportunity is real before you commit to more.' },
+    { n: '4', title: 'Build the engine.', line: 'Custom strategy, systems, follow-up and customer journeys, built to capture it.' },
+    { n: '5', title: 'Train the team to run it.', line: 'Your people run the engine from the Helm, your custom dashboard. The gains keep compounding. Nothing lands back on your desk.' },
   ],
   engagement: [
     { name: 'Find & Fix', line: 'a one-time deep dive and build.' },
@@ -216,11 +216,11 @@ export const aboutPage = {
   purpose: 'The business should fund a life doing the things you love with the people you love.',
   howLabel: 'How We Work',
   how: [
-    { title: 'Find the Sleeping Giant.', line: 'Uncover the revenue, capacity, or opportunity already inside the business.' },
-    { title: 'Map it with Vidian.', line: 'Find where time and revenue are slipping away, put numbers around the opportunity, and decide what is worth pursuing.' },
-    { title: 'Test it with Prince Charming.', line: 'Run a focused pilot to see if the opportunity is real before making a bigger commitment.' },
-    { title: 'Build the engine.', line: 'Custom-build the strategy, systems, workflows, AI, CRM, follow-up, and customer journeys needed to capture it.' },
-    { title: 'Train the team to run it.', line: 'Your people learn how to run the engine so the gains keep compounding without everything coming back to the owner.' },
+    { title: 'Find the Sleeping Giant.', line: 'The revenue already inside your business, waiting to be woken.' },
+    { title: 'Map it with Vidian.', line: "See where time and money slip away. Put a number on it. We'll decide if it's worth chasing." },
+    { title: 'Test it with Prince Charming.', line: 'A focused pilot proves the opportunity is real before you commit to more.' },
+    { title: 'Build the engine.', line: 'Custom strategy, systems, follow-up and customer journeys, built to capture it.' },
+    { title: 'Train the team to run it.', line: 'Your people run the engine from the Helm, your custom dashboard. The gains keep compounding. Nothing lands back on your desk.' },
   ],
   // Photo of Rich on stage, mirrored so he faces into the page (left to right).
   photo: '/media/rich-stage.jpg',
@@ -258,9 +258,9 @@ export const legalPages = {
    3. "Time held" email with the VSL and a confirm link  4. Confirm page (five questions)
    5. Confirmed: the $0 invoice goes out.  No confirmation in 24 hours: GHL releases the time. */
 export const applyForm = {
-  title: "Let's see where your revenue is slipping.",
-  note: 'Next, you pick a time. We hold it for 24 hours.',
-  button: 'Pick My Time',
+  title: 'Find where your revenue is slipping away.',
+  note: 'Next, choose the time that works for you.',
+  button: 'Choose My Time',
   consent: 'I agree to receive calls and texts from GHD Agency about my inquiry. Message and data rates may apply. Reply STOP to opt out.',
   webhook: 'https://services.leadconnectorhq.com/hooks/H4kd9KFulXDimXLU1DlP/webhook-trigger/96520cb1-da85-4b95-95fa-3ffa951d6b0a',
   calendar: 'https://links.ghdagency.ai/widget/booking/16ibCnnbCNSihNaDQ6VI',
@@ -318,32 +318,33 @@ export const offer = {
 };
 
 export const fit = {
-  eyebrow: 'Are you a fit?',
-  goodLabel: 'You are a fit if',
+  eyebrow: 'Are you a fit? Read this before you call.',
+  goodLabel: 'This is for you if',
   good: [
-    'You have a customer list, even a messy one',
-    'Someone on your team will take the calls we set up',
-    'You can serve more customers than you do today',
-    'You can contact your customers by text, email and phone',
-    'A decision maker joins the call',
+    'You are ready to scale and increase profits without added time',
+    'There is capacity to serve more customers',
+    'Your customer list is sitting there, messy and full of money',
+    'The team delivers exceptional service and products',
+    'You are an action taker',
   ],
-  badLabel: 'Not yet a fit if',
+  badLabel: 'Not for you yet if',
   bad: [
-    'You have no customer list or lead history',
-    'Nobody is available when a buyer raises their hand',
-    'You want a one-time ad campaign or a software tool',
-    'You are not ready to change how follow-up gets handled',
+    'You are unsure if you want to grow',
+    'You have no customer list, no lead history, nothing to wake',
+    'Buyers raise their hand and nobody answers',
+    'You want a one-time ad campaign or a software tool to buy',
+    'You like to collect information and do nothing with it',
   ],
 };
 
 export const security = {
   eyebrow: 'Your business, your data',
   items: [
-    'Every account we build is in your name. If we part ways, you keep everything.',
-    'Your team approves anything high-stakes before it goes out.',
-    'We test on sample data before anything touches a real customer.',
-    'Customers opt in, and every message honors STOP.',
-    'We can build to HIPAA requirements when your business needs it.',
+    '100% asset ownership. Everything we build lives in your name.',
+    'Nothing high-stakes goes out without approval.',
+    'We test on sample data first. Your customers never see a draft.',
+    'Customers opt in. Every message honors STOP.',
+    'Regulated? We can build to HIPAA requirements when your business needs it.',
   ],
 };
 
