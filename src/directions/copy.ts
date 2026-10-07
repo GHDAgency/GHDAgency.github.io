@@ -239,6 +239,7 @@ export const siteFooter = {
     { label: 'Terms & Conditions', href: '/v4/terms-and-conditions/' },
     { label: 'Privacy Policy', href: '/v4/privacy-policy/' },
     { label: 'Cookie Policy', href: '/v4/cookie-policy/' },
+    { label: 'Accessibility', href: '/v4/accessibility-statement/' },
   ],
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ghdagency/' },
@@ -251,6 +252,7 @@ export const legalPages = {
   'terms-and-conditions': { title: 'Terms & Conditions', updated: 'October 18, 2025' },
   'privacy-policy': { title: 'Privacy Policy', updated: 'October 17, 2025' },
   'cookie-policy': { title: 'Cookie Policy', updated: 'October 18, 2025' },
+  'accessibility-statement': { title: 'Accessibility Statement', updated: 'October 7, 2026' },
 };
 
 /* "Grow My Revenue" booking (flow agreed with the owner, 2026-10-06):

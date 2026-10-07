@@ -17,6 +17,7 @@ import { industryIcon, industryDefs } from './industryIcons';
 import ApplyForm from './ApplyForm.astro';
 import Blocks from './Blocks.astro';
 import Who from './Who.astro';
+import A11y from './A11y.astro';
 import {
   CTA_LABEL, CTA_HREF, HOME_HREF, nav, hero, heroServes, beats, howV4, industries, proof, fmt, security,
   solutionsPage, servicesPage, aboutPage, homePhoto, siteFooter, legalPages,
@@ -225,10 +226,7 @@ const cloud = fragments.map((text) => ({
       </ol>
     </section>
 
-    <!-- WHO WE WORK WITH: right after step five -->
-    <Who />
-
-    <!-- RESULTS: directly above Start here -->
+    <!-- RESULTS: right after step five, above the industries -->
     {page === 'home' && (
     <section class="proof" data-proof>
       <div class="slab fade">
@@ -246,6 +244,9 @@ const cloud = fragments.map((text) => ({
       </div>
     </section>
     )}
+
+    <!-- WHO WE WORK WITH: after the results -->
+    <Who />
 
     <Blocks show={['offer']} />
 
@@ -400,7 +401,7 @@ const cloud = fragments.map((text) => ({
     )}
 
     <!-- 7. FINAL CTA -->
-    {page !== 'legal' && page !== 'apply' && page !== 'confirm' && (
+    {page !== 'home' && page !== 'legal' && page !== 'apply' && page !== 'confirm' && (
       <section class="final">
         <a class="cta fade" href={CTA_HREF}><span>{ctaLabel}</span></a>
       </section>
@@ -436,6 +437,8 @@ const cloud = fragments.map((text) => ({
       </div>
     </div>
   </footer>
+
+  <A11y />
 </Layout>
 
 <script>
@@ -1393,7 +1396,7 @@ const cloud = fragments.map((text) => ({
     will-change: transform, opacity;
   }
   .v4 .hero-logo {
-    width: clamp(95px, min(9.5vw, 15svh), 150px);
+    width: clamp(140px, min(14vw, 22svh), 220px);
     margin-bottom: clamp(20px, 3.4svh, 36px);
   }
   .v4 .eyebrow {
@@ -1607,7 +1610,7 @@ const cloud = fragments.map((text) => ({
     height: calc(var(--n) * 95svh + 140svh);
     padding: 0;
     /* Pull the first beat up under the logo band so there is no dead scroll after the hero. */
-    margin-top: -10svh;
+    margin-top: -22svh;
     position: relative;
   }
   .m .v4 .stage {
@@ -1615,7 +1618,7 @@ const cloud = fragments.map((text) => ({
   }
   /* The drifting words never show over the hero: the top band of the stage stays clear. */
   .m .v4 .noise {
-    clip-path: inset(10svh 0 0 0);
+    clip-path: inset(22svh 0 0 0);
   }
   .m .v4 .stage {
     position: sticky;
@@ -1670,8 +1673,12 @@ const cloud = fragments.map((text) => ({
     transform: translate(-50%, calc(-50% - 15svh));
   }
   .m .v4 [data-tr='noise'] .pl.finale {
-    top: calc(50% + 7svh);
+    top: calc(50% - 1svh);
     transform: translate(-50%, 0);
+  }
+  /* Intro beats sit a little higher in the stage so there is less dead space under the logo band. */
+  .m .v4 [data-tr='noise'] .pl:not(.finale):not(.logo-beat) {
+    top: 44%;
   }
   .m .v4 [data-tr='noise'] .pl .w {
     --p: 0;
@@ -2018,10 +2025,10 @@ const cloud = fragments.map((text) => ({
   }
   .v4 .slab {
     position: relative;
-    max-width: 1320px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: clamp(40px, 6vw, 88px) clamp(24px, 5vw, 80px);
-    border-radius: 32px;
+    padding: clamp(24px, 3vw, 40px) clamp(24px, 4vw, 56px);
+    border-radius: 28px;
     background: var(--brush), var(--alloy);
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 60px 120px -50px rgb(0 0 0 / 1);
     text-align: center;
@@ -2045,7 +2052,7 @@ const cloud = fragments.map((text) => ({
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    margin-top: clamp(40px, 6vw, 72px);
+    margin-top: 0;
   }
   .v4 .stat {
     display: flex;
@@ -2056,7 +2063,7 @@ const cloud = fragments.map((text) => ({
   .v4 .figure {
     font-family: var(--font);
     font-variant-numeric: tabular-nums;
-    font-size: clamp(40px, 5.2vw, 84px);
+    font-size: clamp(36px, 4.4vw, 68px);
     font-weight: 200;
     line-height: 1.05;
     letter-spacing: -0.04em;
@@ -2072,7 +2079,7 @@ const cloud = fragments.map((text) => ({
     color: var(--gray);
   }
   .v4 .foot {
-    margin: 40px auto 0;
+    margin: 22px auto 0;
     font-weight: 300;
     font-size: 12px;
     line-height: 1.7;
