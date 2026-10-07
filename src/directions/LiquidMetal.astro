@@ -1393,7 +1393,7 @@ const cloud = fragments.map((text) => ({
     will-change: transform, opacity;
   }
   .v4 .hero-logo {
-    width: clamp(119px, min(11.9vw, 18.7svh), 187px);
+    width: clamp(95px, min(9.5vw, 15svh), 150px);
     margin-bottom: clamp(20px, 3.4svh, 36px);
   }
   .v4 .eyebrow {
@@ -1594,7 +1594,7 @@ const cloud = fragments.map((text) => ({
     font-weight: 300;
   }
   .v4 .beat-logo {
-    width: min(71vw, 646px);
+    width: clamp(190px, min(19vw, 30svh), 300px); /* twice the header logo */
     margin: 0 auto;
   }
   .v4 .noise,
@@ -1634,7 +1634,7 @@ const cloud = fragments.map((text) => ({
     will-change: transform, opacity;
   }
   .m .v4 .pl.logo-beat {
-    width: min(76.5vw, 663px);
+    width: clamp(190px, min(19vw, 30svh), 300px); /* twice the header logo */
   }
 
   /* ================= 1. Noise to Clarity ================= */
@@ -1650,7 +1650,7 @@ const cloud = fragments.map((text) => ({
   }
   /* The final beat sits mid-stage; pull the next section up so the gap matches the story's rhythm. */
   .m .v4 .problem[data-tr='noise'] + .how {
-    margin-top: -8svh;
+    margin-top: -22svh;
     position: relative;
   }
   .m .v4 [data-tr='noise'] .pl {
