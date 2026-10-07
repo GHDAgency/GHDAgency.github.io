@@ -297,7 +297,7 @@ export const confirmForm = {
 
 /** Start here: the three steps of working with GHD. Shown on Home and Services. */
 export const offer = {
-  heading: "Come see what you're missing.",
+  heading: 'Wake the revenue you already own.',
   cards: [
     {
       name: 'Vidian Method',
@@ -352,7 +352,7 @@ export const faq = {
   items: [
     {
       q: 'What does it cost?',
-      a: 'The Vidian Method is complimentary. The Prince Charming Pilot requires a $500 Setup Deposit, refunded if there are no results and applied to your build if we proceed. The build starts at $3,000.',
+      a: 'The Vidian Method session is complimentary. The Prince Charming Pilot requires a $500 Setup Deposit, refunded if there are no results and applied to your build if we proceed. The build starts at $3,000.',
     },
     {
       q: 'How does the Prince Charming Pilot work?',
