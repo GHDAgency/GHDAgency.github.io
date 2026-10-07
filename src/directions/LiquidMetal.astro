@@ -399,7 +399,7 @@ const cloud = fragments.map((text) => ({
 
     {page === 'legal' && (
       <section class="legal">
-        <p class="legal-updated">Last Updated: {legalInfo!.updated}</p>
+        {legalInfo!.updated && <p class="legal-updated">Last Updated: {legalInfo!.updated}</p>}
         <div class="legal-body">
           <slot />
           {legal === 'terms-and-conditions' && (
