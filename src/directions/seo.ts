@@ -66,10 +66,8 @@ const organization = {
   telephone: '+1-725-241-0571',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '1672 Sabatini Dr',
-    addressLocality: 'Henderson',
+    addressLocality: 'Las Vegas',
     addressRegion: 'NV',
-    postalCode: '89052',
     addressCountry: 'US',
   },
   areaServed: { '@type': 'Country', name: 'United States' },

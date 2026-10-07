@@ -1,0 +1,180 @@
+---
+// Cookie consent for the Liquid Metal site. Stores { analytics, marketing, ts } under "ghd-consent" in localStorage.
+// Tracking scripts load only after the matching choice (see tracking.ts). Any [data-cookie-prefs] element reopens it.
+import { tracking } from './tracking';
+---
+
+<div class="consent-bar" id="consent-bar" role="region" aria-label="Cookie consent" hidden>
+  <p>
+    We use cookies to run this site and, with your permission, to understand how it is used and to measure our marketing.
+    <br /><a href="/v4/cookie-policy/">Cookie Policy</a> · <a href="/v4/privacy-policy/">Privacy Policy</a>
+  </p>
+  <div class="consent-actions">
+    <button type="button" data-consent="reject">Reject non-essential</button>
+    <button type="button" data-cookie-prefs>Preferences</button>
+    <button type="button" class="consent-accept" data-consent="accept">Accept all</button>
+  </div>
+</div>
+
+<dialog id="consent-prefs" class="consent-dialog" aria-labelledby="consent-prefs-title">
+  <form method="dialog">
+    <h2 id="consent-prefs-title">Cookie preferences</h2>
+    <div class="consent-row">
+      <div><strong>Strictly necessary</strong><p>Keeps the site working and remembers your choices. Always on.</p></div>
+      <span class="consent-on">Always on</span>
+    </div>
+    <label class="consent-row">
+      <div><strong>Analytics</strong><p>Helps us understand how the site is used so we can improve it.</p></div>
+      <input type="checkbox" name="analytics" />
+    </label>
+    <label class="consent-row">
+      <div><strong>Marketing</strong><p>Lets us measure our ads and reach people who visited.</p></div>
+      <input type="checkbox" name="marketing" />
+    </label>
+    <div class="consent-actions end">
+      <button value="cancel">Cancel</button>
+      <button value="save" class="consent-accept">Save preferences</button>
+    </div>
+  </form>
+</dialog>
+
+<script define:vars={{ ids: tracking }}>
+  (function () {
+    var KEY = 'ghd-consent';
+    var bar = document.getElementById('consent-bar');
+    var dlg = document.getElementById('consent-prefs');
+    var form = dlg.querySelector('form');
+    var loaded = {};
+    function read() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
+    function add(src, onload) { var s = document.createElement('script'); s.async = true; s.src = src; if (onload) s.onload = onload; document.head.appendChild(s); }
+    function load(c) {
+      if (c.analytics && ids.ga4 && !loaded.ga4) {
+        loaded.ga4 = 1;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        add('https://www.googletagmanager.com/gtag/js?id=' + ids.ga4, function () { window.gtag('js', new Date()); window.gtag('config', ids.ga4); });
+      }
+      if (c.marketing && ids.metaPixel && !loaded.meta) {
+        loaded.meta = 1;
+        !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        window.fbq('init', ids.metaPixel); window.fbq('track', 'PageView');
+      }
+    }
+    function save(c) {
+      var v = { analytics: !!c.analytics, marketing: !!c.marketing, ts: new Date().toISOString() };
+      try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {}
+      window.ghdConsent = v;
+      window.dispatchEvent(new CustomEvent('ghd:consent', { detail: v }));
+      bar.hidden = true;
+      load(v);
+    }
+    var existing = read();
+    window.ghdConsent = existing;
+    if (existing) load(existing); else bar.hidden = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-consent]'); if (!b) return;
+      save(b.dataset.consent === 'accept' ? { analytics: true, marketing: true } : { analytics: false, marketing: false });
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('[data-cookie-prefs]')) return;
+      var c = read() || {};
+      form.elements.analytics.checked = !!c.analytics;
+      form.elements.marketing.checked = !!c.marketing;
+      dlg.showModal();
+    });
+    dlg.addEventListener('close', function () {
+      if (dlg.returnValue !== 'save') return;
+      save({ analytics: form.elements.analytics.checked, marketing: form.elements.marketing.checked });
+    });
+  })();
+</script>
+
+<style is:global>
+  .consent-bar {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 70;
+    width: min(460px, calc(100vw - 32px));
+    padding: 18px 20px;
+    border-radius: 18px;
+    border: 1px solid rgb(230 235 238 / 0.2);
+    background: rgb(20 23 26 / 0.96);
+    color: #e6ebee;
+    box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.9);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .consent-bar[hidden] { display: none; }
+  .consent-bar a { color: #00e5e8; text-decoration: underline; }
+  .consent-bar p { margin: 0; }
+  .consent-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .consent-actions.end { justify-content: flex-end; }
+  .consent-bar button,
+  .consent-dialog button {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgb(230 235 238 / 0.3);
+    background: #1d2125;
+    color: #e6ebee;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .consent-bar .consent-accept,
+  .consent-dialog .consent-accept {
+    background: #f2f5f7;
+    border-color: #f2f5f7;
+    color: #0a0b0d;
+    font-weight: 500;
+  }
+  .consent-bar button:focus-visible,
+  .consent-dialog button:focus-visible,
+  .consent-bar a:focus-visible {
+    outline: 3px solid #00ffff;
+    outline-offset: 2px;
+  }
+  .consent-dialog {
+    margin: auto;
+    width: min(460px, calc(100vw - 32px));
+    padding: 24px;
+    border-radius: 22px;
+    border: 1px solid rgb(230 235 238 / 0.2);
+    background: #14171a;
+    color: #e6ebee;
+  }
+  .consent-dialog::backdrop { background: rgb(5 6 8 / 0.8); }
+  .consent-dialog h2 { font-weight: 300; font-size: 22px; margin-bottom: 14px; }
+  .consent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid rgb(230 235 238 / 0.12);
+  }
+  .consent-row p { margin: 4px 0 0; font-size: 13px; color: #9aa3aa; }
+  .consent-row input { width: 22px; height: 22px; accent-color: #00e5e8; flex: none; }
+  .consent-on { font-size: 12px; color: #00e5e8; flex: none; }
+  .consent-link-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .legal-body button[data-cookie-prefs] {
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: 1px solid #14171a;
+    background: #14171a;
+    color: #f2f5f7;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  @media (max-width: 560px) {
+    .consent-bar { right: 12px; left: 12px; width: auto; bottom: 12px; }
+  }
+</style>

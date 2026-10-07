@@ -65,8 +65,40 @@ Questions 4 and 5 are proposed and can be swapped.
 
 > Hi {{contact.first_name}}, I didn't get your answers, so I released your time. If you still want it, pick a new one here: [ calendar link ].
 
-### Video script (about 45 seconds, Rich on camera)
-> "Hi, it's Rich. Your time is held, and I want to keep it for you, but it isn't confirmed yet. I need you to answer five short questions: what a customer is worth to you, what a typical sale looks like, how business finds you today, and a couple more. Here's why. I don't do generic calls. Before we talk, I look at your numbers, so we spend our thirty minutes on your business, not on introductions. Answer them in the next 24 hours, because I release unconfirmed times. Hit the button below. It takes two minutes. I'll see you on the call."
+### Video script (about 60 seconds, Rich on camera, one take, no slides)
+Say it like you are talking to one owner across a table. Do not mention the invoice or any price.
+
+> **Hook.** "It's Rich. Your time is held, and I want to keep it for you. But it's not confirmed yet, and here's why that matters.
+>
+> **The problem.** "Inside almost every business there's money sleeping. Customers who called once and never got a real follow-up. Leads that went cold. A database nobody touches. I call it the Sleeping Giant, and my whole job is to wake it.
+>
+> **What the call is.** "On our call I put real numbers on what's slipping away, in time and in dollars. I use our software, and I come in with your numbers already in front of me. No pitch deck. No generic call.
+>
+> **The ask.** "So before we talk, I need five quick answers. What a customer is worth to you over their lifetime. Your average sale. How business finds you today. How many leads you get in a month. And what CRM you use. It takes two minutes.
+>
+> **The friction.** "I release any time that isn't confirmed after 24 hours, so someone else can have it. And if you're not ready to look at your numbers, don't book it.
+>
+> **The close.** "Answer the five questions right below this video. I'll see you on the call."
+
+Teleprompter version (one line per breath):
+It's Rich. Your time is held, and I want to keep it for you.
+It isn't confirmed yet, and here's why that matters.
+Inside almost every business there's money sleeping.
+Customers who called once and never got a real follow-up.
+Leads that went cold. A database nobody touches.
+I call it the Sleeping Giant, and my job is to wake it.
+On our call I put real numbers on what's slipping away, in time and in dollars.
+I come in with your numbers already in front of me. No pitch deck. No generic call.
+Before we talk, I need five quick answers.
+What a customer is worth to you over their lifetime.
+Your average sale. How business finds you today.
+How many leads you get in a month. And what CRM you use.
+Two minutes.
+I release any time that isn't confirmed after 24 hours, so someone else can have it.
+And if you're not ready to look at your numbers, don't book it.
+Answer the five questions right below this video. I'll see you on the call.
+
+Recording notes: landscape, eye level, good light, plain background. Host it unlisted on YouTube or Vimeo and send the embed link.
 
 ## Invoice
 Sent only after the confirm step. `paid-invoice-email.html`: Revenue Map Session $997 and Written Growth Plan $500, paid by Rich Diaz, balance $0. The session length is not printed on the invoice.
