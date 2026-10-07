@@ -2129,9 +2129,13 @@ const cloud = fragments.map((text) => ({
     text-wrap: balance;
   }
   .v4 .final .cta {
+    background: #f2f5f7;
+    border-color: #ffffff;
+    color: #0a0b0d;
+    box-shadow: 0 10px 30px -14px rgb(255 255 255 / 0.4);
     margin-top: 0;
-    padding: 24px 56px;
-    font-size: 14px;
+    padding: 14px 34px;
+    font-size: 12px;
   }
 
   .v4 .footer {
@@ -2289,8 +2293,6 @@ const cloud = fragments.map((text) => ({
     main > section.legal,
     main > section.blk-fit,
     main > section.blk-faq,
-    main > section.blk-calc ~ section.final,
-    main > section.who + section.final,
     .svc-group:nth-child(odd),
     .sol-item:nth-child(odd)
   ) {
@@ -2315,8 +2317,6 @@ const cloud = fragments.map((text) => ({
     main > section.legal,
     main > section.blk-fit,
     main > section.blk-faq,
-    main > section.blk-calc ~ section.final,
-    main > section.who + section.final,
     .svc-group:nth-child(odd),
     .sol-item:nth-child(odd)
   ) .metal {
@@ -2693,5 +2693,16 @@ const cloud = fragments.map((text) => ({
       margin-top: 0;
       align-items: end;
     }
+  }
+  /* The closing button sits on the dark page right under the icons: no light band, white button, black type. */
+  .v4:not(.v4-home) .who + .final {
+    padding-top: 0;
+    padding-bottom: clamp(56px, 9vh, 96px);
+  }
+  .v4:not(.v4-home) .who:has(+ .final) {
+    padding-bottom: clamp(28px, 4vh, 44px);
+  }
+  .v4 .final .cta span {
+    color: #0a0b0d;
   }
 </style>
