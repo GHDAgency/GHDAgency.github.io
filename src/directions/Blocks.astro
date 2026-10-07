@@ -18,8 +18,8 @@ const on = (b: Block) => show.includes(b);
       {offer.cards.map((c) => (
         <li class="offer-card fade">
           <h3>{c.name}</h3>
+          <p class="offer-line">{c.line.split('\n').map((l) => <span>{l}</span>)}</p>
           <p class="offer-tag">{c.tag}</p>
-          <p class="offer-line">{c.line}</p>
         </li>
       ))}
     </ul>
@@ -146,6 +146,8 @@ const on = (b: Block) => show.includes(b);
     gap: clamp(16px, 2vw, 28px);
   }
   .v4 .offer-card {
+    display: flex;
+    flex-direction: column;
     padding: clamp(28px, 3vw, 44px);
     border-radius: 22px;
     background: var(--card);
@@ -164,8 +166,11 @@ const on = (b: Block) => show.includes(b);
     justify-content: center;
     text-wrap: balance;
   }
+  .v4 .offer-line span { display: block; }
+  .v4 .offer-line span + span { margin-top: 0.35em; color: var(--t1); }
   .v4 .offer-tag {
-    margin-top: 14px;
+    margin-top: auto;
+    padding-top: 22px;
     font-weight: 400;
     font-size: 12px;
     letter-spacing: 0.3em;
