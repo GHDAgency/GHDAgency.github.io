@@ -33,14 +33,18 @@ Status key: DONE = built and merged, ME = I can do it, YOU = needs Rich or his a
 
 ## Tonight (Tuesday)
 - YOU: send DNS access, the GHL webhook, the video link, the photos.
-- YOU: lower the DNS TTL for the root and www records to 300 seconds so the switch is fast.
+- YOU: in GoDaddy, edit the `www` CNAME and set its TTL to 10 minutes (the root A record is already 600 seconds).
 - YOU: in GHL, build workflows A, B and C and set the calendar. I test the form end to end the moment the webhook is in.
 - ME: wire the webhook and video, test the apply and confirm flow, final accessibility and speed pass.
 
 ## Cutover (Wednesday, in this order)
 1. ME: run `node scripts/go-live.mjs`, build, run the link audit, merge to `main`. The deploy builds with indexing on.
 2. YOU or ME: GitHub, Settings, Pages, Custom domain `ghdagency.ai`, tick Enforce HTTPS once the certificate appears (can take up to an hour).
-3. YOU: GoDaddy DNS. Replace the root A records with GitHub's four: 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153. Add (or change) `www` as a CNAME to `ghdagency.github.io`. Do NOT touch MX, SPF, DKIM or other TXT records (email) or the `links` record (GHL).
+3. YOU: GoDaddy DNS (read from Rich's screenshot, 2026-10-07; nameservers are GoDaddy's, so all changes are made in GoDaddy):
+   - `A  @  162.159.140.166` (the old GoHighLevel site): **delete it**, then add four A records for `@`: 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153.
+   - `CNAME  www  sites.ludicrous.cloud` (old GoHighLevel site): **edit the value to** `ghdagency.github.io`.
+   - **Leave alone:** both `NS`, `SOA`, `MX` (Google Workspace email), every `TXT` (SPF, DKIM, DMARC, verification), `CNAME links` (brand.ludicrous.cloud, the GHL booking calendar), `CNAME email.admin` (Mailgun), `CNAME vidiantool` (the Vidian tool on Netlify), `CNAME _domainconnect`.
+   - Records on pages 2 and 3 of the DNS list have not been reviewed yet. Check for any `AAAA` record on `@`: if one exists, delete it.
 4. Check from a phone and a laptop: home, all four pages, the form to the calendar, confirm page, redirects (`/about-us`, `/pricing`), `https`, `www`.
 5. After it is live: Google Search Console and Bing Webmaster (verify with a DNS TXT record, submit `sitemap-index.xml`), Google Business Profile with the same name, phone and address. Share link preview check on LinkedIn and Facebook.
 6. Keep the old site content available for a week in case of a rollback: rollback is reverting the DNS A records.
