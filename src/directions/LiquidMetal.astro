@@ -2577,4 +2577,104 @@ const cloud = fragments.map((text) => ({
       gap: 6px;
     }
   }
+
+  /* SOLUTIONS item 4: compact calculator, copy centered against it so the two read as one row. */
+  .v4 .sol-item.has-calc {
+    align-items: center;
+  }
+  .v4 .sol-calc .blk-label {
+    display: none;
+  }
+  .v4 .sol-calc .calc-card {
+    padding: clamp(20px, 2.4vw, 30px);
+  }
+  .v4 .sol-calc .calc-card h2 {
+    font-size: var(--tt);
+  }
+  .v4 .sol-calc .calc-fields {
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .v4 .sol-calc .calc-row input[type='range'] {
+    margin-top: 4px;
+  }
+  .v4 .sol-calc .calc-top input {
+    padding: 7px 12px;
+    font-size: 16px;
+  }
+  .v4 .sol-calc .calc-tabs {
+    margin-top: 20px;
+  }
+  .v4 .sol-calc .calc-tabs button {
+    padding: 9px 4px;
+  }
+  .v4 .sol-calc .calc-result-box {
+    margin-top: 16px;
+    padding: 18px 16px;
+  }
+  .v4 .sol-calc .calc-result {
+    margin-top: 6px;
+    font-size: clamp(40px, 4.4vw, 60px);
+  }
+  .v4 .sol-calc .calc-foot {
+    margin-top: 8px;
+  }
+  .v4 .sol-calc .calc-cta {
+    margin-top: 16px;
+  }
+  .v4 .sol-calc .calc-cta .cta {
+    padding-block: 11px;
+  }
+
+  /* Item 4: the calculator is laid out wide (sliders left, result right) so it is no taller than the copy beside it. */
+  @media (min-width: 1100px) {
+    .v4 .sol-item.has-calc {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: stretch;
+    }
+    .v4 .sol-item.has-calc .sol-copy {
+      align-content: center;
+    }
+    .v4 .sol-calc,
+    .v4 .sol-calc .calc-inline {
+      height: 100%;
+    }
+    .v4 .sol-calc .calc-card {
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: auto auto auto 1fr;
+      column-gap: clamp(20px, 2.4vw, 32px);
+      row-gap: 14px;
+      align-content: center;
+    }
+    .v4 .sol-calc .calc-card h2 {
+      grid-column: 1 / -1;
+      text-align: left;
+      font-size: var(--sh);
+      font-weight: 300;
+    }
+    .v4 .sol-calc .calc-fields {
+      grid-column: 1;
+      grid-row: 2 / 5;
+      margin-top: 0;
+      align-content: space-between;
+    }
+    .v4 .sol-calc .calc-tabs {
+      grid-column: 2;
+      grid-row: 2;
+      margin-top: 0;
+    }
+    .v4 .sol-calc .calc-result-box {
+      grid-column: 2;
+      grid-row: 3;
+      margin-top: 0;
+    }
+    .v4 .sol-calc .calc-cta {
+      grid-column: 2;
+      grid-row: 4;
+      margin-top: 0;
+      align-items: end;
+    }
+  }
 </style>
