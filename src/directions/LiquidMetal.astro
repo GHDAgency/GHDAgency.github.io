@@ -2712,4 +2712,19 @@ const cloud = fragments.map((text) => ({
   .v4 .abt-how {
     margin-top: clamp(36px, 6vh, 64px);
   }
+  /* About: a lighter page so the dark copy stands clear of the background. */
+  body.v4.v4-about main > section.abt {
+    background: #f8f9fa !important;
+    --card: #ffffff;
+  }
+  .v4-about main > section.abt .abt-body {
+    color: #1f272d;
+  }
+  .v4-about main > section.abt .abt-how-list p {
+    color: #1f272d;
+  }
+  .v4-about main > section.abt .abt-how-list li,
+  .v4-about main > section.abt .abt-how-list li + li {
+    border-top-color: rgb(20 23 26 / 0.18);
+  }
 </style>
