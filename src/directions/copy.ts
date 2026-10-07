@@ -312,7 +312,7 @@ export const offer = {
     {
       name: 'The Build',
       tag: 'Starting at $3,000',
-      line: 'Customized to your business, with the data analytics to prove results.',
+      line: 'Custom built for your business and measured by the numbers.\nYou see proof, not promises.',
     },
   ],
 };
