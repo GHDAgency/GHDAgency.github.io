@@ -40,9 +40,13 @@ const ogImage = new URL('/og-image.jpg', import.meta.env.PUBLIC_DEPLOY_ORIGIN ||
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href={robotoUrl} as="font" type="font/woff2" crossorigin />
     <script is:inline>
-      document.documentElement.classList.add(
-        matchMedia('(prefers-reduced-motion: reduce)').matches ? 'rm' : 'm'
-      );
+      var a11y = {};
+      try { a11y = JSON.parse(localStorage.getItem('ghd-a11y') || '{}'); } catch (e) {}
+      var h = document.documentElement;
+      h.classList.add(a11y.motion === 'off' || matchMedia('(prefers-reduced-motion: reduce)').matches ? 'rm' : 'm');
+      if (a11y.text) h.classList.add('a11y-t' + a11y.text);
+      if (a11y.contrast) h.classList.add('a11y-contrast');
+      if (a11y.links) h.classList.add('a11y-links');
     </script>
   </head>
   <body class={bodyClass}>
