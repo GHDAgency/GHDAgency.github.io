@@ -300,7 +300,7 @@ export const offer = {
   heading: "Come see what you're missing.",
   cards: [
     {
-      name: 'The Vidian Method',
+      name: 'Vidian Method',
       tag: 'Complimentary',
       line: 'Proprietary software that identifies where opportunities are being missed and what it is costing you, measured in time and dollars.',
     },
