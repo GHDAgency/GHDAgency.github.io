@@ -343,6 +343,7 @@ const cloud = fragments.map((text) => ({
     {page === 'about' && (
       <section class="abt">
         <div class="abt-copy">
+          <h2 class="abt-title fade">{aboutPage.title}</h2>
           {aboutPage.intro.map((lines) => <p class="abt-intro fade">{lines.map((l) => <span>{l}</span>)}</p>)}
         </div>
         <div class:list={['abt-story', { 'no-photo': !showAboutPhoto }]}>
@@ -921,6 +922,14 @@ const cloud = fragments.map((text) => ({
   }
 
   /* ABOUT: the owner's statement, set as a single readable column */
+  .v4 .abt-title {
+    margin-bottom: clamp(28px, 5vh, 48px);
+    font-weight: 200;
+    font-size: var(--hd);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    text-align: center;
+  }
   .v4 .abt-copy {
     max-width: 760px;
     margin: 0 auto;
@@ -1053,6 +1062,7 @@ const cloud = fragments.map((text) => ({
     letter-spacing: -0.02em;
   }
   .v4 .abt-how-list p {
+    text-wrap: balance;
     margin-top: 12px;
     font-weight: 300;
     font-size: clamp(16px, 1.25vw, 19px);
