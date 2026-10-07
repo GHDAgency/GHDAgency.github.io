@@ -1,7 +1,9 @@
-// One-time cutover: turns the /v4 preview into the real site at the domain root.
-//   node scripts/go-live.mjs          (do it)
-//   node scripts/go-live.mjs --dry    (list what would change)
-// After it runs: npm run build, node scripts/audit-links.mjs /, commit, push to main.
+// Cutover in two steps.
+//   node scripts/go-live.mjs            Step 1: the new site becomes the site at the root of this repo's address
+//                                       (ghdagency.github.io). Indexing stays OFF and no custom domain is set.
+//   node scripts/go-live.mjs --domain   Step 2 (DNS day): sets the custom domain ghdagency.ai and turns indexing ON.
+//   Add --dry to either to list what would change without changing anything.
+// After a step: npm run build, node scripts/audit-links.mjs /, commit, push to main.
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -9,7 +11,10 @@ const dry = process.argv.includes('--dry');
 const act = (msg, fn) => { console.log((dry ? '[dry] ' : '') + msg); if (!dry) fn(); };
 const pages = 'src/pages';
 const rm = (p) => fs.rmSync(p, { recursive: true, force: true });
+const domainStep = process.argv.includes('--domain');
+const moved = !fs.existsSync(`${pages}/v4.astro`);
 
+if (!moved && !domainStep) {
 // 1. Remove the old site's pages and every design-review page.
 const old = ['index', 'about-us', 'contact-us', 'our-solutions', 'pricing', 'privacy-policy', 'terms-and-conditions', 'cookie-policy', 'directions', 'v1', 'v2', 'v3', 'v4-engine', 'v4-line', 'v4-noise', 'v4-plates', 'v4-rise', 'v5', 'w1', 'w2', 'w3', 'w4', 'w5'];
 for (const n of old) act(`delete ${pages}/${n}.astro`, () => rm(`${pages}/${n}.astro`));
@@ -42,12 +47,15 @@ act('astro.config.mjs: redirects and sitemap filter', () => {
   },`);
   fs.writeFileSync('astro.config.mjs', c);
 });
+}
 
-// 5. Domain and indexing.
-act('public/CNAME = ghdagency.ai', () => fs.writeFileSync('public/CNAME', 'ghdagency.ai\n'));
-act('workflow: indexable build, no preview origin', () => {
-  let w = fs.readFileSync('.github/workflows/deploy.yml', 'utf8');
-  w = w.replace(/\s*# Remove once ghdagency\.ai points at this site\.\n\s*PUBLIC_DEPLOY_ORIGIN: [^\n]*/, "\n          PUBLIC_INDEXABLE: 'true'");
-  fs.writeFileSync('.github/workflows/deploy.yml', w);
-});
+// 5. Domain and indexing: only on DNS day, with --domain.
+if (domainStep) {
+  act('public/CNAME = ghdagency.ai', () => fs.writeFileSync('public/CNAME', 'ghdagency.ai\n'));
+  act('workflow: indexable build, no preview origin', () => {
+    let w = fs.readFileSync('.github/workflows/deploy.yml', 'utf8');
+    w = w.replace(/\s*# Remove once ghdagency\.ai points at this site\.\n\s*PUBLIC_DEPLOY_ORIGIN: [^\n]*/, "\n          PUBLIC_INDEXABLE: 'true'");
+    fs.writeFileSync('.github/workflows/deploy.yml', w);
+  });
+}
 console.log(dry ? '\nDry run only. Nothing changed.' : '\nDone. Now: npm run build && node scripts/audit-links.mjs /');

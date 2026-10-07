@@ -3,7 +3,7 @@
 
 /** The one primary CTA. Change the label (and where it points) here and all five directions update. */
 export const CTA_LABEL = 'Grow My Revenue';
-export const CTA_HREF = '/v4/apply/';
+export const CTA_HREF = '/apply/';
 /** One line set directly under the CTA button. */
 export const CTA_SUBLINE = 'Start with one conversation.';
 
@@ -113,13 +113,13 @@ export const fmt = (n: number) => n.toLocaleString('en-US');
 // ---------------------------------------------------------------------------------------------
 
 export const nav = [
-  { label: 'Home', href: '/v4/' },
-  { label: 'Services', href: '/v4/services/' },
-  { label: 'Solutions', href: '/v4/solutions/' },
-  { label: 'About', href: '/v4/about/' },
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services/' },
+  { label: 'Solutions', href: '/solutions/' },
+  { label: 'About', href: '/about/' },
 ];
-export const HOME_HREF = '/v4/';
-export const EXPLORE = { label: 'Explore What We Do', href: '/v4/services/' };
+export const HOME_HREF = '/';
+export const EXPLORE = { label: 'Explore What We Do', href: '/services/' };
 
 export const solutionsPage = {
   eyebrow: 'Solutions',
@@ -236,10 +236,10 @@ export const siteFooter = {
   tel: '+17252410571',
   email: 'connect@ghdagency.ai',
   legal: [
-    { label: 'Terms & Conditions', href: '/v4/terms-and-conditions/' },
-    { label: 'Privacy Policy', href: '/v4/privacy-policy/' },
-    { label: 'Cookie Policy', href: '/v4/cookie-policy/' },
-    { label: 'Accessibility', href: '/v4/accessibility-statement/' },
+    { label: 'Terms & Conditions', href: '/terms-and-conditions/' },
+    { label: 'Privacy Policy', href: '/privacy-policy/' },
+    { label: 'Cookie Policy', href: '/cookie-policy/' },
+    { label: 'Accessibility', href: '/accessibility-statement/' },
   ],
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ghdagency/' },
@@ -253,6 +253,7 @@ export const legalPages = {
   'privacy-policy': { title: 'Privacy Policy', updated: 'October 7, 2026' },
   'cookie-policy': { title: 'Cookie Policy', updated: 'October 7, 2026' },
   'accessibility-statement': { title: 'Accessibility Statement', updated: 'October 7, 2026' },
+  'not-found': { title: 'Page not found', updated: '' },
 };
 
 /* "Grow My Revenue" booking (flow agreed with the owner, 2026-10-06):
@@ -264,7 +265,7 @@ export const applyForm = {
   note: 'Next, choose the time that works for you.',
   button: 'Choose My Time',
   consent:
-    'By checking this box, I agree to receive calls and text messages from GHD Agency, including automated messages, at the mobile number above about my inquiry and appointment. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. See our <a href="/v4/terms-and-conditions/" target="_blank" rel="noopener">Terms</a> and <a href="/v4/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.',
+    'By checking this box, I agree to receive calls and text messages from GHD Agency, including automated messages, at the mobile number above about my inquiry and appointment. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. See our <a href="/terms-and-conditions/" target="_blank" rel="noopener">Terms</a> and <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.',
   webhook: 'https://services.leadconnectorhq.com/hooks/H4kd9KFulXDimXLU1DlP/webhook-trigger/96520cb1-da85-4b95-95fa-3ffa951d6b0a',
   calendar: 'https://links.ghdagency.ai/widget/booking/16ibCnnbCNSihNaDQ6VI',
 };
