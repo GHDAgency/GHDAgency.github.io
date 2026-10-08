@@ -6,7 +6,7 @@ export const ORIGIN = 'https://ghdagency.ai';
 
 export const pageMeta: Record<string, { title: string; description: string; path: string; index?: boolean }> = {
   home: {
-    title: 'GHD Agency | Wake the Revenue Sleeping in Your Business',
+    title: 'GHD Agency | Wake the Giant in Your Business',
     description:
       'GHD Agency finds the revenue sleeping in your business, builds the systems that capture it and trains your team to run them. Start with a complimentary session.',
     path: '/',
@@ -59,7 +59,7 @@ const organization = {
   legalName: 'Greatest Home Decor LLC',
   url: ORIGIN,
   logo: `${ORIGIN}/media/ghd-logo-end.webp`,
-  image: `${ORIGIN}/og-image-v2.jpg`,
+  image: `${ORIGIN}/og-image-v3.jpg`,
   description:
     'GHD Agency finds the revenue sleeping inside a business, builds the systems that capture it, and trains the team to run them.',
   slogan: 'We answer with results.',
