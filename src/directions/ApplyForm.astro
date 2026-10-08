@@ -124,7 +124,7 @@ const c = confirmForm;
     const params = new URLSearchParams(location.search);
     ['email', 'phone', 'first_name', 'last_name', 'contact_id'].forEach((k) => {
       const el = confirm.querySelector(`input[name="${k}"]`);
-      if (el && params.get(k)) el.value = params.get(k);
+      if (el && params.get(k)) el.value = k === 'email' ? params.get(k).replace(/ /g, '+').trim() : params.get(k);
     });
     confirm.addEventListener('submit', async (e) => {
       e.preventDefault();
