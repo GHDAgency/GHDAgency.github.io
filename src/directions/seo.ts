@@ -59,7 +59,7 @@ const organization = {
   legalName: 'Greatest Home Decor LLC',
   url: ORIGIN,
   logo: `${ORIGIN}/media/ghd-logo-end.webp`,
-  image: `${ORIGIN}/og-image.jpg`,
+  image: `${ORIGIN}/og-image-v2.jpg`,
   description:
     'GHD Agency finds the revenue sleeping inside a business, builds the systems that capture it, and trains the team to run them.',
   slogan: 'We answer with results.',
