@@ -278,7 +278,7 @@ export const confirmForm = {
   vsl: '',
   vslPlaceholder: "Rich's video goes here.",
   /** GHL inbound webhook for the "confirm" workflow. Empty until the workflow exists. */
-  webhook: '',
+  webhook: 'https://services.leadconnectorhq.com/hooks/H4kd9KFulXDimXLU1DlP/webhook-trigger/3329579a-ccad-42d3-bc0b-19f98aaf3f15',
   questions: [
     { name: 'lifetime_value', label: 'What is a customer worth to you over their lifetime? ($)', type: 'number' },
     { name: 'average_sale', label: 'What is your average sale price? ($)', type: 'number' },
