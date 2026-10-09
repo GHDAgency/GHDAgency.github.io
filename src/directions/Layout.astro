@@ -29,7 +29,7 @@ const {
 // Indexing stays off until the build is told this is the live site (PUBLIC_INDEXABLE=true).
 const live = import.meta.env.PUBLIC_INDEXABLE === 'true' && !!canonicalPath && index;
 const canonical = canonicalPath ? new URL(canonicalPath, 'https://ghdagency.ai').href : undefined;
-const ogImage = new URL('/og-image.jpg', import.meta.env.PUBLIC_DEPLOY_ORIGIN || Astro.site);
+const ogImage = new URL('/og-image-v3.jpg', import.meta.env.PUBLIC_DEPLOY_ORIGIN || Astro.site);
 ---
 
 <!doctype html>

@@ -16,7 +16,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 // Where the built files are actually served. Canonical URLs always point at ghdagency.ai, but
 // share-preview images must load from wherever this build is hosted (e.g. the GitHub Pages preview).
 const assetOrigin = import.meta.env.PUBLIC_DEPLOY_ORIGIN || Astro.site;
-const ogImage = new URL('/og-image.jpg', assetOrigin);
+const ogImage = new URL('/og-image-v3.jpg', assetOrigin);
 
 const orgSchema = {
   '@context': 'https://schema.org',
