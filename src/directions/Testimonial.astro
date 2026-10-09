@@ -4,21 +4,29 @@ import { testimonial as t } from './copy';
 ---
 
 <section class="tm" aria-labelledby="tm-kicker">
-  <figure class="tm-card fade">
+  <div class="tm-card fade">
     <p class="tm-kicker" id="tm-kicker">{t.kicker} <span>{t.lead}</span></p>
-    <div class="tm-body">
-      <blockquote class="tm-quote">
-        <span class="tm-mark" aria-hidden="true">“</span>
-        <p>{t.quote}</p>
-      </blockquote>
-      <figcaption class="tm-who">
-        {t.photo && <img class="tm-photo" src={t.photo} alt={t.name} width="96" height="96" loading="lazy" decoding="async" />}
-        <img class="tm-logo" src={t.logo.src} width={t.logo.width} height={t.logo.height} alt={t.logo.alt} loading="lazy" decoding="async" />
-        <span class="tm-name">{t.name}</span>
-        <span class="tm-title">{t.title}</span>
-      </figcaption>
+    <div class="tm-grid">
+      {
+        t.items.map((it) => (
+          <figure class="tm-item">
+            <blockquote class="tm-quote">
+              <span class="tm-mark" aria-hidden="true">“</span>
+              <p>{it.quote}</p>
+            </blockquote>
+            <figcaption class="tm-who">
+              {it.photo && <img class="tm-photo" src={it.photo} alt={it.name} width="96" height="96" loading="lazy" decoding="async" />}
+              <img class:list={['tm-logo', { round: it.logo.round }]} src={it.logo.src} width={it.logo.width} height={it.logo.height} alt={it.logo.alt} loading="lazy" decoding="async" />
+              <span class="tm-text">
+                <span class="tm-name">{it.name}</span>
+                <span class="tm-title">{it.title}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
     </div>
-  </figure>
+  </div>
 </section>
 
 <style>
@@ -44,7 +52,7 @@ import { testimonial as t } from './copy';
     background: var(--edge-hi);
   }
   .tm-kicker {
-    margin: 0 0 clamp(18px, 2.4vw, 30px);
+    margin: 0 0 clamp(20px, 2.8vw, 36px);
     font-weight: 200;
     font-size: clamp(22px, 2.6vw, 38px);
     letter-spacing: -0.01em;
@@ -55,21 +63,30 @@ import { testimonial as t } from './copy';
     white-space: nowrap;
     color: var(--cyan);
   }
-  .tm-body {
+  .tm-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: clamp(24px, 4vw, 64px);
-    align-items: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(28px, 4vw, 64px);
+  }
+  .tm-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 0;
+  }
+  .tm-item + .tm-item {
+    padding-left: clamp(28px, 4vw, 64px);
+    border-left: 1px solid rgb(255 255 255 / 0.12);
   }
   .tm-quote {
-    position: relative;
     margin: 0;
   }
   .tm-quote p {
     margin: 0;
     font-weight: 300;
-    font-size: clamp(17px, 1.7vw, 24px);
-    line-height: 1.55;
+    font-size: clamp(16px, 1.45vw, 20px);
+    line-height: 1.6;
     color: #e9eef2;
     text-wrap: pretty;
   }
@@ -78,33 +95,41 @@ import { testimonial as t } from './copy';
     height: 0.55em;
     margin-bottom: 0.1em;
     font-weight: 200;
-    font-size: clamp(56px, 6vw, 88px);
+    font-size: clamp(56px, 6vw, 80px);
     line-height: 1;
     color: var(--cyan);
     opacity: 0.8;
   }
   .tm-who {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding-left: clamp(20px, 3vw, 44px);
-    border-left: 1px solid rgb(255 255 255 / 0.12);
-    min-width: 260px;
+    align-items: center;
+    gap: 18px;
+    padding-top: 20px;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
   }
   .tm-photo {
-    width: 72px;
-    height: 72px;
-    margin-bottom: 6px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     object-fit: cover;
   }
   .tm-logo {
-    height: clamp(72px, 7vw, 104px);
+    height: clamp(64px, 6vw, 84px);
     width: auto;
-    margin-bottom: 14px;
-    opacity: 1;
-    filter: drop-shadow(0 0 22px rgb(0 255 255 / 0.18));
+    flex: none;
+    filter: drop-shadow(0 0 22px rgb(0 255 255 / 0.16));
+  }
+  .tm-logo.round {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: none;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18), 0 0 26px rgb(0 255 255 / 0.12);
+  }
+  .tm-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
   .tm-name {
     font-weight: 400;
@@ -117,13 +142,13 @@ import { testimonial as t } from './copy';
     letter-spacing: 0.04em;
     color: var(--gray);
   }
-  @media (max-width: 760px) {
-    .tm-body {
+  @media (max-width: 800px) {
+    .tm-grid {
       grid-template-columns: 1fr;
     }
-    .tm-who {
+    .tm-item + .tm-item {
       padding-left: 0;
-      padding-top: 18px;
+      padding-top: 28px;
       border-left: 0;
       border-top: 1px solid rgb(255 255 255 / 0.12);
     }
