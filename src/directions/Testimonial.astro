@@ -90,7 +90,7 @@ import { testimonial as t } from './copy';
     gap: 6px;
     padding-left: clamp(20px, 3vw, 44px);
     border-left: 1px solid rgb(255 255 255 / 0.12);
-    min-width: 200px;
+    min-width: 260px;
   }
   .tm-photo {
     width: 72px;
@@ -100,10 +100,11 @@ import { testimonial as t } from './copy';
     object-fit: cover;
   }
   .tm-logo {
-    height: 44px;
+    height: clamp(72px, 7vw, 104px);
     width: auto;
-    margin-bottom: 10px;
-    opacity: 0.95;
+    margin-bottom: 14px;
+    opacity: 1;
+    filter: drop-shadow(0 0 22px rgb(0 255 255 / 0.18));
   }
   .tm-name {
     font-weight: 400;
