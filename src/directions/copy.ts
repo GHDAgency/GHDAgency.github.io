@@ -99,6 +99,18 @@ export const proof = {
     '*Based on industry averages: 588 in-market buyers × 15% close rate × $2,400 avg front and back gross. Your numbers will vary.',
 };
 
+/** Home: client testimonial banner, after the results. Add a photo by setting `photo` (e.g. '/media/eric-radle.webp'). */
+export const testimonial = {
+  kicker: "Don't take our word for it.",
+  lead: "Take Eric's.",
+  quote:
+    "Working with Rich and his team at GHD, we were able to wake up 250 sales opportunities, right out of our CRM. We're more efficient and generate a significant ROI with the GHD platform.",
+  name: 'Eric Radle',
+  title: 'CEO, Miller Ad Agency',
+  logo: { src: '/logos-mono/miller-ad-agency-logo-icon-02.webp', width: 277, height: 120, alt: 'Miller Ad Agency' },
+  photo: '',
+};
+
 export const footer = {
   name: 'GHD Agency',
   email: 'connect@ghdagency.ai',
