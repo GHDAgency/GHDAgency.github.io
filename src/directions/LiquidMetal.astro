@@ -151,8 +151,8 @@ const cloud = fragments.map((text) => ({
         <GhdLogo class="hero-logo" />
         <p class="eyebrow">{hero.eyebrow}</p>
         <p class="sub">{hero.subhead.map((l) => <span>{l}</span>)}</p>
-        <h1 class="display metal">{hero.headline}</h1>
         <p class="serves">{heroServes}</p>
+        <h1 class="display metal">{hero.headline}</h1>
         <a class="cta" href={CTA_HREF}><span>{CTA_LABEL}</span></a>
       </div>
       <!-- 2. LOGO ROW: part of the hero, directly under the button. -->
@@ -1457,8 +1457,13 @@ const cloud = fragments.map((text) => ({
     padding-bottom: 0;
     color: #9aa3aa;
   }
-  .v4 .hero-inner .display + .serves {
+  /* Hero order: the serves line sits above the headline; the headline tucks 8px under it. */
+  .v4 .hero-inner .serves + .display {
     margin-top: 8px;
+  }
+  /* Serves line: 2pt smaller than the "Every business owner knows" statement line (--hd). */
+  .v4 .hero-inner .serves {
+    font-size: calc(var(--hd) - 2pt);
   }
   .v4 .sub {
     margin-top: clamp(22px, 3.4svh, 40px);
@@ -1498,7 +1503,7 @@ const cloud = fragments.map((text) => ({
   .v4 .hero-inner .eyebrow + .sub {
     margin-top: 0;
   }
-  .v4 .hero-inner .sub + .display {
+  .v4 .hero-inner .sub + .serves {
     margin-top: clamp(30px, 5svh, 56px);
   }
   .v4 .serves {
