@@ -1461,9 +1461,9 @@ const cloud = fragments.map((text) => ({
   .v4 .hero-inner .serves + .display {
     margin-top: 8px;
   }
-  /* Serves line: 2pt smaller than the "Every business owner knows" statement line (--hd). */
+  /* Serves line: 2pt smaller than the statement line above it; both hero lines are 4pt under --hd. */
   .v4 .hero-inner .serves {
-    font-size: calc(var(--hd) - 2pt);
+    font-size: calc(var(--hd) - 6pt);
   }
   .v4 .sub {
     margin-top: clamp(22px, 3.4svh, 40px);
@@ -1477,7 +1477,7 @@ const cloud = fragments.map((text) => ({
   .v4 .hero-inner .sub {
     margin-top: 0;
     font-weight: 200;
-    font-size: var(--hd);
+    font-size: calc(var(--hd) - 4pt);
     line-height: 1.04;
     letter-spacing: -0.025em;
     color: #aab3b9;
