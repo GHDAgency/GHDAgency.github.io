@@ -110,7 +110,7 @@ export const testimonial = {
       name: 'Erik Radle',
       title: 'CEO, Miller Ad Agency',
       logo: { src: '/logos-mono/miller-ad-agency-logo-icon-02.webp', width: 277, height: 120, alt: 'Miller Ad Agency', round: false },
-      photo: '',
+      photo: '/media/erik-radle.webp',
     },
     {
       quote:
