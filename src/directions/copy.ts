@@ -385,7 +385,7 @@ export const faq = {
     },
     {
       q: 'How does the 7-day pilot work?',
-      a: 'A $497 setup fee creates the system. For seven days we work your sleeping leads. A lead is a real person who replies and wants to talk with you. If we deliver 5 leads in that time, we review the results, decide whether to move forward, and price your custom build from what the pilot shows. Your $497 is applied to the build.',
+      a: 'A $497 setup fee creates the system. For seven days we work your sleeping leads. A lead is a real person who replies and says they are interested in what you offer, so you can follow up. If we deliver 5 leads in that time, we review the results, decide whether to move forward, and price your custom build from what the pilot shows. Your $497 is applied to the build.',
     },
     {
       q: 'What if it does not work?',
