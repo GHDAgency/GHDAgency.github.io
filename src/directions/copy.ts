@@ -107,7 +107,7 @@ export const testimonial = {
     {
       quote:
         "Working with Rich and his team at GHD, we were able to wake up 250 sales opportunities, right out of our CRM. We're more efficient and generate a significant ROI with the GHD platform.",
-      name: 'Eric Radle',
+      name: 'Erik Radle',
       title: 'CEO, Miller Ad Agency',
       logo: { src: '/logos-mono/miller-ad-agency-logo-icon-02.webp', width: 277, height: 120, alt: 'Miller Ad Agency', round: false },
       photo: '',
