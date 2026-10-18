@@ -38,8 +38,18 @@ const { class: cls = '' } = Astro.props;
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
     const { width: w, height: h } = canvas;
+    let painted = false;
     const paint = () => {
-      if (video.readyState >= 2) key(ctx, video, w, h);
+      if (video.readyState >= 2) {
+        key(ctx, video, w, h);
+        painted = true;
+        el.classList.remove('ghd-fail');
+      }
+    };
+    // If the video cannot play (blocked, slow, or failed to load), show the finished still logo
+    // instead of leaving the space blank.
+    const fallback = () => {
+      if (!painted) el.classList.add('ghd-fail');
     };
     const loop = () => {
       paint();
@@ -48,7 +58,11 @@ const { class: cls = '' } = Astro.props;
         else requestAnimationFrame(loop);
       }
     };
-    video.addEventListener('play', loop);
+    video.addEventListener('play', () => {
+      loop();
+      window.setTimeout(fallback, 2500);
+    });
+    video.addEventListener('error', fallback);
     video.addEventListener('seeked', paint);
     video.addEventListener('ended', paint);
   });
@@ -82,5 +96,12 @@ const { class: cls = '' } = Astro.props;
   }
   .m .ghd-still {
     visibility: hidden;
+  }
+  /* Video failed to start: the finished still logo takes over. */
+  .m .ghd.ghd-fail .ghd-still {
+    visibility: visible;
+  }
+  .m .ghd.ghd-fail .ghd-canvas {
+    display: none;
   }
 </style>
