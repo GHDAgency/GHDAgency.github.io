@@ -67,7 +67,7 @@ export const howV4 = {
   steps: [
     { n: '1', title: 'Find the Sleeping Giant.', line: 'The revenue already inside your business, waiting to be woken.' },
     { n: '2', title: 'Map it with Vidian.', line: "See where time and money slip away. Put a number on it.\nWe'll decide if it's worth chasing." },
-    { n: '3', title: 'Test it with Prince Charming.', line: 'A focused pilot proves the opportunity is real,\nbefore you commit to more.' },
+    { n: '3', title: 'Prove it in seven days.', line: 'A focused pilot brings back your first five leads,\nor you pay nothing.' },
     { n: '4', title: 'Build the engine.', line: 'Custom strategy, systems, follow-up and customer journeys,\nbuilt to capture it.' },
     { n: '5', title: 'Train the team to run it.', line: 'Run the engine from the Helm, your custom dashboard.\nThe gains keep compounding.' },
   ],
@@ -164,7 +164,7 @@ export const solutionsPage = {
     {
       name: 'Database Reactivation',
       problem: 'Historical inquiries sit locked away in a dormant CRM while you waste cash acquiring new traffic.',
-      outcome: 'Prince Charming, automated reactivation that wakes up forgotten leads and converts them into immediate cash flow, without spending more on ads.',
+      outcome: 'Automated reactivation that wakes up forgotten leads and converts them into immediate cash flow, without spending more on ads.',
     },
     {
       name: 'Live Call Routing & Mobile Operations',
@@ -242,7 +242,7 @@ export const aboutPage = {
   how: [
     { title: 'Find the Sleeping Giant.', line: 'The revenue already inside your business, waiting to be woken.' },
     { title: 'Map it with Vidian.', line: 'Our software to see where time and money slip away and put a number on it.' },
-    { title: 'Test it with Prince Charming.', line: 'A focused pilot proves if we can wake up the opportunity before you commit to more.' },
+    { title: 'Prove it in seven days.', line: 'A focused pilot brings back your first five leads, or you pay nothing, before you commit to more.' },
     { title: 'Build the Engine.', line: 'Custom strategy, systems, follow-up, and customer journeys, built to keep growing while giving you back time.' },
     { title: 'The Helm.', line: 'Your custom dashboard that allows the team to run it.' },
   ],
@@ -316,7 +316,7 @@ export const confirmForm = {
     { name: 'crm', label: 'What CRM or software do you use today? ("None" is fine)', type: 'text' },
   ],
   button: 'Confirm My Session',
-  done: 'Confirmed. Your invoice is on its way to your inbox.',
+  done: 'Confirmed. Your invoice is on its way to your inbox. On our call, we will show you how we wake your sleeping leads. In our world, we call it the Prince Charming.',
 };
 
 /* ---------------------------------------------------------------------------------------------
@@ -333,9 +333,9 @@ export const offer = {
       line: 'Proprietary software that identifies\nwhere opportunities are being missed\nand what it is costing you,\nmeasured in time and dollars',
     },
     {
-      name: 'The Prince Charming',
-      tag: 'Two weeks',
-      line: 'A pilot test to\npressure test outcomes,\nthen decide how to proceed.',
+      name: '5 Leads in 7 Days',
+      tag: 'Or you pay nothing',
+      line: 'A pilot that wakes up\nyour sleeping leads and proves it,\nthen we decide how to proceed.',
     },
     {
       name: 'The Build',
@@ -381,15 +381,15 @@ export const faq = {
   items: [
     {
       q: 'What does it cost?',
-      a: 'The Vidian Method session is complimentary. The Prince Charming Pilot requires a $500 Setup Deposit, refunded if there are no results and applied to your build if we proceed. The build starts at $3,000.',
+      a: 'The Vidian Method session is complimentary. The 7-day pilot is $497. If we do not deliver 5 leads in 7 days, you pay nothing. If we do, your $497 is applied to your build. The build starts at $3,000.',
     },
     {
-      q: 'How does the Prince Charming Pilot work?',
-      a: 'A $500 Setup Deposit is required to create the system. At the conclusion of the pilot, if there are no results, your deposit will be refunded. When the pilot is successful and we decide to proceed, the $500 will be applied to the cost of the build.',
+      q: 'How does the 7-day pilot work?',
+      a: 'A $497 setup fee creates the system. For seven days we work your sleeping leads. A lead is a real person who replies and wants to talk with you. If we deliver 5 leads in that time, we review the results, decide whether to move forward, and price your custom build from what the pilot shows. Your $497 is applied to the build.',
     },
     {
       q: 'What if it does not work?',
-      a: 'If the pilot produces no results, your $500 deposit is refunded.',
+      a: 'If we do not deliver 5 leads in 7 days, you pay nothing and your $497 is returned in full.',
     },
     {
       q: 'Will my team actually use it?',

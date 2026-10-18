@@ -55,6 +55,20 @@ Questions 4 and 5 are proposed and can be swapped.
 ### Text
 > {{contact.first_name}}, your time with Rich is held but not confirmed. Watch the video and answer 5 quick questions within 24 hours: {{confirm link}}. Reply STOP to opt out.
 
+### Email: confirmed (send with the invoice email, Workflow C)
+**Subject:** You're confirmed. Here's what to expect.
+
+> Hi {{contact.first_name}},
+>
+> You're confirmed for {{appointment.start_time}}. On the call I'll put real numbers on what's slipping away in your business. Then I'll show you how we wake your sleeping leads. In our world we call that the **Prince Charming**: seven days, five leads, or you pay nothing.
+>
+> Come with questions. I'll have your numbers in front of me.
+>
+> Rich Diaz
+> GHD Agency
+
+Note: this is the first place a customer meets the name "Prince Charming". The public site leads with the outcome ("5 Leads in 7 Days") and does not use the name.
+
 ### Reminder (12 hours, only if not confirmed)
 **Subject:** Your held time is released in 12 hours.
 

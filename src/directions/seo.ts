@@ -86,7 +86,7 @@ const organization = {
   ],
   makesOffer: [
     { '@type': 'Offer', name: 'Vidian Method session', description: 'Complimentary one-on-one session that shows where opportunities are being missed and what it is costing, measured in time and dollars.', price: '0', priceCurrency: 'USD' },
-    { '@type': 'Offer', name: 'The Prince Charming pilot', description: 'A two-week pilot test that pressure tests outcomes before moving forward.' },
+    { '@type': 'Offer', name: '7-day pilot: 5 leads or you pay nothing', description: 'A seven-day pilot that wakes up a business\'s sleeping leads and delivers five leads, or the business pays nothing.', price: '497', priceCurrency: 'USD' },
     { '@type': 'Offer', name: 'The Build', description: 'A custom revenue system for your business with the data analytics to prove results.', priceSpecification: { '@type': 'PriceSpecification', minPrice: '3000', priceCurrency: 'USD' } },
   ],
 };

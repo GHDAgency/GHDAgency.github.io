@@ -49,7 +49,7 @@ An earlier written brief asked for an all-dark "tonal ladder" (black and graphit
 - Not changed: the invoice email and the amber money figure in the Home stats block.
 
 ## Decisions made by Rich in this thread (they override the older handoff where they differ)
-- Pricing: Vidian Method session is "complimentary" (never say free), 30 minutes. Prince Charming pilot: two weeks, no price on the card. Terms live only in the FAQ: $500 Setup Deposit, refunded if no results, applied to the build if GHD proceeds. The build starts at $3,000 ("We only fix what's necessary"). Monthly Grow price is unconfirmed, so it is not on the site.
+- Pricing (REVISED 2026-10-18, Rich): Vidian Method session is "complimentary" (never say free), 30 minutes. The pilot is $497: 5 leads in 7 days or you pay nothing (full refund). When we deliver, the $497 is applied to the build. At the end of the 7 days GHD decides whether to continue and sets the custom build price from the results. The build starts at $3,000. The public site leads with the outcome ("5 Leads in 7 Days") and does not use the name Prince Charming. The name is introduced only after a demo is booked (confirm page and the confirmed email), then used in the call and proposal. A "lead" is defined in the FAQ as a real person who replies and wants to talk; Rich to approve that definition.
 - Fit block is requirement bullets, not tied to a revenue number. The form collects the rest.
 - HIPAA wording: "We can build to HIPAA requirements when your business needs it." (not "is compliant").
 - Home stats block stays exactly as is (22,309 aged buyers, 588 in-market buyers, $211,680 recovered gross, with its footnote). The Solutions calculator uses those same numbers by default.
@@ -62,7 +62,7 @@ An earlier written brief asked for an all-dark "tonal ladder" (black and graphit
 ## Home/offer pass (Rich, 2026-10-06, "GO")
 - Hero statement is bolder than the tagline. Scroll beat "You know you need it..." cut.
 - "Your Growth Partner. We answer with Results." loads automatically after the GHD logo animation ends.
-- Results (stats) block sits directly above the offer section ("Come see what you're missing."), which has the CTA above and below three cards (Vidian Method, Prince Charming Pilot, The Build). No steps, no invoice mention.
+- Results (stats) block sits directly above the offer section ("Come see what you're missing."), which has the CTA above and below three cards (Vidian Method, 5 Leads in 7 Days, The Build). No steps, no invoice mention.
 - About names GHD as a category: Generative Human Design is the craft, the Awakeners practice it.
 - Industry emblems are Rich's supplied 3D art (public/media/industries, transparent WebP). Pending: Rich photo retouch (ring and watch removed).
 
