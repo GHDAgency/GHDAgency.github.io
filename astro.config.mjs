@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://ghdagency.ai',
   integrations: [
     // The /v1 to /v5 design directions (and their index) are review pages: keep them out of the sitemap.
-    sitemap({ filter: (page) => !/\/confirm\/?$/.test(page) }),
+    sitemap({ filter: (page) => !/\/(confirm|pilot-thanks)\/?$/.test(page) }),
   ],
   redirects: {
     '/home': '/',
