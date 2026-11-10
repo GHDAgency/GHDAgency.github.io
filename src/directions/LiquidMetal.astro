@@ -69,8 +69,13 @@ const socialIcon: Record<string, string> = {
   Instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><path d="M17.2 6.9v.1"/>',
 };
 const socials = siteFooter.social.filter((x) => x.href);
+// Homepage contact address only. Other pages keep siteFooter.email.
+const contactEmail = page === 'home' ? 'sales@ghdagency.ai' : siteFooter.email;
 const metaKey = page === 'legal' ? legal! : page;
 const seoMeta = pageMeta[metaKey];
+const jsonLd = seoMeta
+  ? jsonLdFor(metaKey).map((node, i) => (page === 'home' && i === 0 ? { ...node, email: contactEmail } : node))
+  : [];
 const pageTitle = seoMeta ? seoMeta.title : page === 'home' ? 'GHD Agency' : `GHD Agency | ${inner!.eyebrow}`;
 const here = page === 'home' ? HOME_HREF : nav.find((n) => n.href.includes(`/${page}/`))?.href;
 const names: Record<Transition, string> = {
@@ -112,7 +117,7 @@ const cloud = fragments.map((text) => ({
   description={seoMeta?.description}
   canonicalPath={seoMeta?.path}
   index={seoMeta?.index}
-  jsonLd={seoMeta ? jsonLdFor(metaKey) : []}
+  jsonLd={jsonLd}
   bodyClass={`v4 v4-${page}`}
 >
   <a class="skip-link" href="#main">Skip to content</a>
@@ -433,7 +438,7 @@ const cloud = fragments.map((text) => ({
         {nav.map((n) => <a href={n.href}>{n.label}</a>)}
       </nav>
       <div class="foot-contact">
-        <p>Phone: <a href={`tel:${siteFooter.tel}`}>{siteFooter.phone}</a> | Email: <a href={`mailto:${siteFooter.email}`}>{siteFooter.email}</a></p>
+        <p>Phone: <a href={`tel:${siteFooter.tel}`}>{siteFooter.phone}</a> | Email: <a href={`mailto:${contactEmail}`}>{contactEmail}</a></p>
         <div class="social foot-social">
           {socials.map((x) => (
             <a href={x.href} target="_blank" rel="noopener" aria-label={`GHD on ${x.label}`}>
